@@ -1,14 +1,20 @@
-[gd_scene load_steps=4 format=3 uid="uid://coovny051e74p"]
+[gd_scene load_steps=5 format=3 uid="uid://coovny051e74p"]
 
-[ext_resource type="Texture2D" uid="uid://curuje43x7u52" path="res://sprites/player.png" id="1_5oc33"]
 [ext_resource type="Script" path="res://space.gd" id="1_qyus3"]
-[ext_resource type="Script" path="res://Player.gd" id="2_ppxa4"]
+[ext_resource type="PackedScene" uid="uid://c6bu7wj88r5da" path="res://player_ship.tscn" id="2_u5wji"]
+[ext_resource type="PackedScene" uid="uid://cr64pafvf1loa" path="res://blaster.tscn" id="3_q7msx"]
+[ext_resource type="AudioStream" uid="uid://svuu2u2an877" path="res://music/level1_loop.mp3" id="4_lkmhl"]
 
 [node name="Space" type="Node2D"]
 script = ExtResource("1_qyus3")
 
-[node name="Player" type="Sprite2D" parent="."]
-texture = ExtResource("1_5oc33")
-script = ExtResource("2_ppxa4")
+[node name="PlayerShip" parent="." node_paths=PackedStringArray("weapon") instance=ExtResource("2_u5wji")]
+weapon = NodePath("Blaster")
 
-[connection signal="clicked" from="." to="Player" method="setTargetPos"]
+[node name="Blaster" parent="PlayerShip" instance=ExtResource("3_q7msx")]
+
+[node name="BGMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_lkmhl")
+autoplay = true
+
+[connection signal="clicked" from="." to="PlayerShip" method="setTargetPos"]
