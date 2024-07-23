@@ -7,6 +7,7 @@ var bulletScene: PackedScene
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	super()  # Call the parent class's _ready() function
 	bulletScene = load("res://blaster_bullet.tscn")
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -20,4 +21,6 @@ func _process(delta):
 			var newBullet = bulletScene.instantiate()
 			newBullet.position = self.global_position
 			self.find_parent("Space").add_child(newBullet)
+			
+			playSound()
 			

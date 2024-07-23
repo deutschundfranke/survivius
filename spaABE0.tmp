@@ -17,10 +17,12 @@ texture = ExtResource("2_vvxtr")
 script = ExtResource("3_pro1u")
 
 [node name="PlayerShip" parent="." node_paths=PackedStringArray("weapon") instance=ExtResource("2_u5wji")]
-maxSpeed = 400
+maxSpeed = 200
 weapon = NodePath("Blaster")
 
 [node name="Blaster" parent="PlayerShip" instance=ExtResource("3_q7msx")]
+shotDelay = null
+shotCooldown = null
 sound = ExtResource("6_54i6i")
 
 [node name="BGMusic" type="AudioStreamPlayer" parent="."]

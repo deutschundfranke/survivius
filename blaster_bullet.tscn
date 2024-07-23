@@ -6,6 +6,7 @@
 
 [node name="BlasterBullet" type="Node2D"]
 script = ExtResource("1_uc3ws")
+speed = 800
 
 [node name="Area2D" type="Area2D" parent="."]
 
