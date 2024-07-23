@@ -1,0 +1,38 @@
+[gd_scene load_steps=10 format=3 uid="uid://coovny051e74p"]
+
+[ext_resource type="Script" path="res://Misc/space.gd" id="1_qyus3"]
+[ext_resource type="PackedScene" uid="uid://c6bu7wj88r5da" path="res://Player/player_ship.tscn" id="2_u5wji"]
+[ext_resource type="Texture2D" uid="uid://cxieujpf8me74" path="res://sprites/bglayer_1-1.png" id="2_vvxtr"]
+[ext_resource type="Script" path="res://Misc/Background.gd" id="3_pro1u"]
+[ext_resource type="PackedScene" uid="uid://cr64pafvf1loa" path="res://Weapons/Blaster/blaster.tscn" id="3_q7msx"]
+[ext_resource type="AudioStream" uid="uid://svuu2u2an877" path="res://music/level1_loop.mp3" id="4_lkmhl"]
+[ext_resource type="AudioStream" uid="uid://c1tdhsy1wv0to" path="res://sounds/laser1.mp3" id="6_54i6i"]
+[ext_resource type="PackedScene" uid="uid://ctev6kkdprq7m" path="res://Weapons/UpDownBomb/updownbomb.tscn" id="7_ftjvp"]
+[ext_resource type="AudioStream" uid="uid://bc3fyn08dunc0" path="res://sounds/bomb1.mp3" id="8_cy2ra"]
+
+[node name="Space" type="Node2D"]
+script = ExtResource("1_qyus3")
+
+[node name="Background" type="Sprite2D" parent="."]
+position = Vector2(1366, 384)
+texture = ExtResource("2_vvxtr")
+script = ExtResource("3_pro1u")
+
+[node name="PlayerShip" parent="." node_paths=PackedStringArray("weapons") instance=ExtResource("2_u5wji")]
+maxSpeed = 400
+weapons = [NodePath("Blaster"), NodePath("UpDownBomb")]
+
+[node name="Blaster" parent="PlayerShip" instance=ExtResource("3_q7msx")]
+sound = ExtResource("6_54i6i")
+
+[node name="UpDownBomb" parent="PlayerShip" instance=ExtResource("7_ftjvp")]
+shotDelay = 1.2
+shotCooldown = 0.1
+sound = ExtResource("8_cy2ra")
+
+[node name="BGMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_lkmhl")
+volume_db = -6.975
+autoplay = true
+
+[connection signal="clicked" from="." to="PlayerShip" method="setTargetPos"]

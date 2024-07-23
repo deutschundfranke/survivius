@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://jvqq7crux527"]
 
-[ext_resource type="Script" path="res://BlasterBullet.gd" id="1_uc3ws"]
+[ext_resource type="Script" path="res://Weapons/Blaster/BlasterBullet.gd" id="1_uc3ws"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1cblt"]
 

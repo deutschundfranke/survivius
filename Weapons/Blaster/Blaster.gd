@@ -8,7 +8,7 @@ var bulletScene: PackedScene
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	super()  # Call the parent class's _ready() function
-	bulletScene = load("res://blaster_bullet.tscn")
+	bulletScene = load("res://Weapons/Blaster/blaster_bullet.tscn")
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):

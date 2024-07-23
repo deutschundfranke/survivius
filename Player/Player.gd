@@ -2,14 +2,15 @@ extends Area2D
 
 @export var verticalOnly: bool
 @export var maxSpeed = 100
-@export var weapon: WeaponBase
+@export var weapons: Array[WeaponBase] = []
 
 var targetPos: Vector2
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	self.targetPos = self.position
-	self.weapon.startFiring()
+	for weapon in self.weapons:
+		weapon.startFiring()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
