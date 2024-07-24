@@ -4,12 +4,13 @@
 [ext_resource type="Texture2D" uid="uid://curuje43x7u52" path="res://sprites/player.png" id="2_7gl6x"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_x40vj"]
-size = Vector2(256, 128)
+size = Vector2(94, 50)
 
 [node name="PlayerShip" type="Area2D"]
 script = ExtResource("1_davmy")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.34375, 0.34375)
 texture = ExtResource("2_7gl6x")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

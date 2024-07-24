@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://coovny051e74p"]
+[gd_scene load_steps=12 format=3 uid="uid://coovny051e74p"]
 
 [ext_resource type="Script" path="res://Misc/space.gd" id="1_qyus3"]
 [ext_resource type="PackedScene" uid="uid://c6bu7wj88r5da" path="res://Player/player_ship.tscn" id="2_u5wji"]
@@ -6,6 +6,8 @@
 [ext_resource type="Script" path="res://Misc/Background.gd" id="3_pro1u"]
 [ext_resource type="PackedScene" uid="uid://cr64pafvf1loa" path="res://Weapons/Blaster/blaster.tscn" id="3_q7msx"]
 [ext_resource type="AudioStream" uid="uid://svuu2u2an877" path="res://music/level1_loop.mp3" id="4_lkmhl"]
+[ext_resource type="PackedScene" uid="uid://c66cfox0t28ij" path="res://Weapons/Waver/waver.tscn" id="5_jjhq4"]
+[ext_resource type="PackedScene" uid="uid://bxcwmiyrthrmh" path="res://Weapons/Sparks/sparks.tscn" id="5_yops7"]
 [ext_resource type="AudioStream" uid="uid://c1tdhsy1wv0to" path="res://sounds/laser1.mp3" id="6_54i6i"]
 [ext_resource type="PackedScene" uid="uid://ctev6kkdprq7m" path="res://Weapons/UpDownBomb/updownbomb.tscn" id="7_ftjvp"]
 [ext_resource type="AudioStream" uid="uid://bc3fyn08dunc0" path="res://sounds/bomb1.mp3" id="8_cy2ra"]
@@ -19,8 +21,13 @@ texture = ExtResource("2_vvxtr")
 script = ExtResource("3_pro1u")
 
 [node name="PlayerShip" parent="." node_paths=PackedStringArray("weapons") instance=ExtResource("2_u5wji")]
-maxSpeed = 400
-weapons = [NodePath("Blaster"), NodePath("UpDownBomb")]
+maxSpeed = 300
+weapons = [NodePath("Blaster"), NodePath("UpDownBomb"), NodePath("Waver"), NodePath("Sparks")]
+
+[node name="Sparks" parent="PlayerShip" instance=ExtResource("5_yops7")]
+
+[node name="Waver" parent="PlayerShip" instance=ExtResource("5_jjhq4")]
+shotDelay = 0.25
 
 [node name="Blaster" parent="PlayerShip" instance=ExtResource("3_q7msx")]
 sound = ExtResource("6_54i6i")
