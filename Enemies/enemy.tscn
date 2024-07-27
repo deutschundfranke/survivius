@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://tfl0b3ivf5ls"]
+
+[ext_resource type="Texture2D" uid="uid://dqoccak6ysu7e" path="res://sprites/shrimp.png" id="1_cxhs2"]
+[ext_resource type="Script" path="res://Enemies/enemy.gd" id="1_wuxuq"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_oui0g"]
+radius = 30.0
+
+[node name="Enemy" type="Node2D"]
+script = ExtResource("1_wuxuq")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_oui0g")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("1_cxhs2")

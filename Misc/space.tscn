@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://coovny051e74p"]
+[gd_scene load_steps=13 format=3 uid="uid://coovny051e74p"]
 
 [ext_resource type="Script" path="res://Misc/space.gd" id="1_qyus3"]
 [ext_resource type="PackedScene" uid="uid://c6bu7wj88r5da" path="res://Player/player_ship.tscn" id="2_u5wji"]
@@ -11,6 +11,7 @@
 [ext_resource type="AudioStream" uid="uid://c1tdhsy1wv0to" path="res://sounds/laser1.mp3" id="6_54i6i"]
 [ext_resource type="PackedScene" uid="uid://ctev6kkdprq7m" path="res://Weapons/UpDownBomb/updownbomb.tscn" id="7_ftjvp"]
 [ext_resource type="AudioStream" uid="uid://bc3fyn08dunc0" path="res://sounds/bomb1.mp3" id="8_cy2ra"]
+[ext_resource type="PackedScene" uid="uid://c16k2hhudyieg" path="res://Enemies/enemy_spawner.tscn" id="12_xby4b"]
 
 [node name="Space" type="Node2D"]
 script = ExtResource("1_qyus3")
@@ -41,5 +42,7 @@ sound = ExtResource("8_cy2ra")
 stream = ExtResource("4_lkmhl")
 volume_db = -6.975
 autoplay = true
+
+[node name="EnemySpawner" parent="." instance=ExtResource("12_xby4b")]
 
 [connection signal="clicked" from="." to="PlayerShip" method="setTargetPos"]
