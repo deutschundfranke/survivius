@@ -1,4 +1,4 @@
-extends Node2D
+extends "res://Weapons/bullet_base.gd"
 class_name SparksBullet
 
 @export var speed = 200
@@ -8,6 +8,8 @@ var direction = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	super()
+	self.damage = 0.5
 	pass # Replace with function body.
 
 func setDirection(_direction):

@@ -18,7 +18,7 @@ func _process(delta):
 		if (shotCooldown <= 0.0):
 			shotCooldown += shotDelay
 			# shoot!
-			print('da Bomb!')
+			# print('da Bomb!')
 			var newBullet = bulletScene.instantiate()
 			newBullet.position = self.global_position
 			newBullet.setDirection(nextDirection)

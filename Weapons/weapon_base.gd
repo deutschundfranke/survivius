@@ -30,4 +30,5 @@ func playSound():
 		# Play the sound from the beginning
 		soundplayer.play()
 	else:
-		print("Sound or SoundPlayer is not set.")
+		pass
+		# print("Sound or SoundPlayer is not set.")

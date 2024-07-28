@@ -76,7 +76,7 @@ func accelerate_towards_target(delta):
 		velocity = velocity.normalized() * maxSpeed
 	
 	# Print the current velocity for debugging purposes
-	print("Current Velocity: ", velocity)
+	# print("Current Velocity: ", velocity)
 	
 	# move as Node2D
 	global_position += velocity * delta

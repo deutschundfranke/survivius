@@ -17,7 +17,7 @@ func _process(delta):
 		if (shotCooldown <= 0.0):
 			shotCooldown += shotDelay
 			# shoot!
-			print('Shoot!')
+			# print('Shoot!')
 			var newBullet = bulletScene.instantiate()
 			newBullet.position = self.global_position
 			self.find_parent("Space").add_child(newBullet)
