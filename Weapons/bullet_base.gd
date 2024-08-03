@@ -7,7 +7,7 @@ signal hit_enemy(enemy)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	print("ready")
+	#print("ready")
 	$Area2D.connect("area_entered", Callable(self, "_on_CollisionArea_area_entered"))
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

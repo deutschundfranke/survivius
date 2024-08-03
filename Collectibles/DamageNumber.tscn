@@ -1,0 +1,34 @@
+[gd_scene load_steps=6 format=3 uid="uid://b4yj3ls4vrk4n"]
+
+[ext_resource type="FontFile" uid="uid://djjpdvm8qq8bk" path="res://Fonts/Autumn__.ttf" id="1_blh3d"]
+[ext_resource type="Script" path="res://Collectibles/DamageNumber.gd" id="1_giftp"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1yu3n"]
+size = Vector2(19, 17)
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_asshk"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_rqkhr"]
+font = ExtResource("1_blh3d")
+font_size = 22
+
+[node name="DamageNumber" type="Node2D" node_paths=PackedStringArray("label")]
+script = ExtResource("1_giftp")
+label = NodePath("Area2D/Label")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(-0.5, -1.5)
+shape = SubResource("RectangleShape2D_1yu3n")
+
+[node name="Label" type="Label" parent="Area2D"]
+material = SubResource("CanvasItemMaterial_asshk")
+offset_left = -20.0
+offset_top = -14.0
+offset_right = 20.0
+offset_bottom = 13.0
+text = "1"
+label_settings = SubResource("LabelSettings_rqkhr")
+horizontal_alignment = 1
+vertical_alignment = 1

@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dbcerjy6ugbc0"]
+
+[ext_resource type="Script" path="res://Misc/CollectibleLayer.gd" id="1_dygs2"]
+
+[node name="CollectibleLayer" type="Node2D"]
+script = ExtResource("1_dygs2")
