@@ -9,7 +9,7 @@ var value : int
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	self.xSpeed = -30
+	self.xSpeed = -60
 	self.ySpeed = -200
 	self.yAcc = 0.93
 
@@ -21,6 +21,18 @@ func _process(delta):
 		self.ySpeed = 0
 	self.position.y += self.ySpeed * delta
 	self.position.x += self.xSpeed * delta
+	
+	var players = get_tree().get_nodes_in_group("Player")
+	if players.size() > 0:
+		var playership : Node2D = players[0]
+		var distance : float = playership.global_position.distance_to(self.global_position)
+		var speed = 250
+		if (distance < 120):
+			var direction = (playership.global_position - global_position).normalized()
+			global_position += direction * speed * delta
+		if (distance < 40):
+			self.queue_free()
+		
 	
 func setValue(value : int):
 	self.value = value

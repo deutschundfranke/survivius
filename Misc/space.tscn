@@ -22,7 +22,7 @@ position = Vector2(1366, 384)
 texture = ExtResource("2_vvxtr")
 script = ExtResource("3_pro1u")
 
-[node name="PlayerShip" parent="." node_paths=PackedStringArray("weapons") instance=ExtResource("2_u5wji")]
+[node name="PlayerShip" parent="." node_paths=PackedStringArray("weapons") groups=["Player"] instance=ExtResource("2_u5wji")]
 maxSpeed = 300
 weapons = [NodePath("Blaster"), NodePath("UpDownBomb"), NodePath("Waver"), NodePath("Sparks")]
 

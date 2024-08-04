@@ -53,7 +53,7 @@ func accelerate_towards_target(delta):
 	
 	# if target is reached, slow down
 	if (self.targetPos == Vector2(-1,-1)):
-		velocity -= velocity * 0.05
+		velocity -= velocity * 0.10
 		global_position += velocity * delta
 		return
 	
@@ -68,7 +68,7 @@ func accelerate_towards_target(delta):
 	
 	# if target reached, set targetPos to "off"
 	var distance: Vector2 = (self.targetPos - self.position)
-	if (distance.length() < 100):
+	if (distance.length() < 60):
 		self.targetPos = Vector2(-1,-1)
 		
 	# Clamp the speed to the maximum value
