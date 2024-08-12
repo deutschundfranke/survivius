@@ -20,29 +20,19 @@ func _process(delta):
 	# apply a more accelleration based movement
 	accellerate(delta)
 	
-func getInputDir():
-	var inputDir = Vector2(0, 0)
-	if (Input.is_action_pressed("up")):
-		inputDir.y -= 1
-	if (Input.is_action_pressed("down")):
-		inputDir.y += 1
-	if (Input.is_action_pressed("left")):
-		inputDir.x -= 1
-	if (Input.is_action_pressed("right")):
-		inputDir.x += 1
-	return inputDir
-	
 func setTargetPos(newTarget: Vector2):
 	self.targetPos = newTarget
 	self.moveMode = "mouse"
 
 func getTargetVelocity():
-	var inputDir = self.getInputDir()
+	# see https://docs.godotengine.org/en/stable/tutorials/inputs/controllers_gamepads_joysticks.html#which-input-singleton-method-should-i-use
+	var inputDir = Input.get_vector("left", "right", "up", "down")
+	
 	if (inputDir.length_squared() > 0.0):
 		self.moveMode = 'keyboard'
 	
 	if (self.moveMode == 'keyboard'):
-		return self.getInputDir().normalized() * maxSpeed
+		return inputDir * maxSpeed
 	else:
 		var deltaPos = self.targetPos - self.position
 		if (deltaPos.length_squared() < 20 * 20):
