@@ -3,6 +3,11 @@ extends Area2D
 @export var verticalOnly: bool
 @export var maxSpeed = 100
 @export var weapons: Array[WeaponBase] = []
+@export var level:int = 1;
+@export var exp_current : int = 0;
+@export var exp_needed : int = 0;
+@export var modifier_maxspeed : float = 1.10;
+@export var modifier_cooldown : float = 0.95;
 
 var targetPos: Vector2
 var velocity: Vector2 = Vector2()  # Initial velocity
@@ -12,8 +17,10 @@ var moveMode = 'mouse'
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	self.targetPos = self.position
-	for weapon in self.weapons:
-		weapon.startFiring()
+	self.exp_needed = self.level * 10;
+	weapons[0].startFiring()
+	# for weapon in self.weapons:
+	#	weapon.startFiring()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -56,3 +63,29 @@ func accellerate(delta):
 	global_position += velocity * delta
 	global_position = global_position.clamp(Vector2(0, 0), get_viewport_rect().size)
 	
+func gainEXP(value:int):
+	self.exp_current += value;
+	if (self.exp_current >= self.exp_needed):
+		self.levelUp();
+		self.exp_current -= self.exp_needed
+		self.exp_needed = self.level * 10;
+	var size : float = (self.exp_current / float(self.exp_needed)) * 70;
+	self.find_parent("Space").find_child("Expbar").scale = Vector2(size,1)
+		
+func levelUp():
+	self.level += 1
+	if (self.level == 2):
+		self.weapons[1].startFiring()
+		
+	if (self.level == 4):
+		self.weapons[2].startFiring()
+		
+	if (self.level == 6):
+		self.weapons[3].startFiring()
+		
+	#self.modifier_maxspeed += 0.03;
+	#self.modifier_cooldown -= 0.02;
+	self.maxSpeed *= self.modifier_maxspeed
+	
+	for weapon in self.weapons:
+		weapon.shotDelay *= self.modifier_cooldown

@@ -31,6 +31,7 @@ func _process(delta):
 			var direction = (playership.global_position - global_position).normalized()
 			global_position += direction * speed * delta
 		if (distance < 40):
+			playership.gainEXP(self.value)
 			self.queue_free()
 		
 	
