@@ -6,7 +6,8 @@ extends Area2D
 
 var targetPos: Vector2
 var velocity: Vector2 = Vector2()  # Initial velocity
-@export var acceleration: float = 2000  # Acceleration rate in pixels per second squared
+@export var accelleration: float = 2000  # Acceleration rate in pixels per second squared
+var moveMode = 'mouse'
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -16,67 +17,52 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	#if (Input.is_action_pressed("up")):
-		#self.move_local_y(-100 * delta)
-		#if (self.position.y < 0):
-			#self.position.y = 0
-	#if (Input.is_action_pressed("down")):
-		#self.move_local_y(100 * delta)
-		#if (self.position.y > 1000):
-			#self.position.y = 1000
-			
-	# apply a more acceleration based movement
-	accelerate_towards_target(delta)
-	# self.moveToTarget(delta)
+	# apply a more accelleration based movement
+	accellerate(delta)
+	
+func getInputDir():
+	var inputDir = Vector2(0, 0)
+	if (Input.is_action_pressed("up")):
+		inputDir.y -= 1
+	if (Input.is_action_pressed("down")):
+		inputDir.y += 1
+	if (Input.is_action_pressed("left")):
+		inputDir.x -= 1
+	if (Input.is_action_pressed("right")):
+		inputDir.x += 1
+	return inputDir
 	
 func setTargetPos(newTarget: Vector2):
 	self.targetPos = newTarget
+	self.moveMode = "mouse"
 
-func moveToTarget(delta):
-	var distance: Vector2 = (self.targetPos - self.position)
-	if (distance.length() < 1.0):
-		self.position = self.targetPos
-		return
+func getTargetVelocity():
+	var inputDir = self.getInputDir()
+	if (inputDir.length_squared() > 0.0):
+		self.moveMode = 'keyboard'
 	
-	if (self.verticalOnly):
-		distance.x = 0.0
-	
-	var maxSpeedNow = self.maxSpeed * delta
-	if (distance.length() > maxSpeedNow):
-		# distance = distance.normalized() * maxSpeedNow
-		distance = self.direction * maxSpeedNow
-	self.position = self.position + distance
-	
-	# clamp position
+	if (self.moveMode == 'keyboard'):
+		return self.getInputDir().normalized() * maxSpeed
+	else:
+		var deltaPos = self.targetPos - self.position
+		if (deltaPos.length_squared() < 20 * 20):
+			return Vector2(0, 0)
+		return deltaPos.normalized() * maxSpeed
 
-func accelerate_towards_target(delta):
+func accellerate(delta):
+	var targetVelocity: Vector2 = self.getTargetVelocity()
 	
-	# if target is reached, slow down
-	if (self.targetPos == Vector2(-1,-1)):
-		velocity -= velocity * 0.10
-		global_position += velocity * delta
-		return
-	
-	# Calculate the direction to the target
-	var direction_to_target = (self.targetPos - global_position).normalized()
-	
-	# Calculate the acceleration vector
-	var acceleration_vector = direction_to_target * acceleration * delta
-	
-	# Update the velocity
-	velocity += acceleration_vector
-	
-	# if target reached, set targetPos to "off"
-	var distance: Vector2 = (self.targetPos - self.position)
-	if (distance.length() < 60):
-		self.targetPos = Vector2(-1,-1)
+	var deltaVelocity: Vector2 = targetVelocity - velocity
+	# need a formula here
+	if (deltaVelocity.length_squared() < 4.0):
+		velocity = targetVelocity
+	else:
+		var accellVec = deltaVelocity.normalized() * accelleration
+		velocity += accellVec * delta
 		
-	# Clamp the speed to the maximum value
-	if velocity.length() > maxSpeed:
+	if (velocity.length_squared() > maxSpeed * maxSpeed):
 		velocity = velocity.normalized() * maxSpeed
 	
-	# Print the current velocity for debugging purposes
-	# print("Current Velocity: ", velocity)
-	
-	# move as Node2D
 	global_position += velocity * delta
+	global_position = global_position.clamp(Vector2(0, 0), get_viewport_rect().size)
+	
