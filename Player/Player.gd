@@ -8,6 +8,8 @@ extends Area2D
 @export var exp_needed : int = 0;
 @export var modifier_maxspeed : float = 1.10;
 @export var modifier_cooldown : float = 0.95;
+@export var collectPlayer : AudioStreamPlayer;
+@export var levelupPlayer : AudioStreamPlayer;
 
 var targetPos: Vector2
 var velocity: Vector2 = Vector2()  # Initial velocity
@@ -65,6 +67,7 @@ func accellerate(delta):
 	
 func gainEXP(value:int):
 	self.exp_current += value;
+	collectPlayer.play()
 	if (self.exp_current >= self.exp_needed):
 		self.levelUp();
 		self.exp_current -= self.exp_needed
@@ -73,6 +76,7 @@ func gainEXP(value:int):
 	self.find_parent("Space").find_child("Expbar").scale = Vector2(size,1)
 		
 func levelUp():
+	levelupPlayer.play()
 	self.level += 1
 	if (self.level == 2):
 		self.weapons[1].startFiring()
