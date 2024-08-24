@@ -29,6 +29,7 @@ colors = PackedColorArray(1, 1, 1, 0.729412, 1, 1, 1, 0)
 script = ExtResource("1_qyus3")
 
 [node name="Background" type="Sprite2D" parent="."]
+visible = false
 position = Vector2(1366, 384)
 texture = ExtResource("2_vvxtr")
 script = ExtResource("3_pro1u")
