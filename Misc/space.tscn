@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://coovny051e74p"]
+[gd_scene load_steps=20 format=3 uid="uid://coovny051e74p"]
 
 [ext_resource type="Script" path="res://Misc/space.gd" id="1_qyus3"]
 [ext_resource type="PackedScene" uid="uid://c6bu7wj88r5da" path="res://Player/player_ship.tscn" id="2_u5wji"]
@@ -16,6 +16,14 @@
 [ext_resource type="PackedScene" uid="uid://c16k2hhudyieg" path="res://Enemies/enemy_spawner.tscn" id="12_xby4b"]
 [ext_resource type="AudioStream" uid="uid://b2vx2nhtcw1go" path="res://sounds/levelup.mp3" id="13_a5jps"]
 [ext_resource type="PackedScene" uid="uid://dbcerjy6ugbc0" path="res://Misc/collectible_layer.tscn" id="13_ss2p7"]
+[ext_resource type="Texture2D" uid="uid://d1y7lpe4e1p48" path="res://sprites/movepath.png" id="14_kctyg"]
+
+[sub_resource type="Curve" id="Curve_vr3y8"]
+_data = [Vector2(0, 1), 0.0, -1.02792, 0, 0, Vector2(0.993174, 0), -1.291, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_qjgt4"]
+colors = PackedColorArray(1, 1, 1, 0.729412, 1, 1, 1, 0)
 
 [node name="Space" type="Node2D"]
 script = ExtResource("1_qyus3")
@@ -28,6 +36,7 @@ script = ExtResource("3_pro1u")
 [node name="Expbar" parent="." instance=ExtResource("4_v5usn")]
 
 [node name="PlayerShip" parent="." node_paths=PackedStringArray("weapons", "collectPlayer", "levelupPlayer") groups=["Player"] instance=ExtResource("2_u5wji")]
+z_index = 5
 position = Vector2(70, 56)
 maxSpeed = 200
 weapons = [NodePath("Blaster"), NodePath("UpDownBomb"), NodePath("Waver"), NodePath("Sparks")]
@@ -56,6 +65,17 @@ max_polyphony = 6
 stream = ExtResource("13_a5jps")
 volume_db = -14.857
 max_polyphony = 6
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="PlayerShip"]
+z_index = 1
+z_as_relative = false
+texture = ExtResource("14_kctyg")
+direction = Vector2(0, 0)
+gravity = Vector2(0, 0)
+scale_amount_min = 0.2
+scale_amount_max = 0.2
+scale_amount_curve = SubResource("Curve_vr3y8")
+color_ramp = SubResource("Gradient_qjgt4")
 
 [node name="BGMusic" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("12_2ix3q")
