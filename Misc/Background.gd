@@ -1,7 +1,8 @@
 extends Sprite2D
 
 # Speed of offset in pixels per second
-var speed = 100
+@export var speed = 100
+@export var maxX = 1366
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -11,11 +12,11 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	# Calculate the new offset
-	offset.x -= speed * delta
+	offset.x -= self.speed * delta
 
 	# Check if the offset is less than -1366
-	if offset.x < -1366:
-		offset.x += 1366
+	if offset.x < -self.maxX:
+		offset.x += self.maxX
 
 	# Apply the new offset to the sprite
 	# position.x = offset.x
