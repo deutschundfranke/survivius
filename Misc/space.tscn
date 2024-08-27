@@ -32,26 +32,32 @@ script = ExtResource("1_qyus3")
 [node name="Background" type="Node2D" parent="."]
 
 [node name="BG3" type="Parallax2D" parent="Background"]
-autoscroll = Vector2(500, 0)
+repeat_size = Vector2(3840, 0)
+autoscroll = Vector2(-100, 0)
 repeat_times = 2
+follow_viewport = false
 ignore_camera_scroll = true
 
-[node name="Bg3" type="Sprite2D" parent="Background/BG3"]
+[node name="Sprite2D" type="Sprite2D" parent="Background/BG3"]
 position = Vector2(1920, 540)
 texture = ExtResource("2_kmvcu")
 
 [node name="BG2" type="Parallax2D" parent="Background"]
-autoscroll = Vector2(100, 0)
+repeat_size = Vector2(3840, 0)
+autoscroll = Vector2(-200, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="Background/BG2"]
 position = Vector2(1920, 540)
 texture = ExtResource("3_72t38")
 
 [node name="BG1" type="Parallax2D" parent="Background"]
+repeat_size = Vector2(3840, 0)
+autoscroll = Vector2(-300, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="Background/BG1"]
-position = Vector2(1920, 540)
+position = Vector2(4462, -934)
 texture = ExtResource("4_mumdo")
+offset = Vector2(-2542, 1474)
 
 [node name="Expbar" parent="." instance=ExtResource("4_v5usn")]
 
