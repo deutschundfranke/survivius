@@ -19,7 +19,7 @@
 [ext_resource type="AudioStream" uid="uid://b2vx2nhtcw1go" path="res://sounds/levelup.mp3" id="13_a5jps"]
 [ext_resource type="PackedScene" uid="uid://dbcerjy6ugbc0" path="res://Misc/collectible_layer.tscn" id="13_ss2p7"]
 [ext_resource type="Texture2D" uid="uid://d1y7lpe4e1p48" path="res://sprites/movepath.png" id="14_kctyg"]
-[ext_resource type="AudioStream" uid="uid://b0ikqlei4e0u0" path="res://sounds/player_hit2.mp3" id="14_rrnob"]
+[ext_resource type="AudioStream" uid="uid://cspf6fvak3krj" path="res://sounds/player_hit1.mp3" id="14_xlr6c"]
 
 [sub_resource type="Curve" id="Curve_vr3y8"]
 _data = [Vector2(0, 1), 0.0, -1.02792, 0, 0, Vector2(0.993174, 0), -1.291, 0.0, 0, 0]
@@ -92,7 +92,7 @@ shotCooldown = 0.1
 sound = ExtResource("8_cy2ra")
 
 [node name="HitSound" type="AudioStreamPlayer" parent="PlayerShip"]
-stream = ExtResource("14_rrnob")
+stream = ExtResource("14_xlr6c")
 volume_db = -6.809
 max_polyphony = 6
 

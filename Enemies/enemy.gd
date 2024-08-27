@@ -27,6 +27,15 @@ func _process(delta):
 		# well off-screen
 		self.exited_screen.emit(self)
 		
+	# check player collision
+	var players = get_tree().get_nodes_in_group("Player")
+	if players.size() > 0:
+		var playership : Node2D = players[0]
+		var distance : float = playership.global_position.distance_to(self.global_position)
+		if (distance < 40):
+			playership.getHit(1)
+			self.die()
+		
 # should be in base enemy class?
 func take_damage(amount):
 	health -= amount

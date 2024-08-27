@@ -10,6 +10,19 @@ extends Area2D
 @export var modifier_cooldown : float = 0.95;
 @export var collectPlayer : AudioStreamPlayer;
 @export var levelupPlayer : AudioStreamPlayer;
+@export var hitPlayer : AudioStreamPlayer;
+@export var tint_duration: float = 0.5
+var health : int = 3;
+@export var health_max : int = 3;
+
+# Store original color
+var original_color: Color
+# Timer to manage the tint duration
+var tint_timer: float = 0.0
+
+# Reference to the player's sprite and its shader material
+@onready var sprite: Sprite2D = $Sprite2D  # Adjust the path as needed
+@onready var shader_material: ShaderMaterial = sprite.material as ShaderMaterial
 
 var targetPos: Vector2
 var velocity: Vector2 = Vector2()  # Initial velocity
@@ -23,11 +36,24 @@ func _ready():
 	weapons[0].startFiring()
 	# for weapon in self.weapons:
 	#	weapon.startFiring()
+	# Save the original modulate color of the sprite
+	original_color = sprite.modulate
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	# apply a more accelleration based movement
 	accellerate(delta)
+	
+	# If the tint timer is active, decrease it
+	if tint_timer > 0:
+		tint_timer -= delta
+		
+		# Update the shader tint strength
+		shader_material.set_shader_parameter("tint_strength", 1.0)
+		
+		# When the timer runs out, revert to the original color
+		if tint_timer <= 0:
+			shader_material.set_shader_parameter("tint_strength", 0.0)
 	
 func setTargetPos(newTarget: Vector2):
 	self.targetPos = newTarget
@@ -72,8 +98,8 @@ func gainEXP(value:int):
 		self.levelUp();
 		self.exp_current -= self.exp_needed
 		self.exp_needed = self.level * 10;
-	var size : float = (self.exp_current / float(self.exp_needed)) * 70;
-	self.find_parent("Space").find_child("Expbar").scale = Vector2(size,1)
+	var size : float = (self.exp_current / float(self.exp_needed)) * 40;
+	self.find_parent("Space").find_child("Expbar").scale = Vector2(1,-size)
 		
 func levelUp():
 	levelupPlayer.play()
@@ -93,3 +119,19 @@ func levelUp():
 	
 	for weapon in self.weapons:
 		weapon.shotDelay *= self.modifier_cooldown
+
+func getHit(damage : int):
+	self.find_parent("Space").find_child("Camera2D").start_shake()
+	self.tint_white()
+	self.health -= damage
+	self.hitPlayer.play()
+	if (self.health <= 0):
+		self.die()
+	
+	# Call this function to tint the player white
+func tint_white():
+	# Start the tint timer
+	tint_timer = tint_duration
+
+func die():
+	get_tree().reload_current_scene()
