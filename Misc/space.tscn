@@ -1,14 +1,13 @@
-[gd_scene load_steps=22 format=3 uid="uid://coovny051e74p"]
+[gd_scene load_steps=21 format=3 uid="uid://coovny051e74p"]
 
 [ext_resource type="Script" path="res://Misc/space.gd" id="1_qyus3"]
-[ext_resource type="Texture2D" uid="uid://bx7sg2csagje6" path="res://sprites/bg_2_long.png" id="2_rsdtg"]
+[ext_resource type="Texture2D" uid="uid://bvcla8qi2fjdv" path="res://sprites/bg_3.png" id="2_kmvcu"]
 [ext_resource type="PackedScene" uid="uid://c6bu7wj88r5da" path="res://Player/player_ship.tscn" id="2_u5wji"]
-[ext_resource type="Script" path="res://Misc/Background.gd" id="3_pro1u"]
+[ext_resource type="Texture2D" uid="uid://docyg2055ly8s" path="res://sprites/bg_2.png" id="3_72t38"]
 [ext_resource type="PackedScene" uid="uid://cr64pafvf1loa" path="res://Weapons/Blaster/blaster.tscn" id="3_q7msx"]
-[ext_resource type="Texture2D" uid="uid://b6xl8ar88uh3s" path="res://sprites/bg_3_long.png" id="4_716e6"]
+[ext_resource type="Texture2D" uid="uid://dju6w1caf6nhd" path="res://sprites/bg_1.png" id="4_mumdo"]
 [ext_resource type="PackedScene" uid="uid://d05x3bf3vdb78" path="res://Misc/EXPbar.tscn" id="4_v5usn"]
 [ext_resource type="PackedScene" uid="uid://c66cfox0t28ij" path="res://Weapons/Waver/waver.tscn" id="5_jjhq4"]
-[ext_resource type="Texture2D" uid="uid://b3u8v4ldok20x" path="res://sprites/bg_1_long.png" id="5_yclfk"]
 [ext_resource type="PackedScene" uid="uid://bxcwmiyrthrmh" path="res://Weapons/Sparks/sparks.tscn" id="5_yops7"]
 [ext_resource type="AudioStream" uid="uid://c1tdhsy1wv0to" path="res://sounds/laser1.mp3" id="6_54i6i"]
 [ext_resource type="PackedScene" uid="uid://ctev6kkdprq7m" path="res://Weapons/UpDownBomb/updownbomb.tscn" id="7_ftjvp"]
@@ -30,29 +29,29 @@ colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 [node name="Space" type="Node2D"]
 script = ExtResource("1_qyus3")
 
-[node name="Background2" type="Sprite2D" parent="."]
-position = Vector2(0, 270)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("2_rsdtg")
-script = ExtResource("3_pro1u")
-speed = 40
-maxX = 1920
+[node name="Background" type="Node2D" parent="."]
 
-[node name="Background3" type="Sprite2D" parent="."]
-position = Vector2(1920, 270)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("4_716e6")
-script = ExtResource("3_pro1u")
-speed = 75
-maxX = 1920
+[node name="BG3" type="Parallax2D" parent="Background"]
+autoscroll = Vector2(500, 0)
+repeat_times = 2
+ignore_camera_scroll = true
 
-[node name="Background" type="Sprite2D" parent="."]
-position = Vector2(0, 379)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("5_yclfk")
-script = ExtResource("3_pro1u")
-speed = 150
-maxX = 1920
+[node name="Bg3" type="Sprite2D" parent="Background/BG3"]
+position = Vector2(1920, 540)
+texture = ExtResource("2_kmvcu")
+
+[node name="BG2" type="Parallax2D" parent="Background"]
+autoscroll = Vector2(100, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="Background/BG2"]
+position = Vector2(1920, 540)
+texture = ExtResource("3_72t38")
+
+[node name="BG1" type="Parallax2D" parent="Background"]
+
+[node name="Sprite2D" type="Sprite2D" parent="Background/BG1"]
+position = Vector2(1920, 540)
+texture = ExtResource("4_mumdo")
 
 [node name="Expbar" parent="." instance=ExtResource("4_v5usn")]
 
