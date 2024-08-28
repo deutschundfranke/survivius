@@ -1,10 +1,16 @@
-[gd_scene load_steps=4 format=3 uid="uid://tfl0b3ivf5ls"]
+[gd_scene load_steps=6 format=3 uid="uid://tfl0b3ivf5ls"]
 
 [ext_resource type="Texture2D" uid="uid://dqoccak6ysu7e" path="res://sprites/shrimp.png" id="1_cxhs2"]
 [ext_resource type="Script" path="res://Enemies/enemy.gd" id="1_wuxuq"]
+[ext_resource type="Shader" path="res://Player/player_ship.gdshader" id="2_wadoh"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_oui0g"]
 radius = 30.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_s303s"]
+resource_local_to_scene = true
+shader = ExtResource("2_wadoh")
+shader_parameter/tint_strength = 0.0
 
 [node name="Enemy" type="Node2D" groups=["enemies"]]
 script = ExtResource("1_wuxuq")
@@ -15,5 +21,6 @@ script = ExtResource("1_wuxuq")
 shape = SubResource("CircleShape2D_oui0g")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_s303s")
 scale = Vector2(0.25, 0.25)
 texture = ExtResource("1_cxhs2")

@@ -15,11 +15,8 @@ extends Area2D
 var health : int = 3;
 @export var health_max : int = 3;
 
-# Store original color
-var original_color: Color
 # Timer to manage the tint duration
 var tint_timer: float = 0.0
-
 # Reference to the player's sprite and its shader material
 @onready var sprite: Sprite2D = $Sprite2D  # Adjust the path as needed
 @onready var shader_material: ShaderMaterial = sprite.material as ShaderMaterial
@@ -36,8 +33,6 @@ func _ready():
 	weapons[0].startFiring()
 	# for weapon in self.weapons:
 	#	weapon.startFiring()
-	# Save the original modulate color of the sprite
-	original_color = sprite.modulate
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):

@@ -21,6 +21,8 @@ func _process(delta):
 			var newBullet = bulletScene.instantiate()
 			newBullet.position = self.global_position
 			self.find_parent("Space").add_child(newBullet)
+			newBullet.connect("hit", Callable(self, "_on_bullet_hit"))
 			
 			playSound()
 			
+	# Perform actions like damage calculations, play sound effects, etc.

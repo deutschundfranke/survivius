@@ -2,6 +2,7 @@ extends Node2D
 class_name BulletBase
 
 signal hit_enemy(enemy)
+signal hit()
 
 @export var damage : float = 1
 
@@ -17,5 +18,6 @@ func _process(delta):
 func _on_CollisionArea_area_entered(area):
 	if area.get_parent().is_in_group("enemies"):
 		area.get_parent().take_damage(self.damage)
+		emit_signal("hit") # signal approach
 		# emit_signal("hit_enemy", area) # signal approach
 		queue_free()  # Optionally, you can free the bullet after hitting the enemy

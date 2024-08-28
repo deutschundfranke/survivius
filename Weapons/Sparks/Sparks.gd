@@ -23,7 +23,7 @@ func _process(delta):
 			var direction = (PI * 2) * randf()
 			newBullet.setDirection(direction)
 			self.find_parent("Space").add_child(newBullet)
-			
+			newBullet.connect("hit", Callable(self, "_on_bullet_hit"))
 			
 			playSound()
 			

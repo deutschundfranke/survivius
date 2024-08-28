@@ -24,6 +24,7 @@ func _process(delta):
 			newBullet.setDirection(nextDirection)
 			self.find_parent("Space").add_child(newBullet)
 			nextDirection *= -1
+			newBullet.connect("hit", Callable(self, "_on_bullet_hit"))
 			
 			playSound()
 			

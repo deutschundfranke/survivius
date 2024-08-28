@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://coovny051e74p"]
+[gd_scene load_steps=25 format=3 uid="uid://coovny051e74p"]
 
 [ext_resource type="Script" path="res://Misc/space.gd" id="1_qyus3"]
 [ext_resource type="Script" path="res://Misc/CameraShake.gd" id="2_iar2k"]
@@ -15,7 +15,9 @@
 [ext_resource type="AudioStream" uid="uid://bc3fyn08dunc0" path="res://sounds/bomb1.mp3" id="8_cy2ra"]
 [ext_resource type="AudioStream" uid="uid://twsw81gkp3r7" path="res://music/DnB - Rain Walker Loop.mp3" id="12_2ix3q"]
 [ext_resource type="AudioStream" uid="uid://ckg2781ssob6v" path="res://sounds/collect.mp3" id="12_3ua6m"]
+[ext_resource type="AudioStream" uid="uid://gy1ovjqyfu6x" path="res://sounds/enemy_hit_basedrum1.mp3" id="12_7rah6"]
 [ext_resource type="PackedScene" uid="uid://c16k2hhudyieg" path="res://Enemies/enemy_spawner.tscn" id="12_xby4b"]
+[ext_resource type="AudioStream" uid="uid://bqk20vou26ga3" path="res://sounds/enemy_hit_harp1.mp3" id="12_xtt7u"]
 [ext_resource type="AudioStream" uid="uid://b2vx2nhtcw1go" path="res://sounds/levelup.mp3" id="13_a5jps"]
 [ext_resource type="PackedScene" uid="uid://dbcerjy6ugbc0" path="res://Misc/collectible_layer.tscn" id="13_ss2p7"]
 [ext_resource type="Texture2D" uid="uid://d1y7lpe4e1p48" path="res://sprites/movepath.png" id="14_kctyg"]
@@ -79,17 +81,21 @@ levelupPlayer = NodePath("LevelupSound")
 hitPlayer = NodePath("HitSound")
 
 [node name="Sparks" parent="PlayerShip" instance=ExtResource("5_yops7")]
+hitsound = ExtResource("12_xtt7u")
 
 [node name="Waver" parent="PlayerShip" instance=ExtResource("5_jjhq4")]
 shotDelay = 0.25
+hitsound = ExtResource("12_7rah6")
 
 [node name="Blaster" parent="PlayerShip" instance=ExtResource("3_q7msx")]
 sound = ExtResource("6_54i6i")
+hitsound = ExtResource("12_7rah6")
 
 [node name="UpDownBomb" parent="PlayerShip" instance=ExtResource("7_ftjvp")]
 shotDelay = 1.2
 shotCooldown = 0.1
 sound = ExtResource("8_cy2ra")
+hitsound = ExtResource("12_7rah6")
 
 [node name="HitSound" type="AudioStreamPlayer" parent="PlayerShip"]
 stream = ExtResource("14_rrnob")
