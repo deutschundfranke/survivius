@@ -99,6 +99,7 @@ func gainEXP(value:int):
 func levelUp():
 	levelupPlayer.play()
 	self.level += 1
+	"""
 	if (self.level == 2):
 		self.weapons[1].startFiring()
 		
@@ -107,7 +108,7 @@ func levelUp():
 		
 	if (self.level == 6):
 		self.weapons[3].startFiring()
-		
+	"""
 	#self.modifier_maxspeed += 0.03;
 	#self.modifier_cooldown -= 0.02;
 	self.maxSpeed *= self.modifier_maxspeed

@@ -82,14 +82,10 @@ levelupPlayer = NodePath("LevelupSound")
 hitPlayer = NodePath("HitSound")
 
 [node name="UBER" parent="PlayerShip" instance=ExtResource("8_hki4g")]
-initialSpeed = 1100.0
-accelerationX = -500.0
-bulletsPerBurst = 6
-burstDelay = 0.001
-spreadRandom = 5.0
-spreadFixed = 0.0
-phaseSpeed = 10.0
-weaponConfig = 2
+initialSpeed = 100.0
+accelerationX = 150.0
+bulletsPerBurst = 3
+direction = 45.0
 
 [node name="Sparks" parent="PlayerShip" instance=ExtResource("5_yops7")]
 hitsound = ExtResource("12_xtt7u")

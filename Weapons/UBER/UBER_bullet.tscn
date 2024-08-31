@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://bli6dvfy0o0lf"]
+
+[ext_resource type="Script" path="res://Weapons/UBER/UBERBullet.gd" id="1_gp38b"]
+[ext_resource type="Texture2D" uid="uid://c8j1f3yj0h0ln" path="res://sprites/Shot_Player_01.svg" id="2_fl6w5"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1cblt"]
+size = Vector2(28, 40)
+
+[node name="UBERBullet" type="Node2D"]
+script = ExtResource("1_gp38b")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-4.76837e-07, 1.90735e-06)
+scale = Vector2(0.785714, 2.1)
+texture = ExtResource("2_fl6w5")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_1cblt")
+
+[node name="Polygon2D" type="Polygon2D" parent="Area2D"]
+visible = false
+color = Color(1, 1, 0, 1)
+polygon = PackedVector2Array(-11, -11, -11, 10, 10, 8, 10, -9)
