@@ -32,7 +32,7 @@ func on_enemy_exited(enemy: Enemy):
 	
 func spawn_enemy():
 	if (self.num_enemies_on_screen >= self.max_enemies):
-		print ("no enemies for you!")
+		# print ("no enemies for you!")
 		return
 	self.num_enemies_on_screen += 1
 	var new_enemy: Enemy = self.enemy_scene.instantiate()

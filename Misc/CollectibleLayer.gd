@@ -13,7 +13,7 @@ func _process(delta):
 	pass
 	
 func addDamageNumberAt(value:int, position:Vector2):
-	print(value)
+	#print(value)
 	if (value < 1): 
 		value = 1
 	var new_number: DamageNumber = self.damage_number.instantiate()

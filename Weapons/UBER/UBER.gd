@@ -16,6 +16,9 @@ extends WeaponBase
 @export var phaseDirection : float = 1
 @export var isHoming : bool = false
 @export var isAutoaim : bool = false
+@export var autoaimSpeed : float = 30;
+var autoaimDirection : float = 0;
+var autoaimTarget : float = 0;
 @export var numberPenetrate : int = 0
 @export var direction : float = 0
 @export var weaponConfig : int = 1
@@ -47,11 +50,13 @@ func _process(delta):
 			
 			if (self.burstDelay == 0):
 				for i in range(self.bulletsPerBurst):
-					print(i)
+					#print(i)
 					self.spawnBullet(i)
 			else:
 				self.startBurst()
 			phaseDirection = -phaseDirection
+		if (self.isAutoaim):
+			rotate_turret_towards_target(delta)
 
 func spawnBullet(index: int):
 	var newBullet = bulletScene.instantiate()
@@ -60,13 +65,18 @@ func spawnBullet(index: int):
 	newBullet.accelerationX = self.accelerationX
 	newBullet.accelerationY = self.accelerationY
 	
+	if (self.isAutoaim):
+		self.direction = self.autoaimDirection
+	
+	newBullet.direction = self.direction
+	
 	if (bulletsPerBurst > 1):
 		if (self.spreadRandom > 0):
 			var random_angle = int(randf_range(-self.spreadRandom, self.spreadRandom))
 			var newDirection = self.direction + random_angle
 			newBullet.direction = newDirection
 		elif (self.spreadFixed > 0):
-			var newDirection = -self.spreadFixed + ( (self.spreadFixed * 2) / (self.bulletsPerBurst-1)) * index
+			var newDirection = self.direction - self.spreadFixed + ( (self.spreadFixed * 2) / (self.bulletsPerBurst-1)) * index
 			newBullet.direction = newDirection
 	
 	newBullet.waveAmplitude = self.waveAmplitude
@@ -98,6 +108,56 @@ func _on_timer_timeout():
 		timer.wait_time = self.burstDelay
 		timer.start()  # Start timer for the next burst
 		
+func getNearestEnemy() -> Enemy:
+	var enemies = get_tree().get_nodes_in_group("enemies")
+	var target:Enemy= null
+	var targetdistance : float = 9999999
+	for enemy:Enemy in enemies:
+		var distance = self.global_position.distance_squared_to(enemy.global_position)
+		if (distance < targetdistance):
+			target = enemy
+			targetdistance = distance
+	return target
+		
+func calculate_angle_between_positions(A: Vector2, B: Vector2) -> float:
+	# Calculate the direction vector from A to B
+	var direction = B - A
+
+	# Calculate the angle in radians using atan2
+	var angle_radians = atan2(direction.y, direction.x)
+
+	# Convert the angle from radians to degrees
+	var angle_degrees = rad_to_deg(angle_radians)
+
+	return angle_degrees
+
+func rotate_turret_towards_target(delta: float) -> void:
+	
+	var target = self.getNearestEnemy()
+	var angle : float;
+	if (target):
+		angle = self.calculate_angle_between_positions(self.global_position, target.global_position)
+		self.autoaimTarget = angle
+	else:
+		self.autoaimTarget = 0
+	
+	# Calculate the difference between the target angle and the current angle
+	var angle_difference: float = self.autoaimTarget - self.autoaimDirection
+	
+	# Normalize the angle to be within the range of -180 to 180 degrees
+	angle_difference = fmod(angle_difference + 180, 360) - 180
+
+	# Calculate the maximum rotation step we can take this frame
+	var rotation_step: float = autoaimSpeed * delta
+
+	# Determine the direction and rotate towards the target angle
+	if abs(angle_difference) <= rotation_step:
+		# If the difference is small enough, snap to the target angle
+		self.autoaimDirection = self.autoaimTarget
+	else:
+		# Rotate in the shortest direction towards the target
+		self.autoaimDirection += sign(angle_difference) * rotation_step
+
 func configWeapon():
 	currentWeaponConfig = weaponConfig
 	if (weaponConfig == 1):
@@ -165,3 +225,30 @@ func configWeapon():
 		self.phaseSpeed = 0
 		self.isHoming = 0
 		self.isAutoaim = 0
+	elif (weaponConfig == 6):
+		self.shotDelay = 3
+		self.initialSpeed = 800
+		self.damage = 2
+		self.accelerationX = 0
+		self.bulletsPerBurst = 30
+		self.burstDelay = 0
+		self.spreadRandom = 0
+		self.spreadFixed = 180
+		self.waveAmplitude = 0
+		self.phaseSpeed = 0
+		self.isHoming = 0
+		self.isAutoaim = 0
+	elif (weaponConfig == 7):
+		self.shotDelay = 0.3
+		self.initialSpeed = 700
+		self.damage = 1
+		self.accelerationX = 0
+		self.bulletsPerBurst = 2
+		self.burstDelay = 0
+		self.spreadRandom = 0
+		self.spreadFixed = 3
+		self.waveAmplitude = 0
+		self.phaseSpeed = 0
+		self.isHoming = 0
+		self.isAutoaim = 1
+		self.autoaimSpeed = 200
