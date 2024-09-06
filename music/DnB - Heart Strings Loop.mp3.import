@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://d2fsu3an5865w"
+path="res://.godot/imported/DnB - Heart Strings Loop.mp3-b2fa50b7abbdf7ff86880fe068c1cf89.mp3str"
+
+[deps]
+
+source_file="res://music/DnB - Heart Strings Loop.mp3"
+dest_files=["res://.godot/imported/DnB - Heart Strings Loop.mp3-b2fa50b7abbdf7ff86880fe068c1cf89.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

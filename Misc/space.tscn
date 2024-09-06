@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://coovny051e74p"]
+[gd_scene load_steps=27 format=3 uid="uid://coovny051e74p"]
 
 [ext_resource type="Script" path="res://Misc/space.gd" id="1_qyus3"]
 [ext_resource type="Script" path="res://Misc/CameraShake.gd" id="2_iar2k"]
@@ -14,7 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://ctev6kkdprq7m" path="res://Weapons/UpDownBomb/updownbomb.tscn" id="7_ftjvp"]
 [ext_resource type="AudioStream" uid="uid://bc3fyn08dunc0" path="res://sounds/bomb1.mp3" id="8_cy2ra"]
 [ext_resource type="PackedScene" uid="uid://l5sq3ph1kima" path="res://Weapons/UBER/UBER.tscn" id="8_hki4g"]
-[ext_resource type="AudioStream" uid="uid://twsw81gkp3r7" path="res://music/DnB - Rain Walker Loop.mp3" id="12_2ix3q"]
+[ext_resource type="AudioStream" uid="uid://fns1uhu7lwsu" path="res://music/DnB - Rain Walker Loop.mp3" id="12_2ix3q"]
 [ext_resource type="AudioStream" uid="uid://ckg2781ssob6v" path="res://sounds/collect.mp3" id="12_3ua6m"]
 [ext_resource type="AudioStream" uid="uid://gy1ovjqyfu6x" path="res://sounds/enemy_hit_basedrum1.mp3" id="12_7rah6"]
 [ext_resource type="PackedScene" uid="uid://c16k2hhudyieg" path="res://Enemies/enemy_spawner.tscn" id="12_xby4b"]
@@ -23,6 +23,7 @@
 [ext_resource type="PackedScene" uid="uid://dbcerjy6ugbc0" path="res://Misc/collectible_layer.tscn" id="13_ss2p7"]
 [ext_resource type="Texture2D" uid="uid://d1y7lpe4e1p48" path="res://sprites/movepath.png" id="14_kctyg"]
 [ext_resource type="AudioStream" uid="uid://b0ikqlei4e0u0" path="res://sounds/player_hit2.mp3" id="14_rrnob"]
+[ext_resource type="Script" path="res://Misc/MusicManager.gd" id="22_psusg"]
 
 [sub_resource type="Curve" id="Curve_vr3y8"]
 _data = [Vector2(0, 1), 0.0, -1.02792, 0, 0, Vector2(0.993174, 0), -1.291, 0.0, 0, 0]
@@ -82,16 +83,15 @@ levelupPlayer = NodePath("LevelupSound")
 hitPlayer = NodePath("HitSound")
 
 [node name="UBER" parent="PlayerShip" instance=ExtResource("8_hki4g")]
-shotDelay = 0.3
+shotDelay = 0.1
 initialSpeed = 700.0
-bulletsPerBurst = 2
+bulletsPerBurst = 4
 spreadRandom = 0.0
-spreadFixed = 3.0
-waveAmplitude = 20.0
-phaseSpeed = 5.0
+spreadFixed = 20.0
+waveAmplitude = 50.0
 isAutoaim = true
 autoaimSpeed = 200.0
-weaponConfig = 0
+weaponConfig = 7
 
 [node name="Sparks" parent="PlayerShip" instance=ExtResource("5_yops7")]
 hitsound = ExtResource("12_xtt7u")
@@ -140,7 +140,8 @@ color_ramp = SubResource("Gradient_qjgt4")
 stream = ExtResource("12_2ix3q")
 volume_db = -0.165
 autoplay = true
-parameters/looping = true
+parameters/looping = false
+script = ExtResource("22_psusg")
 
 [node name="EnemySpawner" parent="." instance=ExtResource("12_xby4b")]
 spawn_delay = 0.5

@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://cge72eapyfa17"
+path="res://.godot/imported/DnB - Phat Neuron Loop.mp3-8efab9df60b58a05ad230f7f121b6a8c.mp3str"
+
+[deps]
+
+source_file="res://music/DnB - Phat Neuron Loop.mp3"
+dest_files=["res://.godot/imported/DnB - Phat Neuron Loop.mp3-8efab9df60b58a05ad230f7f121b6a8c.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

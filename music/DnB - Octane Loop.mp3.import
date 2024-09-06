@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://baybdr8d4k18m"
+path="res://.godot/imported/DnB - Octane Loop.mp3-e97e9ea0013257166ba0fe87981466d2.mp3str"
+
+[deps]
+
+source_file="res://music/DnB - Octane Loop.mp3"
+dest_files=["res://.godot/imported/DnB - Octane Loop.mp3-e97e9ea0013257166ba0fe87981466d2.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
