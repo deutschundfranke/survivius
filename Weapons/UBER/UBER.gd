@@ -16,9 +16,10 @@ extends WeaponBase
 @export var phaseDirection : float = 1
 @export var isHoming : bool = false
 @export var isAutoaim : bool = false
-@export var autoaimSpeed : float = 30;
+@export var autoaimSpeed : float = 30
 var autoaimDirection : float = 0;
 var autoaimTarget : float = 0;
+@export var homingTurnSpeed : float = 0
 @export var numberPenetrate : int = 0
 @export var direction : float = 0
 @export var weaponConfig : int = 1
@@ -67,8 +68,18 @@ func spawnBullet(index: int):
 	
 	if (self.isAutoaim):
 		self.direction = self.autoaimDirection
-	
+		
 	newBullet.direction = self.direction
+	
+	if (self.isHoming):
+		newBullet.isHoming = self.isHoming
+		newBullet.homingTurnSpeed = self.homingTurnSpeed
+		var localTarget : Enemy = self.getNearestEnemy();
+		# initial rotation?
+		if (localTarget):
+			pass
+			# newBullet.direction = calculate_angle_between_positions(self.global_position, localTarget.global_position)
+	
 	
 	if (bulletsPerBurst > 1):
 		if (self.spreadRandom > 0):
@@ -252,3 +263,18 @@ func configWeapon():
 		self.isHoming = 0
 		self.isAutoaim = 1
 		self.autoaimSpeed = 200
+	elif (weaponConfig == 8):
+		self.shotDelay = 1
+		self.initialSpeed = 500
+		self.damage = 5
+		self.accelerationX = 700
+		self.bulletsPerBurst = 1
+		self.burstDelay = 0
+		self.spreadRandom = 0
+		self.spreadFixed = 0
+		self.waveAmplitude = 0
+		self.phaseSpeed = 0
+		self.isHoming = 1
+		self.isAutoaim = 0
+		self.autoaimSpeed = 0
+		self.homingTurnSpeed = 200
