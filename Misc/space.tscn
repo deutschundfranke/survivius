@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://coovny051e74p"]
+[gd_scene load_steps=28 format=3 uid="uid://coovny051e74p"]
 
 [ext_resource type="Script" path="res://Misc/space.gd" id="1_qyus3"]
 [ext_resource type="Script" path="res://Misc/CameraShake.gd" id="2_iar2k"]
@@ -20,10 +20,11 @@
 [ext_resource type="PackedScene" uid="uid://c16k2hhudyieg" path="res://Enemies/enemy_spawner.tscn" id="12_xby4b"]
 [ext_resource type="AudioStream" uid="uid://bqk20vou26ga3" path="res://sounds/enemy_hit_harp1.mp3" id="12_xtt7u"]
 [ext_resource type="AudioStream" uid="uid://b2vx2nhtcw1go" path="res://sounds/levelup.mp3" id="13_a5jps"]
-[ext_resource type="PackedScene" uid="uid://dbcerjy6ugbc0" path="res://Misc/collectible_layer.tscn" id="13_ss2p7"]
+[ext_resource type="PackedScene" path="res://Misc/collectible_layer.tscn" id="13_ss2p7"]
 [ext_resource type="Texture2D" uid="uid://d1y7lpe4e1p48" path="res://sprites/movepath.png" id="14_kctyg"]
 [ext_resource type="AudioStream" uid="uid://b0ikqlei4e0u0" path="res://sounds/player_hit2.mp3" id="14_rrnob"]
 [ext_resource type="Script" path="res://Misc/MusicManager.gd" id="22_psusg"]
+[ext_resource type="PackedScene" uid="uid://bdknda1ua5hke" path="res://Shop/shop.tscn" id="24_xhr0c"]
 
 [sub_resource type="Curve" id="Curve_vr3y8"]
 _data = [Vector2(0, 1), 0.0, -1.02792, 0, 0, Vector2(0.993174, 0), -1.291, 0.0, 0, 0]
@@ -148,5 +149,7 @@ max_enemies = 10
 enemy_spread = 30.0
 
 [node name="CollectibleLayer" parent="." instance=ExtResource("13_ss2p7")]
+
+[node name="Shop" parent="." instance=ExtResource("24_xhr0c")]
 
 [connection signal="clicked" from="." to="PlayerShip" method="setTargetPos"]
