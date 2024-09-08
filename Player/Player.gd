@@ -1,4 +1,8 @@
 extends Area2D
+class_name Player
+
+signal expGained(added: int, currentTotal: int, maxTotal: int)
+signal levelIncreased(newLevel: int)
 
 @export var verticalOnly: bool
 @export var maxSpeed = 100
@@ -94,6 +98,7 @@ func gainEXP(value:int):
 		self.exp_current -= self.exp_needed
 		self.exp_needed = self.level * 10;
 	var size : float = (self.exp_current / float(self.exp_needed)) * 40;
+	self.expGained.emit(value, self.exp_current, self.exp_needed)
 	self.find_parent("Space").find_child("Expbar").scale = Vector2(1,-size)
 		
 func levelUp():
@@ -115,6 +120,8 @@ func levelUp():
 	
 	for weapon in self.weapons:
 		weapon.shotDelay *= self.modifier_cooldown
+		
+	self.levelIncreased.emit(self.level)
 
 func getHit(damage : int):
 	self.find_parent("Space").find_child("Camera2D").start_shake()
