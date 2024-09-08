@@ -14,6 +14,8 @@ var phaseSpeed = 6
 var phaseDirection = 1
 var phase = 0
 var isHoming : bool = false
+var homingTurnSpeed : float = 0
+var homingTarget : Enemy
 var numberPenetrate : int = 0
 
 var basePosition : Vector2;
@@ -31,6 +33,13 @@ func _process(delta):
 	
 	self.speedX += accelerationX * delta
 	self.speedY += accelerationY * delta
+	
+	# homing, get new target
+	if (self.isHoming):
+		if (self.homingTarget == null):
+			self.homingTarget = self.getNearestEnemy()
+		if (self.homingTarget):
+			rotate_bullet_towards_target(delta)
 	
 	# Wave ## work with direction
 	#self.speedY += cos(phase) * self.waveAmplitude
@@ -66,3 +75,51 @@ func _process(delta):
 func setDirection(_direction):
 	self.phaseDirection = _direction
 	if (self.phaseDirection == -1): phase = PI
+
+func calculate_angle_between_positions(A: Vector2, B: Vector2) -> float:
+	# Calculate the direction vector from A to B
+	var direction = B - A
+
+	# Calculate the angle in radians using atan2
+	var angle_radians = atan2(direction.y, direction.x)
+
+	# Convert the angle from radians to degrees
+	var angle_degrees = rad_to_deg(angle_radians)
+
+	return angle_degrees
+
+func rotate_bullet_towards_target(delta: float) -> void:
+	
+	var angle : float = self.rotation_degrees;
+	if (self.homingTarget):
+		angle = self.calculate_angle_between_positions(self.global_position, self.homingTarget.global_position)
+	#else:
+		#self.autoaimTarget = 0
+	
+	# Calculate the difference between the target angle and the current angle
+	var angle_difference: float = angle - self.direction
+	
+	# Normalize the angle to be within the range of -180 to 180 degrees
+	angle_difference = fmod(angle_difference + 180, 360) - 180
+
+	# Calculate the maximum rotation step we can take this frame
+	var rotation_step: float = homingTurnSpeed * delta
+
+	# Determine the direction and rotate towards the target angle
+	if abs(angle_difference) <= rotation_step:
+		# If the difference is small enough, snap to the target angle
+		self.direction = angle
+	else:
+		# Rotate in the shortest direction towards the target
+		self.direction += sign(angle_difference) * rotation_step
+
+func getNearestEnemy() -> Enemy:
+	var enemies = get_tree().get_nodes_in_group("enemies")
+	var target:Enemy= null
+	var targetdistance : float = 9999999
+	for enemy:Enemy in enemies:
+		var distance = self.global_position.distance_squared_to(enemy.global_position)
+		if (distance < targetdistance):
+			target = enemy
+			targetdistance = distance
+	return target
