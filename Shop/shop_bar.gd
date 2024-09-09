@@ -2,6 +2,7 @@ extends Node2D
 class_name ShopBar
 
 var cellScene: PackedScene
+var collected: bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -13,10 +14,10 @@ func createOffers(updates):
 	var cellHeight = viewport.y / float(cellNumber)
 	for n in cellNumber:
 		var cell: ShopCell = cellScene.instantiate()
-		self.add_child(cell)
+		$Cells.add_child(cell)
 		cell.setHeight(cellHeight)
 		cell.position = Vector2(0, (n + 0.5) * cellHeight)
-		cell.collected.connect(Callable(get_parent(), "onCellConnected"))
+		cell.collected.connect(onCellCollected)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -25,3 +26,12 @@ func _process(delta):
 	if self.global_position.x < -200:
 		# this should never happen once collection is mandatory, but we should be prepared
 		self.queue_free()
+
+func onCellCollected(cell: ShopCell):
+	# guard against multiple collections + pickups in this frame – we queue the cells
+	# to be freed on the next frame, collisions could still happen
+	if self.collected:
+		return
+	self.collected = true
+	for child in $Cells.get_children():
+		child.queue_free()
