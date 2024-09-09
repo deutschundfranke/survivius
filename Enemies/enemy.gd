@@ -2,7 +2,7 @@ extends Node2D
 class_name Enemy
 
 var movement: Vector2
-@export var health = 3
+@export var health = 5
 var wiggle : float = 0
 @export var tint_duration: float = 0.1
 
@@ -11,6 +11,11 @@ var tint_timer: float = 0.0
 # Reference to the player's sprite and its shader material
 @onready var sprite: Sprite2D = $Sprite2D  # Adjust the path as needed
 @onready var shader_material: ShaderMaterial = sprite.material as ShaderMaterial
+
+var knockbackVector : Vector2 = Vector2(1,0)
+var knockbackStrength : float = 0
+var knockbackDuration : float = 0
+var knockbackResistence : float = 1
 
 signal exited_screen(who: Enemy)
 
@@ -26,6 +31,13 @@ func set_movement(speed: float, spread: float):
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	self.position += self.movement * delta
+	
+	# add knockback
+	if (knockbackDuration > 0):
+		knockbackDuration -= delta
+		self.position += self.knockbackVector * self.knockbackStrength * delta
+	else:
+		self.knockbackVector = Vector2(1,0)
 	
 	self.wiggle += delta * 15
 	self.rotation_degrees = cos(self.wiggle) * 12
@@ -61,6 +73,14 @@ func take_damage(amount):
 	self.tint_white()
 	if health <= 0:
 		die()
+	else:
+		self.knockBack(400, 0.06, Vector2(1,0))
+		
+
+func knockBack(strength : float, duration: float, direction : Vector2):
+	self.knockbackStrength = maxf(self.knockbackStrength, strength * self.knockbackResistence)
+	self.knockbackDuration += duration * self.knockbackResistence
+	self.knockbackVector = direction
 
 # Call this function to tint the player white
 func tint_white():
