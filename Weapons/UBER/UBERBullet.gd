@@ -69,7 +69,18 @@ func _process(delta):
 	
 	self.position = self.basePosition + self.deltaPosition
 	
-	if (self.position.x > 1200):
+	# var viewport_size = get_viewport().
+	
+	var viewport_rect = get_viewport().get_visible_rect()
+	var rect_size = viewport_rect.size
+	
+	if (self.position.x > rect_size.x + 100):
+		self.queue_free()
+	if (self.position.x < -100):
+		self.queue_free()
+	if (self.position.y < -100):
+		self.queue_free()
+	if (self.position.y > rect_size.y + 100):
 		self.queue_free()
 		
 func setDirection(_direction):

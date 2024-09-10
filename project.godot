@@ -23,8 +23,9 @@ CollectibleLayer="*res://Misc/CollectibleLayer.gd"
 
 window/size/viewport_width=2560
 window/size/viewport_height=1440
-window/stretch/mode="viewport"
-window/stretch/aspect="expand"
+window/size/mode=2
+window/stretch/mode="canvas_items"
+window/stretch/aspect="keep_height"
 
 [input]
 
@@ -59,6 +60,8 @@ right={
 
 [rendering]
 
-renderer/rendering_method="gl_compatibility"
-renderer/rendering_method.mobile="gl_compatibility"
+textures/canvas_textures/default_texture_filter=2
+renderer/rendering_method.mobile="forward_plus"
+renderer/rendering_method.web="forward_plus"
 environment/defaults/default_clear_color=Color(0.933333, 0.917647, 0.870588, 1)
+anti_aliasing/quality/use_taa=true
