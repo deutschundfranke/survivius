@@ -74,7 +74,7 @@ func spawnBullet(index: int):
 	if (self.isHoming):
 		newBullet.isHoming = self.isHoming
 		newBullet.homingTurnSpeed = self.homingTurnSpeed
-		var localTarget : Enemy = self.getNearestEnemy();
+		var localTarget : EnemyBase = self.getNearestEnemy();
 		# initial rotation?
 		if (localTarget):
 			pass
@@ -119,11 +119,11 @@ func _on_timer_timeout():
 		timer.wait_time = self.burstDelay
 		timer.start()  # Start timer for the next burst
 		
-func getNearestEnemy() -> Enemy:
+func getNearestEnemy() -> EnemyBase:
 	var enemies = get_tree().get_nodes_in_group("enemies")
-	var target:Enemy= null
+	var target:EnemyBase= null
 	var targetdistance : float = 9999999
-	for enemy:Enemy in enemies:
+	for enemy:EnemyBase in enemies:
 		var distance = self.global_position.distance_squared_to(enemy.global_position)
 		if (distance < targetdistance):
 			target = enemy

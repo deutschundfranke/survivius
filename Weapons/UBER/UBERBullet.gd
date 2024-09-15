@@ -15,7 +15,7 @@ var phaseDirection = 1
 var phase = 0
 var isHoming : bool = false
 var homingTurnSpeed : float = 0
-var homingTarget : Enemy
+var homingTarget : EnemyBase
 var numberPenetrate : int = 0
 
 var basePosition : Vector2;
@@ -124,11 +124,11 @@ func rotate_bullet_towards_target(delta: float) -> void:
 		# Rotate in the shortest direction towards the target
 		self.direction += sign(angle_difference) * rotation_step
 
-func getNearestEnemy() -> Enemy:
+func getNearestEnemy() -> EnemyBase:
 	var enemies = get_tree().get_nodes_in_group("enemies")
-	var target:Enemy= null
+	var target:EnemyBase= null
 	var targetdistance : float = 9999999
-	for enemy:Enemy in enemies:
+	for enemy:EnemyBase in enemies:
 		var distance = self.global_position.distance_squared_to(enemy.global_position)
 		if (distance < targetdistance):
 			target = enemy

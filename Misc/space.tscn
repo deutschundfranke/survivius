@@ -150,8 +150,9 @@ script = ExtResource("22_psusg")
 
 [node name="EnemySpawner" parent="." instance=ExtResource("12_xby4b")]
 spawn_delay = 0.5
-max_enemies = 10
+max_enemies = 20
 enemy_spread = 30.0
+enemy_type = 2
 
 [node name="CollectibleLayer" parent="." instance=ExtResource("13_ss2p7")]
 

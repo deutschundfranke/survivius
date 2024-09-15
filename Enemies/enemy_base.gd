@@ -1,37 +1,33 @@
 extends Node2D
-class_name Enemy
+class_name EnemyBase
 
 var movement: Vector2
+var direction: float
+var acceleration: Vector2
+var phase:int = 1
 @export var health = 5
-var wiggle : float = 0
 @export var tint_duration: float = 0.1
 
 # Timer to manage the tint duration
 var tint_timer: float = 0.0
 # Reference to the player's sprite and its shader material
-@onready var sprite: Sprite2D = $Sprite2D  # Adjust the path as needed
-@onready var shader_material: ShaderMaterial = sprite.material as ShaderMaterial
+var sprite: Sprite2D 
+var shader_material: ShaderMaterial
 
 var knockbackVector : Vector2 = Vector2(1,0)
 var knockbackStrength : float = 0
 var knockbackDuration : float = 0
 var knockbackResistence : float = 1
 
-signal exited_screen(who: Enemy)
+signal exited_screen(who: EnemyBase)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass
 	
-func set_movement(speed: float, spread: float):
-	self.movement = Vector2( -speed, 0)
-	var angle = randf_range(-spread, spread)
-	self.movement = self.movement.rotated(deg_to_rad(angle))
-
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	self.position += self.movement * delta
-	
+
 	# add knockback
 	if (knockbackDuration > 0):
 		knockbackDuration -= delta
@@ -39,10 +35,9 @@ func _process(delta):
 	else:
 		self.knockbackVector = Vector2(1,0)
 	
-	self.wiggle += delta * 15
-	self.rotation_degrees = cos(self.wiggle) * 12
-	
-	if (self.position.x < -100):
+	var viewport_rect = get_viewport().get_visible_rect()
+	var rect_size = viewport_rect.size
+	if (self.position.x < -100 || self.position.y < -100 || self.position.y > rect_size.y + 100):
 		# well off-screen
 		self.exited_screen.emit(self)
 		
