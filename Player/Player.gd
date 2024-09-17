@@ -140,6 +140,12 @@ func getHit(damage : int):
 	self.tint_white()
 	self.health -= damage
 	self.hitPlayer.play()
+	
+	if (self.health == 2):
+		$Lifebar/Life3.color = Color(0.5,0.5,0.5,0.3)
+	if (self.health == 1):
+		$Lifebar/Life2.color = Color(0.5,0.5,0.5,0.3)
+	
 	if (self.health <= 0):
 		self.die()
 	

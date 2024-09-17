@@ -22,7 +22,7 @@ func _process(delta):
 			var distanceX : float = self.global_position.x - playership.global_position.x
 			var distanceY : float = self.global_position.y - playership.global_position.y
 			
-			if (distanceX <= 50):
+			if (distanceX <= 30):
 				self.phase = 2
 				var degrees : int = 90
 				if (distanceY < 0):

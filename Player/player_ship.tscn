@@ -21,3 +21,20 @@ texture = ExtResource("3_cwk7b")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-0.5, 0)
 shape = SubResource("RectangleShape2D_x40vj")
+
+[node name="Lifebar" type="Node2D" parent="."]
+position = Vector2(-28, 33)
+
+[node name="Life1" type="Polygon2D" parent="Lifebar"]
+color = Color(7.46027e-07, 0.681845, 7.70092e-07, 1)
+polygon = PackedVector2Array(17, 0, 17, 8, 0, 8, 0, 0, 0, 0)
+
+[node name="Life2" type="Polygon2D" parent="Lifebar"]
+position = Vector2(22, 0)
+color = Color(7.46027e-07, 0.681845, 7.70092e-07, 1)
+polygon = PackedVector2Array(14, 0, 14, 8, -2, 8, -2, 0, 0, 0)
+
+[node name="Life3" type="Polygon2D" parent="Lifebar"]
+position = Vector2(40, 0)
+color = Color(7.46027e-07, 0.681845, 7.70092e-07, 1)
+polygon = PackedVector2Array(15, 0, 15, 8, -1, 8, -1, 0)

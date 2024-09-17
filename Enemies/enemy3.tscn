@@ -1,0 +1,32 @@
+[gd_scene load_steps=6 format=3 uid="uid://be8k11ar7prfx"]
+
+[ext_resource type="Script" path="res://Enemies/enemy3.gd" id="1_dtkhn"]
+[ext_resource type="Shader" path="res://Player/player_ship.gdshader" id="2_pbdcf"]
+[ext_resource type="Texture2D" uid="uid://hto5hijepjq4" path="res://sprites/Enemy_01.png" id="3_qu34v"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hvt6v"]
+size = Vector2(60, 44)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_s303s"]
+resource_local_to_scene = true
+shader = ExtResource("2_pbdcf")
+shader_parameter/tint_strength = 0.0
+
+[node name="Enemy" type="Node2D" groups=["enemies"]]
+script = ExtResource("1_dtkhn")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_hvt6v")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+visible = false
+material = SubResource("ShaderMaterial_s303s")
+position = Vector2(-9.53674e-07, 0)
+scale = Vector2(0.416667, 0.777778)
+texture = ExtResource("3_qu34v")
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+color = Color(0.796078, 0, 0, 1)
+polygon = PackedVector2Array(-29, -20, 30, -1, -29, 17)

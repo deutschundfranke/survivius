@@ -37,7 +37,7 @@ func spawn_enemy():
 		return
 	self.num_enemies_on_screen += 1
 	
-	self.enemy_type = self.rand.randi_range(1, 2)
+	self.enemy_type = self.rand.randi_range(1, 3)
 	
 	if (self.enemy_type == 1):
 		self.enemy_scene = load('res://Enemies/enemy1.tscn')
@@ -54,10 +54,26 @@ func spawn_enemy():
 		self.enemy_scene = load('res://Enemies/enemy2.tscn')
 		var new_enemy: Enemy2 = self.enemy_scene.instantiate()
 		var viewport = get_viewport_rect().size
-		new_enemy.position.x = viewport.x - 100
+		new_enemy.position.x = viewport.x + 100
 		var side = self.rand.randi_range(0, 1)
 		new_enemy.position.y = 100
 		if (side == 0):
 			new_enemy.position.y = viewport.y - 100
+		new_enemy.exited_screen.connect(self.on_enemy_exited)
+		self.find_parent("Space").add_child(new_enemy)
+		
+	elif (self.enemy_type == 3):
+		self.enemy_scene = load('res://Enemies/enemy3.tscn')
+		var new_enemy: Enemy3 = self.enemy_scene.instantiate()
+		var viewport = get_viewport_rect().size
+		
+		var newY : float  = self.rand.randi_range(50, viewport.y - 50)
+		var players = get_tree().get_nodes_in_group("Player")
+		if players.size() > 0:
+			var playership : Node2D = players[0]
+			newY = playership.global_position.y + self.rand.randi_range(-150,150)
+		
+		new_enemy.position.x = -50
+		new_enemy.position.y = newY
 		new_enemy.exited_screen.connect(self.on_enemy_exited)
 		self.find_parent("Space").add_child(new_enemy)

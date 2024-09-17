@@ -76,7 +76,7 @@ scale = Vector2(1, -1)
 
 [node name="PlayerShip" parent="." node_paths=PackedStringArray("weapons", "collectPlayer", "levelupPlayer", "hitPlayer") groups=["Player"] instance=ExtResource("2_u5wji")]
 z_index = 5
-position = Vector2(70, 312)
+position = Vector2(280, 699)
 maxSpeed = 250
 weapons = [NodePath("UBER"), NodePath("Blaster"), NodePath("UpDownBomb"), NodePath("Waver"), NodePath("Sparks")]
 modifier_maxspeed = 1.2
