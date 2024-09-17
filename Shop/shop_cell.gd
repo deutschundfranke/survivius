@@ -4,6 +4,7 @@ class_name ShopCell
 signal collected(cell: ShopCell)
 
 var height = 20
+var offerID = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

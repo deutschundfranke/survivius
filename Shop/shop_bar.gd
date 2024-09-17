@@ -18,6 +18,7 @@ func createOffers(updates):
 		cell.setHeight(cellHeight)
 		cell.position = Vector2(0, (n + 0.5) * cellHeight)
 		cell.collected.connect(onCellCollected)
+		cell.offerID = n
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -35,3 +36,8 @@ func onCellCollected(cell: ShopCell):
 	self.collected = true
 	for child in $Cells.get_children():
 		child.queue_free()
+		
+	var players = get_tree().get_nodes_in_group("Player")
+	if players.size() > 0:
+		var playership : Node2D = players[0]
+		playership.levelUpThis(cell.offerID)

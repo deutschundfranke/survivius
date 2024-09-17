@@ -77,7 +77,7 @@ scale = Vector2(1, -1)
 [node name="PlayerShip" parent="." node_paths=PackedStringArray("weapons", "collectPlayer", "levelupPlayer", "hitPlayer") groups=["Player"] instance=ExtResource("2_u5wji")]
 z_index = 5
 position = Vector2(70, 312)
-maxSpeed = 250
+maxSpeed = 200
 weapons = [NodePath("UBER"), NodePath("Blaster"), NodePath("UpDownBomb"), NodePath("Waver"), NodePath("Sparks")]
 modifier_maxspeed = 1.2
 modifier_cooldown = 0.92
@@ -99,6 +99,7 @@ phaseSpeed = 5.0
 isAutoaim = true
 autoaimSpeed = 200.0
 homingTurnSpeed = 66.0
+weaponConfig = 8
 
 [node name="Sparks" parent="PlayerShip" instance=ExtResource("5_yops7")]
 hitsound = ExtResource("12_xtt7u")

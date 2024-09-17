@@ -116,12 +116,24 @@ func levelUp():
 	"""
 	#self.modifier_maxspeed += 0.03;
 	#self.modifier_cooldown -= 0.02;
-	self.maxSpeed *= self.modifier_maxspeed
+	"""self.maxSpeed *= self.modifier_maxspeed
 	
 	for weapon in self.weapons:
 		weapon.shotDelay *= self.modifier_cooldown
-		
+	"""
 	self.levelIncreased.emit(self.level)
+
+func levelUpThis(offerID : int):
+	if (offerID == 0):
+		for weapon in self.weapons:
+			if (!weapon.firing):
+				weapon.startFiring()
+				break
+	elif (offerID == 1):
+		self.maxSpeed *= self.modifier_maxspeed
+	elif (offerID == 2):
+		for weapon in self.weapons:
+			weapon.shotDelay *= self.modifier_cooldown
 
 func getHit(damage : int):
 	self.find_parent("Space").find_child("Camera2D").start_shake()

@@ -18,7 +18,16 @@ func setDirection(_direction):
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	self.position.x += speed * delta
-	if (self.position.x > 1000):
-		self.queue_free()
+	
 	yspeed += yaccel * direction * delta
 	self.position.y += yspeed
+	
+	var viewport_size = get_viewport().get_visible_rect().size
+	if (self.position.x > viewport_size.x + 100):
+		self.queue_free()
+	if (self.position.x < -100):
+		self.queue_free()
+	if (self.position.y < -100):
+		self.queue_free()
+	if (self.position.y > viewport_size.y + 100):
+		self.queue_free()
