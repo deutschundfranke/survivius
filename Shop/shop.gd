@@ -33,16 +33,12 @@ func spawn():
 	var viewport = get_viewport_rect().size
 	bar.position = Vector2(viewport.x, 0)
 	var upgrades = [
-		Upgrade.new(
-			"ship", "new_weapon", "New weapon", Color.RED
-		),
-		Upgrade.new(
-			"ship", "speed", "Speed up!", Color.YELLOW
-		),
-		Upgrade.new(
-			"all_weapons", "improve_cooldown", "Cool down!", Color.CYAN 
-		)
+		Upgrade.new("none", "none", "No Upgrade for you!", Color.BLACK)
 	]
+	if (player):
+		upgrades = player.getPossibleUpgrades()
+	# TODO: pick a max number of upgrades
+	upgrades.shuffle()
 	bar.createOffers(upgrades)
 	bar.upgradeSelected.connect(onUpgradeSelected)
 
