@@ -21,13 +21,9 @@ func onLevelIncreased(newLevel: int):
 	self.spawn()
 
 func spawn():
-	# check the player (and thereby their weapons) for possible upgrades
-	# pick the number N of upgrades available
-	# pick those upgrades from the list
-	# spawn, scale and spread out cells
-	
-	# most of this should be moved to the bar itself
-	# just give it a list of upgrades to offer
+	# create a new shop bar
+	# ask the player for possible upgrades
+	# pick a few to show
 	var bar: ShopBar = barScene.instantiate()
 	self.add_child(bar)
 	bar.cellScene = cellScene
@@ -38,8 +34,8 @@ func spawn():
 	]
 	if (player):
 		upgrades = player.getPossibleUpgrades()
-	# TODO: pick a max number of upgrades
 	upgrades.shuffle()
+	upgrades = upgrades.slice(0, 4)
 	bar.createOffers(upgrades)
 	bar.upgradeSelected.connect(onUpgradeSelected)
 
