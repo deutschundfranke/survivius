@@ -123,32 +123,71 @@ func levelUp():
 	"""
 	self.levelIncreased.emit(self.level)
 
-func levelUpThis(offerID : int):
-	if (offerID == 0):
-		for weapon in self.weapons:
-			if (!weapon.firing):
-				weapon.startFiring()
-				break
-	elif (offerID == 1):
-		self.maxSpeed *= self.modifier_maxspeed
-	elif (offerID == 2):
-		for weapon in self.weapons:
-			weapon.shotDelay *= self.modifier_cooldown
+func getPossibleUpgrades() -> Array[Upgrade]:
+	var list: Array[Upgrade] = []
+	if (self.weapons.any(
+		func (weapon: WeaponBase): return !weapon.firing)
+	):
+		# only offer a new weapon if there are some left to obtain
+		list.append(Upgrade.new(
+			"ship", "new_weapon", "New weapon", Color.RED
+		))
+	# we can always go faster :-D
+	list.append(Upgrade.new(
+		"ship", "speed", "Speed up!", Color.YELLOW
+	))
+	# we can always be cooler :-D
+	list.append(Upgrade.new(
+		"all_weapons", "cooldown", "Cool down!", Color.CYAN
+	))
+	# only if we could use some healing
+	if (self.health < self.health_max):
+		list.append(Upgrade.new(
+			"ship", "health", "À la vôtre!", Color.DARK_GREEN
+		))
+	return list
+
+func applyUpgrade(upgrade: Upgrade):
+	print("Upgrade ", upgrade.name)
+	match [upgrade.target, upgrade.feature]:
+		["ship", "new_weapon"]:
+			self.addNewWeapon()
+		["ship", "speed"]:
+			self.maxSpeed *= self.modifier_maxspeed
+		["ship", "health"]:
+			self.heal(1)
+		["all_weapons", "cooldown"]:
+			for weapon in self.weapons:
+				weapon.shotDelay *= self.modifier_cooldown
+
+func addNewWeapon():
+	for weapon in self.weapons:
+		if (!weapon.firing):
+			weapon.startFiring()
+			break
 
 func getHit(damage : int):
 	self.find_parent("Space").find_child("Camera2D").start_shake()
 	self.tint_white()
 	self.health -= damage
 	self.hitPlayer.play()
-	
-	if (self.health == 2):
-		$Lifebar/Life3.color = Color(0.5,0.5,0.5,0.3)
-	if (self.health == 1):
-		$Lifebar/Life2.color = Color(0.5,0.5,0.5,0.3)
+
+	self.updateLifebar()
 	
 	if (self.health <= 0):
 		self.die()
-	
+
+func heal(damage: int):
+	self.health = min(self.health + damage, self.health_max)
+	self.updateLifebar()
+
+func updateLifebar():
+	const colorOn = Color(0.0, 174.0 / 255.0, 0.0, 1.0)
+	const colorOff = Color(0.5, 0.5, 0.5, 0.3)
+	$Lifebar/Life1.color = colorOn if (self.health >= 1) else colorOff
+	$Lifebar/Life2.color = colorOn if (self.health >= 2) else colorOff
+	$Lifebar/Life3.color = colorOn if (self.health >= 3) else colorOff
+
 	# Call this function to tint the player white
 func tint_white():
 	# Start the tint timer
