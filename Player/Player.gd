@@ -123,17 +123,22 @@ func levelUp():
 	"""
 	self.levelIncreased.emit(self.level)
 
-func levelUpThis(offerID : int):
-	if (offerID == 0):
-		for weapon in self.weapons:
-			if (!weapon.firing):
-				weapon.startFiring()
-				break
-	elif (offerID == 1):
-		self.maxSpeed *= self.modifier_maxspeed
-	elif (offerID == 2):
-		for weapon in self.weapons:
-			weapon.shotDelay *= self.modifier_cooldown
+func applyUpgrade(upgrade: Upgrade):
+	print("Upgrade ", upgrade.name)
+	match [upgrade.target, upgrade.feature]:
+		["ship", "new_weapon"]:
+			self.addNewWeapon()
+		["ship", "speed"]:
+			self.maxSpeed *= self.modifier_maxspeed
+		["all_weapons", "cooldown"]:
+			for weapon in self.weapons:
+				weapon.shotDelay *= self.modifier_cooldown
+
+func addNewWeapon():
+	for weapon in self.weapons:
+		if (!weapon.firing):
+			weapon.startFiring()
+			break
 
 func getHit(damage : int):
 	self.find_parent("Space").find_child("Camera2D").start_shake()

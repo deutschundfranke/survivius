@@ -4,13 +4,15 @@ class_name ShopBar
 var cellScene: PackedScene
 var collected: bool = false
 
+signal upgradeSelected(upgrade: Upgrade)
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass
 
-func createOffers(updates):
+func createOffers(upgrades):
 	var viewport = get_viewport_rect().size
-	var cellNumber = updates.size()
+	var cellNumber = upgrades.size()
 	var cellHeight = viewport.y / float(cellNumber)
 	for n in cellNumber:
 		var cell: ShopCell = cellScene.instantiate()
@@ -18,7 +20,7 @@ func createOffers(updates):
 		cell.setHeight(cellHeight)
 		cell.position = Vector2(0, (n + 0.5) * cellHeight)
 		cell.collected.connect(onCellCollected)
-		cell.offerID = n
+		cell.setUpgrade(upgrades[n])
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -34,10 +36,14 @@ func onCellCollected(cell: ShopCell):
 	if self.collected:
 		return
 	self.collected = true
+	
+	self.upgradeSelected.emit(cell.upgrade)
+	
 	for child in $Cells.get_children():
 		child.queue_free()
+	self.queue_free()
 		
-	var players = get_tree().get_nodes_in_group("Player")
-	if players.size() > 0:
-		var playership : Node2D = players[0]
-		playership.levelUpThis(cell.offerID)
+	#var players = get_tree().get_nodes_in_group("Player")
+	#if players.size() > 0:
+		#var playership : Node2D = players[0]
+		#playership.levelUpThis(cell.offerID)
