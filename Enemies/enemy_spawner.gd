@@ -37,7 +37,15 @@ func spawn_enemy():
 		return
 	self.num_enemies_on_screen += 1
 	
-	self.enemy_type = self.rand.randi_range(1, 3)
+	# do better than this
+	var time : float = self.find_parent("Space").find_child("Timer").time
+	var max : int = 1;
+	if (time > 60): 
+		max = 2
+	if (time > 120): 
+		max = 3
+	
+	self.enemy_type = self.rand.randi_range(1, max)
 	
 	if (self.enemy_type == 1):
 		self.enemy_scene = load('res://Enemies/enemy1.tscn')
