@@ -34,9 +34,6 @@ var moveMode = 'mouse'
 func _ready():
 	self.targetPos = self.position
 	self.exp_needed = self.level * 10;
-	weapons[0].startFiring()
-	# for weapon in self.weapons:
-	#	weapon.startFiring()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -104,54 +101,50 @@ func gainEXP(value:int):
 func levelUp():
 	levelupPlayer.play()
 	self.level += 1
-	"""
-	if (self.level == 2):
-		self.weapons[1].startFiring()
-		
-	if (self.level == 4):
-		self.weapons[2].startFiring()
-		
-	if (self.level == 6):
-		self.weapons[3].startFiring()
-	"""
-	#self.modifier_maxspeed += 0.03;
-	#self.modifier_cooldown -= 0.02;
-	"""self.maxSpeed *= self.modifier_maxspeed
-	
-	for weapon in self.weapons:
-		weapon.shotDelay *= self.modifier_cooldown
-	"""
 	self.levelIncreased.emit(self.level)
 
 func getPossibleUpgrades() -> Array[Upgrade]:
 	var list: Array[Upgrade] = []
-	if (self.weapons.any(
-		func (weapon: WeaponBase): return !weapon.firing)
-	):
-		# only offer a new weapon if there are some left to obtain
+	# if we have *no weapons*, that's what we need
+	if (self.enabledWeapons().size() == 0):
+		var choices = self.availableWeapons()
+		choices.shuffle()
+		choices = choices.slice(0, 2)
+		list.append_array(choices.map(func (choice: WeaponBase) -> Upgrade:
+			return Upgrade.new(
+				"ship", "new_weapon", "New " + choice.name, Color.RED, "W+\n" + choice.label, choice.label
+			)
+		))
+		# return directly; no other upgrade choices make sense
+		return list
+		
+	# if there are still weapons unclaimed, offer one of them: 
+	if (self.availableWeapons().size() > 0):
+		var weapon = self.availableWeapons().pick_random()
 		list.append(Upgrade.new(
-			"ship", "new_weapon", "New weapon", Color.RED
+			"ship", "new_weapon", "New " + weapon.name, Color.RED, "W+\n" + weapon.label, weapon.label
+		))
+		
+	# only ask for health if we could use some healing
+	if (self.health < self.health_max):
+		list.append(Upgrade.new(
+			"ship", "health", "À la vôtre!", Color.DARK_GREEN, "+"
 		))
 	# we can always go faster :-D
 	list.append(Upgrade.new(
-		"ship", "speed", "Speed up!", Color.YELLOW
+		"ship", "speed", "Speed up!", Color.YELLOW, '>>'
 	))
-	# we can always be cooler :-D
-	list.append(Upgrade.new(
-		"all_weapons", "cooldown", "Cool down!", Color.CYAN
-	))
-	# only if we could use some healing
-	if (self.health < self.health_max):
-		list.append(Upgrade.new(
-			"ship", "health", "À la vôtre!", Color.DARK_GREEN
-		))
+	
+	for weapon in self.enabledWeapons():
+		list.append_array(weapon.getPossibleUpgrades())
+	
 	return list
 
 func applyUpgrade(upgrade: Upgrade):
 	print("Upgrade ", upgrade.name)
 	match [upgrade.target, upgrade.feature]:
 		["ship", "new_weapon"]:
-			self.addNewWeapon()
+			self.addNewWeapon(upgrade.subtarget)
 		["ship", "speed"]:
 			self.maxSpeed *= self.modifier_maxspeed
 		["ship", "health"]:
@@ -159,12 +152,30 @@ func applyUpgrade(upgrade: Upgrade):
 		["all_weapons", "cooldown"]:
 			for weapon in self.weapons:
 				weapon.shotDelay *= self.modifier_cooldown
+		["weapon", _]:
+			var weapon = self.findWeaponByLabel(upgrade.subtarget)
+			if (weapon):
+				weapon.applyUpgrade(upgrade)
 
-func addNewWeapon():
-	for weapon in self.weapons:
-		if (!weapon.firing):
-			weapon.startFiring()
-			break
+func enabledWeapons() -> Array[WeaponBase]:
+	return self.weapons.filter(func (weapon):
+		return weapon.firing
+	)
+
+func availableWeapons() -> Array[WeaponBase]:
+	return self.weapons.filter(func (weapon):
+		return !weapon.firing
+	)
+
+func findWeaponByLabel(label: String) -> WeaponBase:
+	return self.weapons.filter(func (weapon: WeaponBase):
+		return weapon.label == label
+	)[0]
+
+func addNewWeapon(which: String):
+	var weapon = findWeaponByLabel(which)
+	if (weapon && !weapon.firing):
+		weapon.startFiring()
 
 func getHit(damage : int):
 	self.find_parent("Space").find_child("Camera2D").start_shake()

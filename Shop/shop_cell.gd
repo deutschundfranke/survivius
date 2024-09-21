@@ -20,6 +20,7 @@ func _process(delta):
 func setUpgrade(upgrade: Upgrade):
 	self.upgrade = upgrade
 	self.setColor(upgrade.color)
+	$Label.text = upgrade.label
 
 func setHeight(newHeight: float):
 	self.height = newHeight

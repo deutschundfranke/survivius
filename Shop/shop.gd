@@ -9,12 +9,13 @@ var player: Player
 func _ready():
 	barScene = load("res://Shop/shop_bar.tscn")
 	cellScene = load("res://Shop/shop_cell.tscn")
-	#self.spawn()
 	player = self.find_parent("Space").find_child("PlayerShip")
 	if player:
 		player.levelIncreased.connect(onLevelIncreased)
 	else:
 		push_warning("No player found, cannot listen for level increases!")
+	# this is the initial shop to get weapons, after we add a player
+	self.spawn()
 
 func onLevelIncreased(newLevel: int):
 	self.spawn()
@@ -33,7 +34,7 @@ func spawn():
 	var viewport = get_viewport_rect().size
 	bar.position = Vector2(viewport.x, 0)
 	var upgrades = [
-		Upgrade.new("none", "none", "No Upgrade for you!", Color.BLACK)
+		Upgrade.new("none", "none", "No Upgrade for you!", Color.BLACK, "X")
 	]
 	if (player):
 		upgrades = player.getPossibleUpgrades()

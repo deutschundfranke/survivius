@@ -6,6 +6,7 @@ var firing = false
 @export var hitsound : AudioStreamMP3
 var soundplayer : AudioStreamPlayer
 var hitplayer : AudioStreamPlayer
+@export var label: String
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -55,3 +56,16 @@ func playHit():
 
 func _on_bullet_hit():
 	self.playHit()
+
+func getPossibleUpgrades() -> Array[Upgrade]:
+	return [
+		Upgrade.new(
+			"weapon", "cooldown", "Cool Down " + self.name, Color.CYAN, self.label + "\n" + "CD", self.label
+		)
+	]
+
+func applyUpgrade(upgrade: Upgrade) -> void:
+	if (upgrade.feature == "cooldown"):
+		self.shotDelay *= 0.95
+	else:
+		push_warning("Unknown upgrade feature ", upgrade.feature)

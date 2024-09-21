@@ -105,6 +105,7 @@ phaseSpeed = 5.0
 isAutoaim = true
 autoaimSpeed = 200.0
 homingTurnSpeed = 66.0
+label = "UB"
 
 [node name="UBER2" parent="PlayerShip" instance=ExtResource("8_hki4g")]
 shotDelay = 0.1
@@ -121,24 +122,29 @@ isAutoaim = true
 autoaimSpeed = 200.0
 homingTurnSpeed = 66.0
 weaponConfig = 7
+label = "U2"
 
 [node name="Sparks" parent="PlayerShip" instance=ExtResource("5_yops7")]
 hitsound = ExtResource("12_xtt7u")
+label = "SP"
 
 [node name="Waver" parent="PlayerShip" instance=ExtResource("5_jjhq4")]
 shotDelay = 0.25
 hitsound = ExtResource("12_7rah6")
+label = "WV"
 
 [node name="Blaster" parent="PlayerShip" instance=ExtResource("3_q7msx")]
 shotDelay = 0.3
 sound = ExtResource("6_54i6i")
 hitsound = ExtResource("12_7rah6")
+label = "BL"
 
 [node name="UpDownBomb" parent="PlayerShip" instance=ExtResource("7_ftjvp")]
 shotDelay = 1.2
 shotCooldown = 0.1
 sound = ExtResource("8_cy2ra")
 hitsound = ExtResource("12_7rah6")
+label = "UD"
 
 [node name="HitSound" type="AudioStreamPlayer" parent="PlayerShip"]
 stream = ExtResource("14_rrnob")
