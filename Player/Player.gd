@@ -10,6 +10,7 @@ signal levelIncreased(newLevel: int)
 @export var level:int = 1;
 @export var exp_current : int = 0;
 @export var exp_needed : int = 0;
+@export var exp_factor : float = 10.0
 @export var modifier_maxspeed : float = 1.10;
 @export var modifier_cooldown : float = 0.95;
 @export var collectPlayer : AudioStreamPlayer;
@@ -93,7 +94,7 @@ func gainEXP(value:int):
 	if (self.exp_current >= self.exp_needed):
 		self.levelUp();
 		self.exp_current -= self.exp_needed
-		self.exp_needed = self.level * 10;
+		self.exp_needed = self.level * self.exp_factor;
 	var size : float = (self.exp_current / float(self.exp_needed)) * 40;
 	self.expGained.emit(value, self.exp_current, self.exp_needed)
 	self.find_parent("Space").find_child("Expbar").scale = Vector2(1,-size)

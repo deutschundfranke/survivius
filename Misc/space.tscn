@@ -86,9 +86,7 @@ scale = Vector2(1, -1)
 z_index = 5
 position = Vector2(280, 699)
 maxSpeed = 250
-weapons = [NodePath("Blaster"), NodePath("UBER"), NodePath("UBER2"), NodePath("UpDownBomb"), NodePath("Waver"), NodePath("Sparks")]
-modifier_maxspeed = 1.2
-modifier_cooldown = 0.92
+weapons = [NodePath("Blaster"), NodePath("UBER"), NodePath("UBER2"), NodePath("Sparks"), NodePath("Waver"), NodePath("UpDownBomb")]
 collectPlayer = NodePath("CollectSound")
 levelupPlayer = NodePath("LevelupSound")
 hitPlayer = NodePath("HitSound")
@@ -136,7 +134,6 @@ hitsound = ExtResource("12_7rah6")
 label = "WV"
 
 [node name="Blaster" parent="PlayerShip" instance=ExtResource("3_q7msx")]
-shotDelay = 0.3
 sound = ExtResource("6_54i6i")
 hitsound = ExtResource("12_7rah6")
 label = "BL"

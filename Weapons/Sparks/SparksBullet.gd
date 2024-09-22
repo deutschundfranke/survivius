@@ -1,8 +1,8 @@
 extends "res://Weapons/bullet_base.gd"
 class_name SparksBullet
 
-@export var speed = 200
-@export var maxDistance = 200
+var speed = 200
+var maxDistance = 200
 var distance = 0
 var direction = 0
 
