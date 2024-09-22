@@ -1,9 +1,9 @@
 extends "res://Weapons/bullet_base.gd"
 class_name WaverBullet
 
-@export var speed = 200
-@export var maxAmplitude = 100
-@export var phasespeed = 6
+var speed = 200
+var maxAmplitude = 100
+var phasespeed = 6
 var direction = 1
 var phase = 0
 var yStartPosition = 0

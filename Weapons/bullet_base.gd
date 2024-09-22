@@ -4,7 +4,7 @@ class_name BulletBase
 signal hit_enemy(enemy)
 signal hit()
 
-@export var damage : float = 1
+var damage : float = 1
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

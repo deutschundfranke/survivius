@@ -57,6 +57,7 @@ func playHit():
 func _on_bullet_hit():
 	self.playHit()
 
+# should generally be overwritten
 func getPossibleUpgrades() -> Array[Upgrade]:
 	return [
 		Upgrade.new(
@@ -64,6 +65,7 @@ func getPossibleUpgrades() -> Array[Upgrade]:
 		)
 	]
 
+# should also be overwritten
 func applyUpgrade(upgrade: Upgrade) -> void:
 	if (upgrade.feature == "cooldown"):
 		self.shotDelay *= 0.95
