@@ -20,6 +20,7 @@ extends WeaponBase
 var autoaimDirection : float = 0;
 var autoaimTarget : float = 0;
 @export var homingTurnSpeed : float = 0
+@export var isCenteraim : bool = false
 @export var numberPenetrate : int = 0
 @export var direction : float = 0
 @export var weaponConfig : int = 1
@@ -68,6 +69,11 @@ func spawnBullet(index: int):
 	
 	if (self.isAutoaim):
 		self.direction = self.autoaimDirection
+		
+	if (self.isCenteraim):
+		var viewport_rect = get_viewport().get_visible_rect().size
+		var center : Vector2 = Vector2(viewport_rect.x / 2,viewport_rect.y / 2)
+		self.direction = calculate_angle_between_positions(self.global_position, center)
 		
 	newBullet.direction = self.direction
 	

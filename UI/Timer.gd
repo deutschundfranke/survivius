@@ -11,7 +11,7 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	self.time += delta
 	$Label.text = format_time(self.time)
-	print(format_time(self.time))
+	# print(format_time(self.time))
 	pass
 	
 	# Function to convert seconds to HH:MM format
