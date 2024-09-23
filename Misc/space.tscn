@@ -147,17 +147,17 @@ label = "UD"
 
 [node name="HitSound" type="AudioStreamPlayer" parent="PlayerShip"]
 stream = ExtResource("14_rrnob")
-volume_db = -6.809
+volume_db = -16.809
 max_polyphony = 6
 
 [node name="CollectSound" type="AudioStreamPlayer" parent="PlayerShip"]
 stream = ExtResource("12_3ua6m")
-volume_db = -14.857
+volume_db = -24.857
 max_polyphony = 6
 
 [node name="LevelupSound" type="AudioStreamPlayer" parent="PlayerShip"]
 stream = ExtResource("13_a5jps")
-volume_db = -14.857
+volume_db = -24.857
 max_polyphony = 6
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="PlayerShip"]
@@ -173,7 +173,7 @@ color_ramp = SubResource("Gradient_qjgt4")
 
 [node name="BGMusic" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("12_2ix3q")
-volume_db = -0.165
+volume_db = -15.0
 autoplay = true
 parameters/looping = false
 script = ExtResource("22_psusg")
