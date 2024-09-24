@@ -2,11 +2,14 @@ extends Node2D
 class_name WeaponBase
 
 var firing = false
+@export var shotMinDamage : float = 5.0
+@export var shotMaxDamage : float = 8.0
 @export var sound : AudioStreamMP3
 @export var hitsound : AudioStreamMP3
 var soundplayer : AudioStreamPlayer
 var hitplayer : AudioStreamPlayer
 @export var label: String
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -56,6 +59,10 @@ func playHit():
 
 func _on_bullet_hit():
 	self.playHit()
+
+# close enough to normalized distribution
+func getDamage() -> int:
+	return int(round(randi_range(self.shotMinDamage * 10 - 5, self.shotMaxDamage * 10 + 4) / 10.0))
 
 # should generally be overwritten
 func getPossibleUpgrades() -> Array[Upgrade]:

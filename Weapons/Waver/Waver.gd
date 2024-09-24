@@ -12,6 +12,8 @@ var bulletScene: PackedScene
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	super()  # Call the parent class's _ready() function
+	self.shotMinDamage = 3.0
+	self.shotMaxDamage = 9.0
 	bulletScene = load("res://Weapons/Waver/waver_bullet.tscn")
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -28,6 +30,7 @@ func _process(delta):
 			newBullet.speed = self.shotSpeed
 			newBullet.maxAmplitude = self.shotMaxAmplitude
 			newBullet.phasespeed = self.shotPhasespeed
+			newBullet.damage = self.getDamage()
 			self.find_parent("Space").add_child(newBullet)
 			nextDirection *= -1
 			newBullet.connect("hit", Callable(self, "_on_bullet_hit"))

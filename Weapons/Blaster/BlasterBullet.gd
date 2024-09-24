@@ -6,7 +6,6 @@ class_name BlasterBullet
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	super()
-	self.damage = 2
 	pass # Replace with function body.
 
 

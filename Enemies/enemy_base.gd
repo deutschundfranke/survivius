@@ -5,7 +5,7 @@ var movement: Vector2
 var direction: float
 var acceleration: Vector2
 var phase:int = 1
-@export var health = 5
+@export var health = 15
 @export var tint_duration: float = 0.1
 
 # Timer to manage the tint duration
@@ -62,14 +62,14 @@ func _process(delta):
 			shader_material.set_shader_parameter("tint_strength", 0.0)
 		
 # should be in base enemy class?
-func take_damage(amount):
+func take_damage(amount, bulletVelocity : Vector2):
 	health -= amount
 	CollectibleLayer.addDamageNumberAt(amount, self.global_position)
 	self.tint_white()
 	if health <= 0:
 		die()
 	else:
-		self.knockBack(400, 0.06, Vector2(1,0))
+		self.knockBack(400, 0.06, bulletVelocity.normalized())
 		
 
 func knockBack(strength : float, duration: float, direction : Vector2):

@@ -3,7 +3,7 @@ class_name UBERBullet
 
 var speedX = 200
 var speedY = 0
-var velocity = Vector2()
+# var velocity = Vector2()
 var accelerationX : float = 0.0
 var accelerationY : float = 0.0
 var direction : float = 0.0
@@ -17,6 +17,7 @@ var isHoming : bool = false
 var homingTurnSpeed : float = 0
 var homingTarget : EnemyBase
 var numberPenetrate : int = 0
+var duration : float = 15
 
 var basePosition : Vector2;
 var deltaPosition : Vector2;
@@ -31,6 +32,10 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	
+	# if bullet is slowing down, make it stop
+	if (self.speedX < 0 && accelerationX > 0 && self.speedX + accelerationX * delta > 0):
+		accelerationX = 0
+		speedX = 0
 	self.speedX += accelerationX * delta
 	self.speedY += accelerationY * delta
 	
@@ -80,6 +85,12 @@ func _process(delta):
 		self.queue_free()
 	if (self.position.y > viewport_size.y + 100):
 		self.queue_free()
+		
+	# duration show down
+	self.duration -= delta
+	if (self.duration <= 0):
+		self.queue_free()
+	
 		
 func setDirection(_direction):
 	self.phaseDirection = _direction

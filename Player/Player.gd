@@ -10,7 +10,7 @@ signal levelIncreased(newLevel: int)
 @export var level:int = 1;
 @export var exp_current : int = 0;
 @export var exp_needed : int = 0;
-@export var exp_factor : float = 10.0
+@export var exp_factor : float = 30.0
 @export var modifier_maxspeed : float = 1.10;
 @export var modifier_cooldown : float = 0.95;
 @export var collectPlayer : AudioStreamPlayer;
@@ -35,6 +35,7 @@ var moveMode = 'mouse'
 func _ready():
 	self.targetPos = self.position
 	self.exp_needed = self.level * 10;
+	weapons[1].firing = true
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):

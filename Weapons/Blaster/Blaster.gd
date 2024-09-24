@@ -3,13 +3,14 @@ extends WeaponBase
 @export var shotDelay = 1.0
 @export var shotCooldown = 0.0
 @export var shotSpeed = 200
-@export var shotDamage = 2
 
 var bulletScene: PackedScene
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	super()  # Call the parent class's _ready() function
+	self.shotMinDamage = 5.0
+	self.shotMaxDamage = 8.0
 	bulletScene = load("res://Weapons/Blaster/blaster_bullet.tscn")
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -20,9 +21,11 @@ func _process(delta):
 			shotCooldown += shotDelay
 			# shoot!
 			# print('Shoot!')
+			var damage : int = self.getDamage()
 			var newBullet = bulletScene.instantiate()
 			newBullet.speed = self.shotSpeed
 			newBullet.position = self.global_position
+			newBullet.damage = damage
 			self.find_parent("Space").add_child(newBullet)
 			newBullet.connect("hit", Callable(self, "_on_bullet_hit"))
 			

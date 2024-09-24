@@ -1,6 +1,6 @@
 extends WeaponBase
 
-@export var shotDelay = 0.6
+@export var shotDelay = 0.4
 @export var shotCooldown = 0.0
 var nextDirection = 1;
 
@@ -9,6 +9,8 @@ var bulletScene: PackedScene
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	super()  # Call the parent class's _ready() function
+	self.shotMinDamage = 10.0
+	self.shotMaxDamage = 20.0
 	bulletScene = load("res://Weapons/UpDownBomb/updownbomb_bullet.tscn")
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

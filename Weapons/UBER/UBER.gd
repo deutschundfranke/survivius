@@ -284,3 +284,33 @@ func configWeapon():
 		self.isAutoaim = 0
 		self.autoaimSpeed = 0
 		self.homingTurnSpeed = 200
+	elif (weaponConfig == 9):
+		self.shotDelay = 10
+		self.initialSpeed = 900
+		self.damage = 5
+		self.accelerationX = 0
+		self.bulletsPerBurst = 100
+		self.burstDelay = 0.04
+		self.spreadRandom = 3
+		self.spreadFixed = 0
+		self.waveAmplitude = 0
+		self.phaseSpeed = 0
+		self.isHoming = 0
+		self.isAutoaim = 0
+		self.autoaimSpeed = 0
+		self.homingTurnSpeed = 0
+	elif (weaponConfig == 10):
+		self.shotDelay = 1.5
+		self.initialSpeed = -80
+		self.damage = 5
+		self.accelerationX = 20
+		self.bulletsPerBurst = 2
+		self.burstDelay = 0
+		self.spreadRandom = 0
+		self.spreadFixed = 35
+		self.waveAmplitude = 0
+		self.phaseSpeed = 0
+		self.isHoming = 0
+		self.isAutoaim = 0
+		self.autoaimSpeed = 0
+		self.homingTurnSpeed = 0
