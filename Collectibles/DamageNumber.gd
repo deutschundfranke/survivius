@@ -38,3 +38,12 @@ func _process(delta):
 func setValue(value : int):
 	self.value = value
 	self.label.text =  str(self.value)
+	var saturation = value / 10.0
+	var hue = 0.3 - minf(0.3,value / 20.0)
+	hue = 0.166
+	var alpha = 1
+	var v = 1.0
+	var color = Color.from_hsv(hue, saturation, v, alpha)
+	self.label.modulate = color
+	var scale = 1 + (value / 10.0)
+	self.label.scale = Vector2(scale, scale)
