@@ -26,10 +26,14 @@ func _process(delta):
 	if players.size() > 0:
 		var playership : Node2D = players[0]
 		var distance : float = playership.global_position.distance_to(self.global_position)
-		var speed = 250
-		if (distance < 120):
+		var speed = playership.collection_speed
+		var global_speed = playership.collection_global_speed
+		if (distance < playership.collection_radius):
 			var direction = (playership.global_position - global_position).normalized()
 			global_position += direction * speed * delta
+		if (global_speed > 0):
+			var direction = (playership.global_position - global_position).normalized()
+			global_position += direction * global_speed * delta
 		if (distance < 40):
 			playership.gainEXP(self.value)
 			self.queue_free()

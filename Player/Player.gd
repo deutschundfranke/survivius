@@ -17,6 +17,9 @@ signal levelIncreased(newLevel: int)
 @export var levelupPlayer : AudioStreamPlayer;
 @export var hitPlayer : AudioStreamPlayer;
 @export var tint_duration: float = 0.5
+@export var collection_radius : float = 120
+@export var collection_speed : float = 250
+@export var collection_global_speed : float = 0
 var health : int = 3;
 @export var health_max : int = 3;
 
@@ -136,6 +139,10 @@ func getPossibleUpgrades() -> Array[Upgrade]:
 	list.append(Upgrade.new(
 		"ship", "speed", "Speed up!", Color.YELLOW, '>>'
 	))
+	# collection radius 
+	list.append(Upgrade.new(
+		"ship", "collection", "Collect up!", Color.GRAY, '++'
+	))
 	
 	for weapon in self.enabledWeapons():
 		list.append_array(weapon.getPossibleUpgrades())
@@ -149,6 +156,8 @@ func applyUpgrade(upgrade: Upgrade):
 			self.addNewWeapon(upgrade.subtarget)
 		["ship", "speed"]:
 			self.maxSpeed *= self.modifier_maxspeed
+		["ship", "collection"]:
+			self.collection_radius += 100
 		["ship", "health"]:
 			self.heal(1)
 		["all_weapons", "cooldown"]:

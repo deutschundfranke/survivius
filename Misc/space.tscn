@@ -105,6 +105,7 @@ phaseSpeed = 5.0
 isAutoaim = true
 autoaimSpeed = 200.0
 homingTurnSpeed = 66.0
+shotMinDamage = 1.0
 label = "UB"
 
 [node name="UBER2" parent="PlayerShip" instance=ExtResource("8_hki4g")]

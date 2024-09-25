@@ -99,7 +99,7 @@ func spawnBullet(index: int):
 	newBullet.waveAmplitude = self.waveAmplitude
 	newBullet.phaseSpeed = self.phaseSpeed
 	newBullet.setDirection(self.phaseDirection)
-	newBullet.damage = self.damage
+	newBullet.damage = self.getDamage()
 	
 	self.find_parent("Space").add_child(newBullet)
 	newBullet.connect("hit", Callable(self, "_on_bullet_hit"))
