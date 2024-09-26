@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://coovny051e74p"]
+[gd_scene load_steps=32 format=3 uid="uid://coovny051e74p"]
 
 [ext_resource type="Script" path="res://Misc/space.gd" id="1_qyus3"]
 [ext_resource type="PackedScene" uid="uid://x74hfhsk438q" path="res://UI/Timer.tscn" id="2_bgj5x"]
@@ -28,6 +28,7 @@
 [ext_resource type="PackedScene" uid="uid://bdknda1ua5hke" path="res://Shop/shop.tscn" id="24_xhr0c"]
 [ext_resource type="PackedScene" uid="uid://du8cnvjyjobt8" path="res://Shop/gate.tscn" id="27_cp8hy"]
 [ext_resource type="PackedScene" uid="uid://6074j5pa8ffc" path="res://Shop/gate_separator.tscn" id="28_e2k0s"]
+[ext_resource type="Texture2D" uid="uid://qn3etscgn0mq" path="res://sprites/Powerup.png" id="29_k2yrf"]
 
 [sub_resource type="Curve" id="Curve_vr3y8"]
 _data = [Vector2(0, 1), 0.0, -1.02792, 0, 0, Vector2(0.993174, 0), -1.291, 0.0, 0, 0]
@@ -206,5 +207,17 @@ position = Vector2(1, 936)
 
 [node name="Node2D3" parent="GateExample" instance=ExtResource("28_e2k0s")]
 position = Vector2(1, 1438)
+
+[node name="Powerup" type="Sprite2D" parent="GateExample"]
+position = Vector2(2, 235)
+texture = ExtResource("29_k2yrf")
+
+[node name="Powerup2" type="Sprite2D" parent="GateExample"]
+position = Vector2(2, 712)
+texture = ExtResource("29_k2yrf")
+
+[node name="Powerup3" type="Sprite2D" parent="GateExample"]
+position = Vector2(2, 1193)
+texture = ExtResource("29_k2yrf")
 
 [connection signal="clicked" from="." to="PlayerShip" method="setTargetPos"]
