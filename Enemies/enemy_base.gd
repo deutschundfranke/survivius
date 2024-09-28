@@ -63,6 +63,8 @@ func _process(delta):
 		
 # should be in base enemy class?
 func take_damage(amount, bulletVelocity : Vector2):
+	# overkill damage value is capped at health
+	amount = mini(amount, health)
 	health -= amount
 	CollectibleLayer.addDamageNumberAt(amount, self.global_position)
 	self.tint_white()
@@ -83,4 +85,9 @@ func tint_white():
 	tint_timer = tint_duration
 	
 func die():
+	var scene : PackedScene = load('res://Enemies/Explosion.tscn')
+	var explosion : Explosion = scene.instantiate()
+	explosion.global_position = self.global_position
+	self.find_parent("Space").add_child(explosion)
+	
 	self.exited_screen.emit(self)
