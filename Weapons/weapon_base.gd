@@ -17,7 +17,7 @@ func _ready():
 	soundplayer.volume_db = -20
 	add_child(soundplayer)
 	hitplayer = AudioStreamPlayer.new()
-	hitplayer.volume_db = -6
+	hitplayer.volume_db = -16
 	add_child(hitplayer)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
