@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://bni4gx36lt2y5"]
 
 [ext_resource type="Script" path="res://Enemies/Explosion.gd" id="1_3p4d4"]
-[ext_resource type="Texture2D" uid="uid://dqoccak6ysu7e" path="res://sprites/shrimp.png" id="2_6lqhc"]
+[ext_resource type="Texture2D" uid="uid://hto5hijepjq4" path="res://sprites/Enemy_01.png" id="2_ipib2"]
 
 [sub_resource type="Gradient" id="Gradient_jsi1a"]
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
@@ -11,19 +11,19 @@ script = ExtResource("1_3p4d4")
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="."]
 emitting = false
-amount = 30
+amount = 10
 lifetime = 0.3
 one_shot = true
 explosiveness = 1.0
 randomness = 1.0
-texture = ExtResource("2_6lqhc")
+texture = ExtResource("2_ipib2")
 direction = Vector2(0, 0)
 spread = 180.0
 gravity = Vector2(0, 0)
 initial_velocity_min = 300.0
 initial_velocity_max = 500.0
-damping_min = 2000.0
-damping_max = 2000.0
-scale_amount_min = 0.05
-scale_amount_max = 0.08
+damping_min = 1400.0
+damping_max = 1400.0
+scale_amount_min = 0.15
+scale_amount_max = 0.3
 color_ramp = SubResource("Gradient_jsi1a")

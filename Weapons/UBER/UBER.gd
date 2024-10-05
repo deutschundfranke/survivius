@@ -1,4 +1,5 @@
 extends WeaponBase
+class_name UBER
 
 @export var shotDelay : float = 1.0
 @export var shotCooldown : float = 0.0
@@ -21,6 +22,8 @@ var autoaimDirection : float = 0;
 var autoaimTarget : float = 0;
 @export var homingTurnSpeed : float = 0
 @export var isCenteraim : bool = false
+@export var isBeam : bool = false
+@export var duration : float = 15
 @export var numberPenetrate : int = 0
 @export var direction : float = 0
 @export var weaponConfig : int = 1
@@ -43,8 +46,8 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	if (weaponConfig != currentWeaponConfig):
-		configWeapon()
+	#if (weaponConfig != currentWeaponConfig):
+	#	configWeapon()
 	if (self.firing):
 		shotCooldown -= delta
 		if (shotCooldown <= 0.0):
@@ -100,6 +103,8 @@ func spawnBullet(index: int):
 	newBullet.phaseSpeed = self.phaseSpeed
 	newBullet.setDirection(self.phaseDirection)
 	newBullet.damage = self.getDamage()
+	newBullet.duration = self.duration
+	newBullet.isBeam = self.isBeam
 	
 	self.find_parent("Space").add_child(newBullet)
 	newBullet.connect("hit", Callable(self, "_on_bullet_hit"))
@@ -314,3 +319,23 @@ func configWeapon():
 		self.isAutoaim = 0
 		self.autoaimSpeed = 0
 		self.homingTurnSpeed = 0
+		self.isBeam = 0
+	elif (weaponConfig == 11):
+		self.shotDelay = 0.75
+		self.initialSpeed = 10000
+		self.damage = 4
+		self.shotMinDamage = 2.0
+		self.shotMaxDamage = 4.0
+		self.accelerationX = 0
+		self.bulletsPerBurst = 1
+		self.burstDelay = 0
+		self.spreadRandom = 0
+		self.spreadFixed = 0
+		self.waveAmplitude = 0
+		self.phaseSpeed = 0
+		self.isHoming = 0
+		self.isAutoaim = 0
+		self.autoaimSpeed = 400
+		self.homingTurnSpeed = 0
+		self.isBeam = 1
+		self.duration = 1

@@ -38,7 +38,7 @@ var moveMode = 'mouse'
 func _ready():
 	self.targetPos = self.position
 	self.exp_needed = self.level * 10;
-	weapons[1].firing = true
+	#weapons[1].firing = true
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -115,9 +115,9 @@ func getPossibleUpgrades() -> Array[Upgrade]:
 		var choices = self.availableWeapons()
 		choices.shuffle()
 		choices = choices.slice(0, 2)
-		list.append_array(choices.map(func (choice: WeaponBase) -> Upgrade:
+		list.append_array(choices.map(func (choice: Dictionary) -> Upgrade:
 			return Upgrade.new(
-				"ship", "new_weapon", "New " + choice.name, Color.RED, "W+\n" + choice.label, choice.label
+				"ship", "new_weapon", "New " + choice.get("name"), Color.RED, "W+\n" + choice.get("label"), choice.get("label")
 			)
 		))
 		# return directly; no other upgrade choices make sense
@@ -173,10 +173,15 @@ func enabledWeapons() -> Array[WeaponBase]:
 		return weapon.firing
 	)
 
-func availableWeapons() -> Array[WeaponBase]:
-	return self.weapons.filter(func (weapon):
-		return !weapon.firing
-	)
+func availableWeapons() -> Array:
+	var weapon_data : Array = self.find_parent("Space").find_child("Shop").weapon_data
+	if weapon_data.size() == 0:
+		print("JSON data is empty or failed to load.")
+		return []
+	return weapon_data
+	#return self.weapons.filter(func (weapon):
+	#	return !weapon.firing
+	#)
 
 func findWeaponByLabel(label: String) -> WeaponBase:
 	return self.weapons.filter(func (weapon: WeaponBase):
@@ -184,9 +189,10 @@ func findWeaponByLabel(label: String) -> WeaponBase:
 	)[0]
 
 func addNewWeapon(which: String):
-	var weapon = findWeaponByLabel(which)
-	if (weapon && !weapon.firing):
-		weapon.startFiring()
+	self.find_parent("Space").find_child("Shop").attach_weapon_to_player(which)
+	#var weapon = findWeaponByLabel(which)
+	#if (weapon && !weapon.firing):
+	#	weapon.startFiring()
 
 func getHit(damage : int):
 	self.find_parent("Space").find_child("Camera2D").start_shake()

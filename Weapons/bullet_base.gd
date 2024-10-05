@@ -21,4 +21,6 @@ func _on_CollisionArea_area_entered(area):
 		area.get_parent().take_damage(self.damage, self.velocity)
 		emit_signal("hit") # signal approach
 		# emit_signal("hit_enemy", area) # signal approach
+		if ("isBeam" in self && self.isBeam):
+			return
 		queue_free()  # Optionally, you can free the bullet after hitting the enemy

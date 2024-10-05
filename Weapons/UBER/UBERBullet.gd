@@ -18,6 +18,7 @@ var homingTurnSpeed : float = 0
 var homingTarget : EnemyBase
 var numberPenetrate : int = 0
 var duration : float = 15
+var isBeam : bool = false
 
 var basePosition : Vector2;
 var deltaPosition : Vector2;
@@ -31,6 +32,21 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	
+	if (self.isBeam):
+		# Placeholder
+		$Sprite2D.position.x = 12
+		$Area2D.position.x = 12
+		
+		self.scale = Vector2(50,1)
+		self.duration -= delta
+		if (self.duration <= 0):
+			self.queue_free()
+		var players = get_tree().get_nodes_in_group("Player")
+		if players.size() > 0:
+			var playership : Node2D = players[0]
+			# self.global_position = playership.global_position
+		
 	
 	# if bullet is slowing down, make it stop
 	if (self.speedX < 0 && accelerationX > 0 && self.speedX + accelerationX * delta > 0):
@@ -60,6 +76,8 @@ func _process(delta):
 	
 	self.basePosition += velocity * delta;
 	# position += velocity * delta
+	
+	self.rotation = angle_radians
 	
 	# wave movement
 	# Calculate sine wave displacement perpendicular to the velocity direction
