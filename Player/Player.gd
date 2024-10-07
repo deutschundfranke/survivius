@@ -7,6 +7,7 @@ signal levelIncreased(newLevel: int)
 @export var verticalOnly: bool
 @export var maxSpeed = 100
 @export var weapons: Array[WeaponBase] = []
+@export var armory: Armory = null
 @export var level:int = 1;
 @export var exp_current : int = 0;
 @export var exp_needed : int = 0;
@@ -115,19 +116,19 @@ func getPossibleUpgrades() -> Array[Upgrade]:
 		var choices = self.availableWeapons()
 		choices.shuffle()
 		choices = choices.slice(0, 2)
-		list.append_array(choices.map(func (choice: Dictionary) -> Upgrade:
+		list.append_array(choices.map(func (choice: WeaponBase) -> Upgrade:
 			return Upgrade.new(
-				"ship", "new_weapon", "New " + choice.get("name"), Color.RED, "W+\n" + choice.get("label"), choice.get("label")
+				"ship", "new_weapon", "New " + choice.name, Color.RED, "W+\n" + choice.label, choice.label
 			)
 		))
 		# return directly; no other upgrade choices make sense
 		return list
 		
-	# if there are still weapons unclaimed, offer one of them: 
-	if (self.availableWeapons().size() > 0):
-		var weapon = self.availableWeapons().pick_random()
+	# if there are still weapons unclaimed, offer one of them:
+	var availableWeapon = self.pickRandomAvailableWeapon()
+	if availableWeapon:
 		list.append(Upgrade.new(
-			"ship", "new_weapon", "New " + weapon.name, Color.RED, "W+\n" + weapon.label, weapon.label
+			"ship", "new_weapon", "New " + availableWeapon.name, Color.RED, "W+\n" + availableWeapon.label, availableWeapon.label
 		))
 		
 	# only ask for health if we could use some healing
@@ -150,7 +151,6 @@ func getPossibleUpgrades() -> Array[Upgrade]:
 	return list
 
 func applyUpgrade(upgrade: Upgrade):
-	print("Upgrade ", upgrade.name)
 	match [upgrade.target, upgrade.feature]:
 		["ship", "new_weapon"]:
 			self.addNewWeapon(upgrade.subtarget)
@@ -174,25 +174,31 @@ func enabledWeapons() -> Array[WeaponBase]:
 	)
 
 func availableWeapons() -> Array:
-	var weapon_data : Array = self.find_parent("Space").find_child("Shop").weapon_data
-	if weapon_data.size() == 0:
-		print("JSON data is empty or failed to load.")
-		return []
-	return weapon_data
-	#return self.weapons.filter(func (weapon):
-	#	return !weapon.firing
-	#)
+	if self.armory:
+		var x = armory.weapons.duplicate()
+		return x
+	return []
+
+func pickRandomAvailableWeapon() -> WeaponBase:
+	if not self.armory:
+		return null
+	return self.armory.weapons.pick_random()
 
 func findWeaponByLabel(label: String) -> WeaponBase:
-	return self.weapons.filter(func (weapon: WeaponBase):
-		return weapon.label == label
-	)[0]
+	if self.armory:
+		return self.armory.findWeaponByLabel(label)
+	return null
 
-func addNewWeapon(which: String):
-	self.find_parent("Space").find_child("Shop").attach_weapon_to_player(which)
-	#var weapon = findWeaponByLabel(which)
-	#if (weapon && !weapon.firing):
-	#	weapon.startFiring()
+func addNewWeapon(label: String):
+	var weapon = null
+	if self.armory:
+		weapon = self.armory.findWeaponByLabel(label) 
+	if weapon:
+		if self.armory:
+			self.armory.removeWeapon(weapon)
+		self.weapons.push_back(weapon)
+		self.add_child(weapon)
+		weapon.startFiring()
 
 func getHit(damage : int):
 	self.find_parent("Space").find_child("Camera2D").start_shake()
