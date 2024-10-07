@@ -63,6 +63,27 @@ func _process(delta):
 		if (self.isAutoaim):
 			rotate_turret_towards_target(delta)
 
+func configFromData(data: Dictionary):
+	self.shotDelay = data.get("shotDelay")
+	self.initialSpeed = data.get("initialSpeed")
+	self.shotMinDamage = data.get("shotMinDamage")
+	self.shotMaxDamage = data.get("shotMaxDamage")
+	self.accelerationX = data.get("accelerationX")
+	self.accelerationY = data.get("accelerationY")
+	self.bulletsPerBurst = data.get("bulletsPerBurst")
+	self.burstDelay = data.get("burstDelay")
+	self.spreadRandom = data.get("spreadRandom")
+	self.spreadFixed = data.get("spreadFixed")
+	self.waveAmplitude = data.get("waveAmplitude")
+	self.phaseSpeed = data.get("phaseSpeed")
+	self.isHoming = data.get("isHoming")
+	self.isAutoaim = data.get("isAutoaim")
+	self.isCenteraim = data.get("isCenteraim")
+	self.isBeam = data.get("isBeam")
+	self.autoaimSpeed = data.get("autoaimSpeed")
+	self.homingTurnSpeed = data.get("homingTurnSpeed")
+	self.duration = data.get("duration")
+
 func spawnBullet(index: int):
 	var newBullet = bulletScene.instantiate()
 	newBullet.position = self.global_position

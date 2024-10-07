@@ -32,30 +32,8 @@ func removeWeapon(weapon: WeaponBase):
 func weapon_from_data(weaponData : Dictionary) -> WeaponBase:
 	var weaponScene : PackedScene = load(weaponData.get("resource"))
 	# should be dynamic Class type?
-	var weapon : UBER = weaponScene.instantiate()
-	
-	weapon.name = weaponData.get("name")
-	weapon.label = weaponData.get("label")
-	
-	weapon.shotDelay = weaponData.get("shotDelay")
-	weapon.initialSpeed = weaponData.get("initialSpeed")
-	weapon.shotMinDamage = weaponData.get("shotMinDamage")
-	weapon.shotMaxDamage = weaponData.get("shotMaxDamage")
-	weapon.accelerationX = weaponData.get("accelerationX")
-	weapon.accelerationY = weaponData.get("accelerationY")
-	weapon.bulletsPerBurst = weaponData.get("bulletsPerBurst")
-	weapon.burstDelay = weaponData.get("burstDelay")
-	weapon.spreadRandom = weaponData.get("spreadRandom")
-	weapon.spreadFixed = weaponData.get("spreadFixed")
-	weapon.waveAmplitude = weaponData.get("waveAmplitude")
-	weapon.phaseSpeed = weaponData.get("phaseSpeed")
-	weapon.isHoming = weaponData.get("isHoming")
-	weapon.isAutoaim = weaponData.get("isAutoaim")
-	weapon.isCenteraim = weaponData.get("isCenteraim")
-	weapon.isBeam = weaponData.get("isBeam")
-	weapon.autoaimSpeed = weaponData.get("autoaimSpeed")
-	weapon.homingTurnSpeed = weaponData.get("homingTurnSpeed")
-	weapon.duration = weaponData.get("duration")
+	var weapon : WeaponBase = weaponScene.instantiate()
+	weapon.initFromData(weaponData)
 	
 	return weapon
 	

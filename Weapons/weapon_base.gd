@@ -24,6 +24,18 @@ func _ready():
 func _process(delta):
 	pass
 
+# probably don't override, unless you have very specific needs,
+# look at `configFromData` instead
+func initFromData(data: Dictionary):
+	self.name = data.get("name")
+	self.label = data.get("label")
+	self.configFromData(data.get("config"))
+
+# this is the one to override
+func configFromData(data: Dictionary):
+	self.shotMinDamage = data.get("shotMinDamage")
+	self.shotMaxDamage = data.get("shotMaxDamage")
+
 func startFiring():
 	firing = true
 	
