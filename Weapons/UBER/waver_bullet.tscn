@@ -1,11 +1,11 @@
 [gd_scene load_steps=3 format=3 uid="uid://dhuqtsbnpreov"]
 
-[ext_resource type="Script" path="res://Weapons/Waver/WaverBullet.gd" id="1_fyqrb"]
+[ext_resource type="Script" path="res://Weapons/UBER/UBERBullet.gd" id="1_46v2y"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1cblt"]
 
 [node name="WaverBullet" type="Node2D"]
-script = ExtResource("1_fyqrb")
+script = ExtResource("1_46v2y")
 
 [node name="Area2D" type="Area2D" parent="."]
 

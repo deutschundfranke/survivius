@@ -9,6 +9,7 @@ var firing = false
 var soundplayer : AudioStreamPlayer
 var hitplayer : AudioStreamPlayer
 @export var label: String
+var bulletScene: PackedScene
 
 
 # Called when the node enters the scene tree for the first time.
@@ -29,6 +30,7 @@ func _process(delta):
 func initFromData(data: Dictionary):
 	self.name = data.get("name")
 	self.label = data.get("label")
+	self.bulletScene = load(data.bulletResource)
 	self.configFromData(data.get("config"))
 
 # this is the one to override

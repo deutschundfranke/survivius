@@ -88,7 +88,7 @@
 	  "duration": 15
 	},
 	"resource": "res://Weapons/UBER/UBER.tscn",
-	"bulletResource": "res://Weapons/UBER/UBER_bullet.tscn",
+	"bulletResource": "res://Weapons/UBER/waver_bullet.tscn",
 	"sound": "res://sounds/laser1.mp3",
 	"hitSound": "res://sounds/enemy_hit_basedrum1.mp3"
   },
@@ -97,7 +97,7 @@
 	"name": "Spread Wave",
 	"label": "SWV",
 	"resource": "res://Weapons/UBER/UBER.tscn",
-	"bulletResource": "res://Weapons/UBER/UBER_bullet.tscn",
+	"bulletResource": "res://Weapons/UBER/waver_bullet.tscn",
 	"sound": "res://sounds/laser1.mp3",
 	"hitSound": "res://sounds/enemy_hit_basedrum1.mp3",
 	"config": {
@@ -128,7 +128,7 @@
 	"name": "Rocket",
 	"label": "RO",
 	"resource": "res://Weapons/UBER/UBER.tscn",
-	"bulletResource": "res://Weapons/UBER/UBER_bullet.tscn",
+	"bulletResource": "res://Weapons/UBER/updownbomb_bullet.tscn",
 	"sound": "res://sounds/laser1.mp3",
 	"hitSound": "res://sounds/enemy_hit_basedrum1.mp3",
 	"config": {
@@ -158,7 +158,7 @@
 	"name": "Circle Shot",
 	"label": "CIR",
 	"resource": "res://Weapons/UBER/UBER.tscn",
-	"bulletResource": "res://Weapons/UBER/UBER_bullet.tscn",
+	"bulletResource": "res://Weapons/UBER/waver_bullet.tscn",
 	"sound": "res://sounds/laser1.mp3",
 	"hitSound": "res://sounds/enemy_hit_basedrum1.mp3",
 	"config": {
@@ -218,7 +218,7 @@
 	"name": "Homing Missile",
 	"label": "HM",
 	"resource": "res://Weapons/UBER/UBER.tscn",
-	"bulletResource": "res://Weapons/UBER/UBER_bullet.tscn",
+	"bulletResource": "res://Weapons/UBER/updownbomb_bullet.tscn",
 	"sound": "res://sounds/laser1.mp3",
 	"hitSound": "res://sounds/enemy_hit_basedrum1.mp3",
 	"config": {
@@ -278,7 +278,7 @@
 	"name": "Mines",
 	"label": "MIN",
 	"resource": "res://Weapons/UBER/UBER.tscn",
-	"bulletResource": "res://Weapons/UBER/UBER_bullet.tscn",
+	"bulletResource": "res://Weapons/UBER/blaster_bullet.tscn",
 	"sound": "res://sounds/laser1.mp3",
 	"hitSound": "res://sounds/enemy_hit_basedrum1.mp3",
 	"config": {

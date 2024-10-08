@@ -26,19 +26,16 @@ var autoaimTarget : float = 0;
 @export var duration : float = 15
 @export var numberPenetrate : int = 0
 @export var direction : float = 0
-@export var weaponConfig : int = 1
 
 var bullets_fired = 0
 var firing_burst = false
 # Reference to the Timer node
 var timer
-var currentWeaponConfig : int = 0
-var bulletScene: PackedScene
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	super()  # Call the parent class's _ready() function
-	bulletScene = load("res://Weapons/UBER/UBER_bullet.tscn")
+	
 	# Initialize the Timer node
 	timer = Timer.new()
 	add_child(timer)
@@ -46,8 +43,6 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	#if (weaponConfig != currentWeaponConfig):
-	#	configWeapon()
 	if (self.firing):
 		shotCooldown -= delta
 		if (shotCooldown <= 0.0):
@@ -200,163 +195,3 @@ func rotate_turret_towards_target(delta: float) -> void:
 	else:
 		# Rotate in the shortest direction towards the target
 		self.autoaimDirection += sign(angle_difference) * rotation_step
-
-func configWeapon():
-	currentWeaponConfig = weaponConfig
-	if (weaponConfig == 1):
-		self.shotDelay = 0.8
-		self.initialSpeed = 600
-		self.damage = 1
-		self.accelerationX = 0
-		self.bulletsPerBurst = 5
-		self.burstDelay = 0
-		self.spreadRandom = 0
-		self.spreadFixed = 35
-		self.waveAmplitude = 0
-		self.phaseSpeed = 0
-		self.isHoming = 0
-		self.isAutoaim = 0
-	elif (weaponConfig == 2):
-		self.shotDelay = 1.2
-		self.initialSpeed = 1000
-		self.damage = 1
-		self.accelerationX = -400
-		self.bulletsPerBurst = 8
-		self.burstDelay = 0
-		self.spreadRandom = 4
-		self.spreadFixed = 0
-		self.waveAmplitude = 0
-		self.phaseSpeed = 0
-		self.isHoming = 0
-		self.isAutoaim = 0
-	elif (weaponConfig == 3):
-		self.shotDelay = 0.5
-		self.initialSpeed = 600
-		self.damage = 1
-		self.accelerationX = 0
-		self.bulletsPerBurst = 2
-		self.burstDelay = 0
-		self.spreadRandom = 0
-		self.spreadFixed = 90
-		self.waveAmplitude = 0
-		self.phaseSpeed = 0
-		self.isHoming = 0
-		self.isAutoaim = 0
-	elif (weaponConfig == 4):
-		self.shotDelay = 0.5
-		self.initialSpeed = 700
-		self.damage = 1
-		self.accelerationX = 0
-		self.bulletsPerBurst = 3
-		self.burstDelay = 0.1
-		self.spreadRandom = 0
-		self.spreadFixed = 20
-		self.waveAmplitude = 50
-		self.phaseSpeed = 10
-		self.isHoming = 0
-		self.isAutoaim = 0
-	elif (weaponConfig == 5):
-		self.shotDelay = 2
-		self.initialSpeed = 200
-		self.damage = 8
-		self.accelerationX = 800
-		self.bulletsPerBurst = 1
-		self.burstDelay = 0
-		self.spreadRandom = 0
-		self.spreadFixed = 0
-		self.waveAmplitude = 0
-		self.phaseSpeed = 0
-		self.isHoming = 0
-		self.isAutoaim = 0
-	elif (weaponConfig == 6):
-		self.shotDelay = 3
-		self.initialSpeed = 800
-		self.damage = 2
-		self.accelerationX = 0
-		self.bulletsPerBurst = 30
-		self.burstDelay = 0
-		self.spreadRandom = 0
-		self.spreadFixed = 180
-		self.waveAmplitude = 0
-		self.phaseSpeed = 0
-		self.isHoming = 0
-		self.isAutoaim = 0
-	elif (weaponConfig == 7):
-		self.shotDelay = 0.3
-		self.initialSpeed = 700
-		self.damage = 1
-		self.accelerationX = 0
-		self.bulletsPerBurst = 2
-		self.burstDelay = 0
-		self.spreadRandom = 0
-		self.spreadFixed = 3
-		self.waveAmplitude = 0
-		self.phaseSpeed = 0
-		self.isHoming = 0
-		self.isAutoaim = 1
-		self.autoaimSpeed = 200
-	elif (weaponConfig == 8):
-		self.shotDelay = 1
-		self.initialSpeed = 500
-		self.damage = 5
-		self.accelerationX = 700
-		self.bulletsPerBurst = 1
-		self.burstDelay = 0
-		self.spreadRandom = 0
-		self.spreadFixed = 0
-		self.waveAmplitude = 0
-		self.phaseSpeed = 0
-		self.isHoming = 1
-		self.isAutoaim = 0
-		self.autoaimSpeed = 0
-		self.homingTurnSpeed = 200
-	elif (weaponConfig == 9):
-		self.shotDelay = 10
-		self.initialSpeed = 900
-		self.damage = 5
-		self.accelerationX = 0
-		self.bulletsPerBurst = 100
-		self.burstDelay = 0.04
-		self.spreadRandom = 3
-		self.spreadFixed = 0
-		self.waveAmplitude = 0
-		self.phaseSpeed = 0
-		self.isHoming = 0
-		self.isAutoaim = 0
-		self.autoaimSpeed = 0
-		self.homingTurnSpeed = 0
-	elif (weaponConfig == 10):
-		self.shotDelay = 1.5
-		self.initialSpeed = -80
-		self.damage = 5
-		self.accelerationX = 20
-		self.bulletsPerBurst = 2
-		self.burstDelay = 0
-		self.spreadRandom = 0
-		self.spreadFixed = 35
-		self.waveAmplitude = 0
-		self.phaseSpeed = 0
-		self.isHoming = 0
-		self.isAutoaim = 0
-		self.autoaimSpeed = 0
-		self.homingTurnSpeed = 0
-		self.isBeam = 0
-	elif (weaponConfig == 11):
-		self.shotDelay = 0.75
-		self.initialSpeed = 10000
-		self.damage = 4
-		self.shotMinDamage = 2.0
-		self.shotMaxDamage = 4.0
-		self.accelerationX = 0
-		self.bulletsPerBurst = 1
-		self.burstDelay = 0
-		self.spreadRandom = 0
-		self.spreadFixed = 0
-		self.waveAmplitude = 0
-		self.phaseSpeed = 0
-		self.isHoming = 0
-		self.isAutoaim = 0
-		self.autoaimSpeed = 400
-		self.homingTurnSpeed = 0
-		self.isBeam = 1
-		self.duration = 1

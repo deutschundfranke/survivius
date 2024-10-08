@@ -1,8 +1,0 @@
-[gd_scene load_steps=3 format=3 uid="uid://c66cfox0t28ij"]
-
-[ext_resource type="Script" path="res://Weapons/Waver/Waver.gd" id="1_n5k53"]
-[ext_resource type="AudioStream" uid="uid://cfwcyukq5htc2" path="res://sounds/waver1.mp3" id="2_p71i6"]
-
-[node name="Waver" type="Node2D"]
-script = ExtResource("1_n5k53")
-sound = ExtResource("2_p71i6")

@@ -1,12 +1,11 @@
 [gd_scene load_steps=3 format=3 uid="uid://c6iv14grom86c"]
 
-[ext_resource type="Script" path="res://Weapons/UpDownBomb/UpDownBombBullet.gd" id="1_3v300"]
+[ext_resource type="Script" path="res://Weapons/UBER/UBERBullet.gd" id="1_k2pjg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1cblt"]
 
 [node name="UpDownBomb" type="Node2D"]
-script = ExtResource("1_3v300")
-speed = 800
+script = ExtResource("1_k2pjg")
 
 [node name="Area2D" type="Area2D" parent="."]
 
