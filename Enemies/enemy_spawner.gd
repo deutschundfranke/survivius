@@ -31,6 +31,10 @@ func on_enemy_exited(enemy: EnemyBase):
 	enemy.queue_free()
 	self.num_enemies_on_screen -= 1
 	
+func hook_up_enemy(enemy: EnemyBase):
+	enemy.exited_screen.connect(self.on_enemy_exited)
+	self.find_parent("Space").add_child(enemy)
+	
 func spawn_enemy():
 	if (self.num_enemies_on_screen >= self.max_enemies):
 		# print ("no enemies for you!")
@@ -54,9 +58,7 @@ func spawn_enemy():
 		var viewport = get_viewport_rect().size
 		new_enemy.position.x = viewport.x + 100
 		new_enemy.position.y = self.rand.randf_range(100, viewport.y-100)
-		new_enemy.exited_screen.connect(self.on_enemy_exited)
-		self.find_parent("Space").add_child(new_enemy)
-		
+		self.hook_up_enemy(new_enemy)
 		
 	elif (self.enemy_type == 2):
 		self.enemy_scene = load('res://Enemies/enemy2.tscn')
@@ -67,8 +69,7 @@ func spawn_enemy():
 		new_enemy.position.y = 100
 		if (side == 0):
 			new_enemy.position.y = viewport.y - 100
-		new_enemy.exited_screen.connect(self.on_enemy_exited)
-		self.find_parent("Space").add_child(new_enemy)
+		self.hook_up_enemy(new_enemy)
 		
 	elif (self.enemy_type == 3):
 		self.enemy_scene = load('res://Enemies/enemy3.tscn')
@@ -83,5 +84,4 @@ func spawn_enemy():
 		
 		new_enemy.position.x = -50
 		new_enemy.position.y = newY
-		new_enemy.exited_screen.connect(self.on_enemy_exited)
-		self.find_parent("Space").add_child(new_enemy)
+		self.hook_up_enemy(new_enemy)

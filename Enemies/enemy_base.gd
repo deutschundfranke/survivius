@@ -23,7 +23,10 @@ signal exited_screen(who: EnemyBase)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass
+	var area: Area2D = self.find_child("Area2D")
+	if (area):
+		print("I can haz area")
+		area.body_entered.connect(onBodyEntered)
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -42,15 +45,15 @@ func _process(delta):
 		self.exited_screen.emit(self)
 		
 	# check player collision
-	var players = get_tree().get_nodes_in_group("Player")
-	if players.size() > 0:
-		var playership : Node2D = players[0]
-		var distance : float = playership.global_position.distance_to(self.global_position)
-		if (distance < 40):
-			playership.getHit(1)
-			self.die()
+	#var players = get_tree().get_nodes_in_group("Player")
+	#if players.size() > 0:
+		#var playership : Node2D = players[0]
+		#var distance : float = playership.global_position.distance_to(self.global_position)
+		#if (distance < 40):
+			#playership.getHit(1)
+			#self.die()
 	
-		# If the tint timer is active, decrease it
+	# If the tint timer is active, decrease it
 	if tint_timer > 0:
 		tint_timer -= delta
 		
@@ -91,3 +94,11 @@ func die():
 	self.find_parent("Space").add_child(explosion)
 	
 	self.exited_screen.emit(self)
+
+func onBodyEntered(body: PhysicsBody2D):
+	print("something hit")
+	if body.is_in_group("Player"):
+		var player: Player = body as Player
+		if (player):
+			player.getHit(1)
+			self.die()

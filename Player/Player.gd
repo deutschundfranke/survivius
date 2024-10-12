@@ -1,4 +1,4 @@
-extends Area2D
+extends CharacterBody2D
 class_name Player
 
 signal expGained(added: int, currentTotal: int, maxTotal: int)
@@ -31,7 +31,6 @@ var tint_timer: float = 0.0
 @onready var shader_material: ShaderMaterial = sprite.material as ShaderMaterial
 
 var targetPos: Vector2
-var velocity: Vector2 = Vector2()  # Initial velocity
 @export var accelleration: float = 2000  # Acceleration rate in pixels per second squared
 var moveMode = 'mouse'
 
@@ -90,7 +89,8 @@ func accellerate(delta):
 	if (velocity.length_squared() > maxSpeed * maxSpeed):
 		velocity = velocity.normalized() * maxSpeed
 	
-	global_position += velocity * delta
+	#global_position += velocity * delta
+	self.move_and_slide()
 	global_position = global_position.clamp(Vector2(0, 0), get_viewport_rect().size)
 	
 func gainEXP(value:int):

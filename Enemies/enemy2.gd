@@ -3,6 +3,7 @@ class_name Enemy2
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	super._ready()
 	self.sprite = $Sprite2D  # Adjust the path as needed
 	self.shader_material = sprite.material as ShaderMaterial
 	self.phase = 1

@@ -9,7 +9,7 @@ var upgrade: Upgrade
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	var area: Area2D = self.find_child("Area2D")
-	area.area_entered.connect(onAreaEntered)
+	area.body_entered.connect(onBodyEntered)
 	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -30,6 +30,6 @@ func setColor(color: Color):
 	var polygon: Polygon2D = get_node("Area2D/Polygon2D")
 	polygon.color = color
 
-func onAreaEntered(area: Area2D):
-	if area.is_in_group("Player"):
+func onBodyEntered(body: PhysicsBody2D):
+	if body.is_in_group("Player"):
 		self.collected.emit(self)

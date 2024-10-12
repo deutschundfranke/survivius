@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://c6bu7wj88r5da"]
+[gd_scene load_steps=5 format=3 uid="uid://c6bu7wj88r5da"]
 
 [ext_resource type="Script" path="res://Player/Player.gd" id="1_davmy"]
 [ext_resource type="Shader" path="res://Player/player_ship.gdshader" id="2_ml1b1"]
@@ -8,19 +8,17 @@
 shader = ExtResource("2_ml1b1")
 shader_parameter/tint_strength = 0.0
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_x40vj"]
-size = Vector2(55, 62)
-
-[node name="PlayerShip" type="Area2D"]
+[node name="PlayerShip" type="CharacterBody2D" groups=["Player"]]
+collision_mask = 32
+motion_mode = 1
 script = ExtResource("1_davmy")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_xe53f")
 texture = ExtResource("3_cwk7b")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-0.5, 0)
-shape = SubResource("RectangleShape2D_x40vj")
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-24, -28, -24, 28, 26, 0)
 
 [node name="Lifebar" type="Node2D" parent="."]
 position = Vector2(-28, 33)

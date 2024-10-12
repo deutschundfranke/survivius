@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://6074j5pa8ffc"]
+[gd_scene load_steps=14 format=3 uid="uid://6074j5pa8ffc"]
 
 [ext_resource type="Texture2D" uid="uid://cfocm47nm0gsr" path="res://sprites/Powerup Separator.png" id="1_ntotj"]
 
@@ -80,6 +80,8 @@ animations = [{
 "speed": 12.0
 }]
 
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_dkl4s"]
+
 [node name="Node2D" type="Node2D"]
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -87,3 +89,11 @@ sprite_frames = SubResource("SpriteFrames_tkmpd")
 autoplay = "default"
 frame = 4
 frame_progress = 0.964787
+
+[node name="AnimatableBody2D" type="AnimatableBody2D" parent="."]
+collision_layer = 32
+collision_mask = 0
+physics_material_override = SubResource("PhysicsMaterial_dkl4s")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="AnimatableBody2D"]
+polygon = PackedVector2Array(-2, -41, -46, 2, -1, 47, 43, 2)
