@@ -19,6 +19,8 @@ var homingTarget : EnemyBase
 var numberPenetrate : int = 0
 var duration : float = 15
 var isBeam : bool = false
+var spawnsChildren : bool = false
+var isChild : bool = false
 
 var basePosition : Vector2;
 var deltaPosition : Vector2;

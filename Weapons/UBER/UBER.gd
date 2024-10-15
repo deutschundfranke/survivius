@@ -26,6 +26,7 @@ var autoaimTarget : float = 0;
 @export var duration : float = 15
 @export var numberPenetrate : int = 0
 @export var direction : float = 0
+var spawnsChildren : bool = true
 
 var bullets_fired = 0
 var firing_burst = false
@@ -124,6 +125,27 @@ func spawnBullet(index: int):
 	
 	self.find_parent("Space").add_child(newBullet)
 	newBullet.connect("hit", Callable(self, "_on_bullet_hit"))
+	newBullet.connect("die_signal", Callable(self, "_on_bullet_die"))
+	
+	playSound()
+
+func spawnChildBullet(bullet:BulletBase, index:int):
+	var newBullet = bulletScene.instantiate()
+	newBullet.position = bullet.global_position
+	newBullet.speedX = 500
+	newBullet.accelerationX = self.accelerationX
+	newBullet.accelerationY = self.accelerationY
+	
+	newBullet.direction = index * 60
+	
+	var angle_radians = deg_to_rad(newBullet.direction)
+	var forward_velocity = Vector2(cos(angle_radians) * 50, sin(angle_radians) * 50)
+	newBullet.position += forward_velocity
+	newBullet.spawnsChildren = false
+	newBullet.damage = self.getDamage()
+	
+	self.find_parent("Space").add_child(newBullet)
+	newBullet.connect("hit", Callable(self, "_on_bullet_hit"))
 	
 	playSound()
 
@@ -195,3 +217,9 @@ func rotate_turret_towards_target(delta: float) -> void:
 	else:
 		# Rotate in the shortest direction towards the target
 		self.autoaimDirection += sign(angle_difference) * rotation_step
+		
+func _on_bullet_die(bullet:BulletBase):
+	"""if (self.spawnsChildren):
+		for i in range(6):
+			self.spawnChildBullet(bullet, i)
+	print("DIE")"""

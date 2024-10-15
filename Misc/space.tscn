@@ -12,7 +12,7 @@
 [ext_resource type="AudioStream" uid="uid://ckg2781ssob6v" path="res://sounds/collect.mp3" id="12_3ua6m"]
 [ext_resource type="PackedScene" uid="uid://c16k2hhudyieg" path="res://Enemies/enemy_spawner.tscn" id="12_xby4b"]
 [ext_resource type="AudioStream" uid="uid://b2vx2nhtcw1go" path="res://sounds/levelup.mp3" id="13_a5jps"]
-[ext_resource type="PackedScene" path="res://Misc/collectible_layer.tscn" id="13_ss2p7"]
+[ext_resource type="PackedScene" uid="uid://dbcerjy6ugbc0" path="res://Misc/collectible_layer.tscn" id="13_ss2p7"]
 [ext_resource type="Texture2D" uid="uid://d1y7lpe4e1p48" path="res://sprites/movepath.png" id="14_kctyg"]
 [ext_resource type="AudioStream" uid="uid://b0ikqlei4e0u0" path="res://sounds/player_hit2.mp3" id="14_rrnob"]
 [ext_resource type="PackedScene" uid="uid://cpef3o316vl8g" path="res://Weapons/armory.tscn" id="20_j6s06"]

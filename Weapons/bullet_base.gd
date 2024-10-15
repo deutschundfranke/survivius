@@ -3,6 +3,7 @@ class_name BulletBase
 
 signal hit_enemy(enemy)
 signal hit()
+signal die_signal()
 
 var damage : float = 1
 var velocity : Vector2 = Vector2(1,0)
@@ -23,4 +24,8 @@ func _on_CollisionArea_area_entered(area):
 		# emit_signal("hit_enemy", area) # signal approach
 		if ("isBeam" in self && self.isBeam):
 			return
-		queue_free()  # Optionally, you can free the bullet after hitting the enemy
+		self.die()  # Optionally, you can free the bullet after hitting the enemy
+		
+func die():
+	emit_signal("die_signal", self)
+	queue_free()

@@ -5,8 +5,6 @@ extends WeaponBase
 @export var shotSpeed = 200
 @export var shotMaxDistance = 200
 
-var bulletScene: PackedScene
-
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	super()  # Call the parent class's _ready() function

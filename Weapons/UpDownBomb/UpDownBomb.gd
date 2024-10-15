@@ -4,8 +4,6 @@ extends WeaponBase
 @export var shotCooldown = 0.0
 var nextDirection = 1;
 
-var bulletScene: PackedScene
-
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	super()  # Call the parent class's _ready() function
