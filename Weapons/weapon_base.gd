@@ -10,6 +10,7 @@ var soundplayer : AudioStreamPlayer
 var hitplayer : AudioStreamPlayer
 @export var label: String
 var bulletScene: PackedScene
+var upgradeLevels: Dictionary = {}
 
 
 # Called when the node enters the scene tree for the first time.
@@ -32,11 +33,16 @@ func initFromData(data: Dictionary):
 	self.label = data.get("label")
 	self.bulletScene = load(data.bulletResource)
 	self.configFromData(data.get("config"))
+	self.upgradesFromData(data.get("upgrades"))
 
 # this is the one to override
 func configFromData(data: Dictionary):
 	self.shotMinDamage = data.get("shotMinDamage")
 	self.shotMaxDamage = data.get("shotMaxDamage")
+	
+func upgradesFromData(data: Array):
+	for item : Dictionary in data:
+		self.upgradeLevels[item.label] = item
 
 func startFiring():
 	firing = true
@@ -80,15 +86,28 @@ func getDamage() -> int:
 
 # should generally be overwritten
 func getPossibleUpgrades() -> Array[Upgrade]:
-	return [
-		Upgrade.new(
-			"weapon", "cooldown", "Cool Down " + self.name, Color.CYAN, self.label + "\n" + "CD", self.label
+	var upgrades : Array[Upgrade] = [];
+	for key in self.upgradeLevels:
+		var item : Dictionary = self.upgradeLevels[key]
+		upgrades.push_back(
+			Upgrade.new(
+				"weapon", item.label, item.name + " " + self.name, Color.CYAN, self.label + "\n" + item.label, self.label
+			)
 		)
-	]
+	return upgrades
+	#return [
+		#Upgrade.new(
+		#	"weapon", "cooldown", "Cool Down " + self.name, Color.CYAN, self.label + "\n" + "CD", self.label
+		#)
+	#]
 
 # should also be overwritten
 func applyUpgrade(upgrade: Upgrade) -> void:
-	if (upgrade.feature == "cooldown"):
-		self.shotDelay *= 0.95
-	else:
-		push_warning("Unknown upgrade feature ", upgrade.feature)
+	var item : Dictionary = self.upgradeLevels[upgrade.feature]
+	item['level'] = item['level'] + 1;
+	for prop in item['properties']:
+		self[prop['prop']] = prop['values'][item['level']]
+	#if (upgrade.feature == "cooldown"):
+	#	self.shotDelay *= 0.95
+	#else:
+#		push_warning("Unknown upgrade feature ", upgrade.feature)

@@ -185,9 +185,15 @@ func pickRandomAvailableWeapon() -> WeaponBase:
 	return self.armory.weapons.pick_random()
 
 func findWeaponByLabel(label: String) -> WeaponBase:
+	var foundWeapon : WeaponBase = null;
 	if self.armory:
-		return self.armory.findWeaponByLabel(label)
-	return null
+		foundWeapon = self.armory.findWeaponByLabel(label)
+	# if not found in armory, find in self
+	if (foundWeapon == null):
+		for weapon : WeaponBase in self.weapons:
+			if (weapon.label == label):
+				foundWeapon = weapon
+	return foundWeapon
 
 func addNewWeapon(label: String):
 	var weapon = null
