@@ -48,6 +48,9 @@ func spawn_enemy():
 		max = 2
 	if (time > 120): 
 		max = 3
+	if (time > 180): 
+		max = 4
+		spawn_delay = maxf(0.1, 0.5 - ((time - 180) / 600))
 	
 	self.enemy_type = self.rand.randi_range(1, max)
 	
@@ -84,4 +87,15 @@ func spawn_enemy():
 		
 		new_enemy.position.x = -50
 		new_enemy.position.y = newY
+		self.hook_up_enemy(new_enemy)
+		
+	elif (self.enemy_type == 4):
+		self.enemy_scene = load('res://Enemies/enemy4.tscn')
+		var new_enemy: Enemy4 = self.enemy_scene.instantiate()
+		var viewport = get_viewport_rect().size
+		new_enemy.position.x = viewport.x + 100
+		if (self.rand.randi_range(0,1) == 1):
+			new_enemy.position.y = self.rand.randf_range(100, 100 + (viewport.y / 5))
+		else:
+			new_enemy.position.y = self.rand.randf_range(viewport.y-100 - (viewport.y / 5), viewport.y-100)
 		self.hook_up_enemy(new_enemy)
