@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://bj3t1t41olq0t" path="res://sprites/Shot_Player_02.png" id="2_qqet2"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_qepqt"]
+radius = 19.3132
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_sfqi7"]
 radius = 14.0
@@ -12,6 +13,7 @@ radius = 14.0
 script = ExtResource("1_pb0bj")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(2.14782, 2.14782)
 texture = ExtResource("2_qqet2")
 
 [node name="Area2D" type="Area2D" parent="."]

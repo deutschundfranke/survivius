@@ -57,13 +57,14 @@ func _process(delta):
 					self.spawnBullet(i)
 			else:
 				self.startBurst()
-			phaseDirection = -phaseDirection
+			
 		if (self.isAutoaim):
 			rotate_turret_towards_target(delta)
 
 func configFromData(data: Dictionary):
 	self.shotDelay = data.get("shotDelay")
 	self.initialSpeed = data.get("initialSpeed")
+	self.initialSpeedRandom = data.get("initialSpeedRandom")
 	self.shotMinDamage = data.get("shotMinDamage")
 	self.shotMaxDamage = data.get("shotMaxDamage")
 	self.accelerationX = data.get("accelerationX")
@@ -87,7 +88,7 @@ func configFromData(data: Dictionary):
 func spawnBullet(index: int):
 	var newBullet = bulletScene.instantiate()
 	newBullet.position = self.global_position
-	newBullet.speedX = self.initialSpeed + randf_range(-self.initialSpeedRandom,self.initialSpeedRandom)
+	newBullet.speedX = self.initialSpeed + randi_range(-self.initialSpeedRandom,self.initialSpeedRandom)
 	newBullet.accelerationX = self.accelerationX
 	newBullet.accelerationY = self.accelerationY
 	
@@ -122,6 +123,7 @@ func spawnBullet(index: int):
 			newDirection += random_angle
 		newBullet.direction = newDirection
 	
+	self.phaseDirection = -self.phaseDirection
 	newBullet.waveAmplitude = self.waveAmplitude
 	newBullet.phaseSpeed = self.phaseSpeed
 	newBullet.setDirection(self.phaseDirection)

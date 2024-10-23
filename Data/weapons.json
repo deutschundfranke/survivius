@@ -1,4 +1,66 @@
 [
+	{
+	"id": 0,
+	"name": "Blaster",
+	"label": "BL",
+	"resource": "res://Weapons/UBER/UBER.tscn",
+	"bulletResource": "res://Weapons/UBER/UBER_bullet.tscn",
+	"sound": "res://sounds/laser1.mp3",
+	"hitSound": "res://sounds/enemy_hit_basedrum1.mp3",
+	"config": {
+	  "shotDelay": 0.8,
+	  "initialSpeed": 900,
+	  "initialSpeedRandom": 0,
+	  "damage": 1,
+	  "shotMinDamage": 6,
+	  "shotMaxDamage": 10,
+	  "accelerationX": 0,
+	  "accelerationY": 0,
+	  "bulletsPerBurst": 1,
+	  "burstDelay": 0,
+	  "spreadRandom": 0,
+	  "spreadFixed": 0,
+	  "waveAmplitude": 0,
+	  "phaseSpeed": 0,
+	  "isHoming": 0,
+	  "isAutoaim": 0,
+	  "isCenteraim": 0,
+	  "isBeam": 0,
+	  "autoaimSpeed": 0,
+	  "homingTurnSpeed": 0,
+	  "duration": 15,
+	  "numberPenetrate": 0,
+	  "areaOfEffect": 0
+	},
+	"upgrades":[
+		{
+			"name":"damage",
+			"label":"BST",
+			"level":-1,
+			"properties":[
+				{
+					"prop":"shotMinDamage",
+					"values":[8,10,12,14,16,18,20,22,24,26]
+				},
+				{
+					"prop":"shotMaxDamage",
+					"values":[12,14,16,18,20,22,24,26,28,30]
+				}
+			]
+		},
+		{
+			"name":"cooldown",
+			"label":"CD",
+			"level":-1,
+			"properties":[
+				{
+					"prop":"shotDelay",
+					"values":[0.70,0.60,0.50,0.4,0.35,0.3,0.25,0.2,0.15,0.12]
+				}
+			]
+		}
+	]
+  },
   {
 	"id": 1,
 	"name": "Spread",
@@ -13,13 +75,13 @@
 	  "initialSpeedRandom": 0,
 	  "damage": 1,
 	  "shotMinDamage": 2,
-	  "shotMaxDamage": 8,
+	  "shotMaxDamage": 6,
 	  "accelerationX": 0,
 	  "accelerationY": 0,
-	  "bulletsPerBurst": 5,
+	  "bulletsPerBurst": 3,
 	  "burstDelay": 0,
 	  "spreadRandom": 0,
-	  "spreadFixed": 35,
+	  "spreadFixed": 25,
 	  "waveAmplitude": 0,
 	  "phaseSpeed": 0,
 	  "isHoming": 0,
@@ -36,26 +98,26 @@
 		{
 			"name":"burst",
 			"label":"BST",
-			"level":0,
+			"level":-1,
 			"properties":[
 				{
 					"prop":"bulletsPerBurst",
-					"values":[6,7,8,9,10,11,12,13,14,15]
+					"values":[4,5,6,7,8,9,10,11,12,13]
 				},
 				{
 					"prop":"spreadFixed",
-					"values":[35,40,45,50,55,60,65,70,75,80]
+					"values":[25,30,35,40,45,50,55,60,65,70]
 				}
 			]
 		},
 		{
 			"name":"cooldown",
 			"label":"CD",
-			"level":0,
+			"level":-1,
 			"properties":[
 				{
 					"prop":"shotDelay",
-					"values":[0.70,0.60,0.50,0.4,0.35,0.3,0.25,0.2,0.15,0.12]
+					"values":[0.70,0.62,0.55,0.48,0.42,0.38,0.34,0.30,0.25,0.2]
 				}
 			]
 		}
@@ -72,11 +134,11 @@
 	"config": {
 	  "shotDelay": 1.2,
 	  "initialSpeed": 1000,
-	  "initialSpeedRandom": 80,
+	  "initialSpeedRandom": 100,
 	  "damage": 1,
 	  "shotMinDamage": 2,
 	  "shotMaxDamage": 6,
-	  "accelerationX": -200,
+	  "accelerationX": -100,
 	  "accelerationY": 0,
 	  "bulletsPerBurst": 4,
 	  "burstDelay": 0,
@@ -90,7 +152,7 @@
 	  "isBeam": 0,
 	  "autoaimSpeed": 0,
 	  "homingTurnSpeed": 0,
-	  "duration": 2,
+	  "duration": 3,
 	  "numberPenetrate": 1,
 	  "areaOfEffect": 0
 	},
@@ -98,22 +160,30 @@
 		{
 			"name":"burst",
 			"label":"BST",
-			"level":0,
+			"level":-1,
 			"properties":[
 				{
 					"prop":"bulletsPerBurst",
-					"values":[10,12,14,16,18,20,22,24,26,28]
+					"values":[6,8,10,12,14,16,18,20,22,24]
+				},
+				{
+					"prop":"spreadRandom",
+					"values":[5,6,7,8,9,10,11,12,13,14,15]
 				}
 			]
 		},
 		{
 			"name":"speed",
 			"label":"SP",
-			"level":0,
+			"level":-1,
 			"properties":[
 				{
 					"prop":"initialSpeed",
-					"values":[1200,1400,1600,1800,2000,2200,2400,2600,2800,3000]
+					"values":[1100,1200,1300,1400,1500,1600,1700,1800,1900,2000]
+				},
+				{
+					"prop":"numberPenetrate",
+					"values":[1,1,1,2,2,2,3,3,3,4]
 				}
 			]
 		}
@@ -152,11 +222,11 @@
 		{
 			"name":"damage",
 			"label":"DMG",
-			"level":0,
+			"level":-1,
 			"properties":[
 				{
 					"prop":"shotMinDamage",
-					"values":[4.2,4.4,4.6,4.8,5.0,5.2,5.4,5.6,5.8,6.0]
+					"values":[5,6,7,8,9,10,11,12,13,14]
 				},
 				{
 					"prop":"shotMaxDamage",
@@ -167,7 +237,7 @@
 		{
 			"name":"speed",
 			"label":"SP",
-			"level":0,
+			"level":-1,
 			"properties":[
 				{
 					"prop":"initialSpeed",
@@ -194,19 +264,19 @@
 	"sound": "res://sounds/laser1.mp3",
 	"hitSound": "res://sounds/enemy_hit_basedrum1.mp3",
 	"config": {
-	  "shotDelay": 0.5,
+	  "shotDelay": 0.3,
 	  "initialSpeed": 700,
 	  "initialSpeedRandom": 0,
 	  "damage": 1,
-	  "shotMinDamage": 1.5,
-	  "shotMaxDamage": 2.5,
+	  "shotMinDamage": 1,
+	  "shotMaxDamage": 5,
 	  "accelerationX": 0,
 	  "accelerationY": 0,
-	  "bulletsPerBurst": 3,
+	  "bulletsPerBurst": 2,
 	  "burstDelay": 0.0,
 	  "spreadRandom": 0,
-	  "spreadFixed": 10,
-	  "waveAmplitude": 50,
+	  "spreadFixed": 0,
+	  "waveAmplitude": 30,
 	  "phaseSpeed": 10,
 	  "isHoming": 0,
 	  "isAutoaim": 0,
@@ -215,37 +285,33 @@
 	  "autoaimSpeed": 0,
 	  "homingTurnSpeed": 0,
 	  "duration": 15,
-	  "numberPenetrate": 0,
+	  "numberPenetrate": 3,
 	  "areaOfEffect": 0
 	},
 	"upgrades":[
 		{
 			"name":"wave",
 			"label":"WAV",
-			"level":0,
+			"level":-1,
 			"properties":[
 				{
 					"prop":"waveAmplitude",
-					"values":[55,60,65,70,75,80,85,90,95,100]
+					"values":[40,50,60,70,80,90,100,110,120,130]
 				},
 				{
 					"prop":"phaseSpeed",
-					"values":[11,12,13,14,15,16,17,18,19,20]
+					"values":[12,14,16,18,20,22,24,26,28,30]
 				}
 			]
 		},
 		{
 			"name":"speed",
 			"label":"SP",
-			"level":0,
+			"level":-1,
 			"properties":[
 				{
 					"prop":"initialSpeed",
 					"values":[750,800,850,900,950,1000,1050,1100,1150,1200]
-				},
-				{
-					"prop":"shotDelay",
-					"values":[0.48,0.46,0.44,0.42,0.40,0.38,0.36,0.34,0.32,0.30]
 				}
 			]
 		}
@@ -287,26 +353,37 @@
 		{
 			"name":"damage",
 			"label":"DMG",
-			"level":0,
+			"level":-1,
 			"properties":[
 				{
 					"prop":"shotMinDamage",
-					"values":[9,10,11,12,13,14,15,16,17,18]
+					"values":[10,12,14,16,18,20,22,24,26,28]
 				},
 				{
 					"prop":"shotMaxDamage",
-					"values":[14,16,18,20,22,24,26,28,30,32]
+					"values":[16,20,24,28,32,36,40,44,48,52]
 				}
 			]
 		},
 		{
 			"name":"cooldown",
 			"label":"CD",
-			"level":0,
+			"level":-1,
 			"properties":[
 				{
 					"prop":"shotDelay",
 					"values":[1.8,1.6,1.4,1.2,1.0,0.9,0.8,0.7,0.6,0.5]
+				}
+			]
+		},
+		{
+			"name":"area of effect",
+			"label":"AOE",
+			"level":-1,
+			"properties":[
+				{
+					"prop":"areaOfEffect",
+					"values":[220,240,260,280,300,320,340,360,380,400]
 				}
 			]
 		}
@@ -348,7 +425,7 @@
 		{
 			"name":"burst",
 			"label":"BST",
-			"level":0,
+			"level":-1,
 			"properties":[
 				{
 					"prop":"bulletsPerBurst",
@@ -359,7 +436,7 @@
 		{
 			"name":"cooldown",
 			"label":"CD",
-			"level":0,
+			"level":-1,
 			"properties":[
 				{
 					"prop":"shotDelay",
@@ -405,7 +482,7 @@
 		{
 			"name":"aimspeed",
 			"label":"AIM",
-			"level":0,
+			"level":-1,
 			"properties":[
 				{
 					"prop":"autoaimSpeed",
@@ -420,15 +497,15 @@
 		{
 			"name":"damage",
 			"label":"DMG",
-			"level":0,
+			"level":-1,
 			"properties":[
 				{
 					"prop":"shotMinDamage",
-					"values":[2.2,2.4,2.6,2.8,3.0,3.2,3.4,3.6,3.8,4.0]
+					"values":[3,4,5,6,7,8,9,10,11,12]
 				},
 				{
 					"prop":"shotMaxDamage",
-					"values":[3.3,3.6,3.9,4.2,4.5,4.8,5.1,5.4,5.7,6.0]
+					"values":[5.5,7,8.5,10,11.5,13,14.5,16,17.5,19]
 				}
 			]
 		}
@@ -444,7 +521,7 @@
 	"hitSound": "res://sounds/enemy_hit_basedrum1.mp3",
 	"config": {
 	  "shotDelay": 1,
-	  "initialSpeed": 500,
+	  "initialSpeed": 300,
 	  "initialSpeedRandom": 0,
 	  "shotMinDamage": 6,
 	  "shotMaxDamage": 9,
@@ -470,7 +547,7 @@
 		{
 			"name":"homing",
 			"label":"HOM",
-			"level":0,
+			"level":-1,
 			"properties":[
 				{
 					"prop":"homingTurnSpeed",
@@ -478,14 +555,14 @@
 				},
 				{
 					"prop":"initialSpeed",
-					"values":[550,600,650,700,750,800,850,900,950,1000]
+					"values":[350,400,450,500,550,600,650,700,750,800]
 				}
 			]
 		},
 		{
 			"name":"burst",
 			"label":"BST",
-			"level":0,
+			"level":-1,
 			"properties":[
 				{
 					"prop":"bulletsPerBurst",
@@ -515,8 +592,8 @@
 	  "shotMaxDamage": 6,
 	  "accelerationX": 0,
 	  "accelerationY": 0,
-	  "bulletsPerBurst": 100,
-	  "burstDelay": 0.04,
+	  "bulletsPerBurst": 50,
+	  "burstDelay": 0.05,
 	  "spreadRandom": 3,
 	  "spreadFixed": 0,
 	  "waveAmplitude": 0,
@@ -535,7 +612,7 @@
 		{
 			"name":"cooldown",
 			"label":"CD",
-			"level":0,
+			"level":-1,
 			"properties":[
 				{
 					"prop":"shotDelay",
@@ -546,15 +623,15 @@
 		{
 			"name":"burst",
 			"label":"BST",
-			"level":0,
+			"level":-1,
 			"properties":[
 				{
 					"prop":"bulletsPerBurst",
-					"values":[110,120,130,140,150,160,170,180,190,200]
+					"values":[60,70,80,90,100,110,120,130,140,150]
 				},
 				{
 					"prop":"burstDelay",
-					"values":[0.04,0.04,0.04,0.035,0.035,0.035,0.03,0.03,0.03,0.03]
+					"values":[0.05,0.05,0.04,0.04,0.04,0.035,0.035,0.035,0.03,0.03]
 				}
 			]
 		}
@@ -588,7 +665,7 @@
 	  "isBeam": 0,
 	  "autoaimSpeed": 0,
 	  "homingTurnSpeed": 0,
-	  "duration": 10,
+	  "duration": 6,
 	  "numberPenetrate": 0,
 	  "areaOfEffect": 100
 	},
@@ -596,18 +673,18 @@
 		{
 			"name":"duration",
 			"label":"DUR",
-			"level":0,
+			"level":-1,
 			"properties":[
 				{
 					"prop":"duration",
-					"values":[12,14,16,18,20,22,24,26,28,30]
+					"values":[9,12,15,18,21,24,27,30,33,36]
 				}
 			]
 		},
 		{
 			"name":"burst",
 			"label":"BST",
-			"level":0,
+			"level":-1,
 			"properties":[
 				{
 					"prop":"bulletsPerBurst",
@@ -647,7 +724,7 @@
 	  "isAutoaim": 0,
 	  "isCenteraim": 0,
 	  "isBeam": 1,
-	  "autoaimSpeed": 400,
+	  "autoaimSpeed": 0,
 	  "homingTurnSpeed": 0,
 	  "duration": 1,
 	  "numberPenetrate": 0,
@@ -657,7 +734,7 @@
 		{
 			"name":"damage",
 			"label":"DMG",
-			"level":0,
+			"level":-1,
 			"properties":[
 				{
 					"prop":"shotMinDamage",
@@ -665,14 +742,14 @@
 				},
 				{
 					"prop":"shotMaxDamage",
-					"values":[4.3,4.6,4.9,5.2,5.5,5.8,6.1,6.4,6.7,7.0]
+					"values":[7,10,13,16,19,22,25,28,31,34]
 				}
 			]
 		},
 		{
 			"name":"cooldown",
 			"label":"CD",
-			"level":0,
+			"level":-1,
 			"properties":[
 				{
 					"prop":"shotDelay",
