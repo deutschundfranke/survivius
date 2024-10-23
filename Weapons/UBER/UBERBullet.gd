@@ -17,6 +17,8 @@ var isHoming : bool = false
 var homingTurnSpeed : float = 0
 var homingTarget : EnemyBase
 var numberPenetrate : int = 0
+var areaOfEffect : float = 0
+var areaOfEffectTriggered : bool = false
 var duration : float = 15
 var isBeam : bool = false
 var spawnsChildren : bool = false
@@ -24,6 +26,9 @@ var isChild : bool = false
 
 var basePosition : Vector2;
 var deltaPosition : Vector2;
+
+@onready var sprite = $Sprite2D
+@onready var collision_shape = $Area2D/AreaOfEffect
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -163,3 +168,23 @@ func getNearestEnemy() -> EnemyBase:
 			target = enemy
 			targetdistance = distance
 	return target
+	
+func onAreaOfEffect():
+	if areaOfEffectTriggered:
+		return
+	
+	areaOfEffectTriggered = true
+	
+	collision_shape = CollisionShape2D.new()
+	collision_shape.visible = true
+	$Area2D.add_child(collision_shape)
+	
+	var new_circle_shape = CircleShape2D.new()
+	new_circle_shape.radius = self.areaOfEffect
+
+	collision_shape.shape = new_circle_shape
+	
+	# Queue the bullet for deletion in the overnext frame
+	await get_tree().process_frame # Wait for the next frame
+	await get_tree().process_frame # Wait for the overnext frame
+	self.die()  # Queue the bullet for deletion

@@ -22,10 +22,21 @@ func _on_CollisionArea_area_entered(area):
 		area.get_parent().take_damage(self.damage, self.velocity)
 		emit_signal("hit") # signal approach
 		# emit_signal("hit_enemy", area) # signal approach
+		var will_die : bool = true
 		if ("isBeam" in self && self.isBeam):
-			return
-		self.die()  # Optionally, you can free the bullet after hitting the enemy
+			will_die = false
+		if ("numberPenetrate" in self && self.numberPenetrate > 0):
+			self.numberPenetrate -= 1
+			will_die = false
+		if ("areaOfEffect" in self && self.areaOfEffect > 0):
+			self.onAreaOfEffect()
+			will_die = false
+		if (will_die):
+			self.die()  # Optionally, you can free the bullet after hitting the enemy
 		
 func die():
 	emit_signal("die_signal", self)
 	queue_free()
+	
+func onAreaOfEffect():
+	pass

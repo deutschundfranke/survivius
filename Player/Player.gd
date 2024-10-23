@@ -115,7 +115,7 @@ func getPossibleUpgrades() -> Array[Upgrade]:
 	if (self.enabledWeapons().size() == 0):
 		var choices = self.availableWeapons()
 		choices.shuffle()
-		choices = choices.slice(0, 2)
+		choices = choices.slice(0, 4) # 2
 		list.append_array(choices.map(func (choice: WeaponBase) -> Upgrade:
 			return Upgrade.new(
 				"ship", "new_weapon", "New " + choice.name, Color.RED, "W+\n" + choice.label, choice.label
@@ -157,7 +157,9 @@ func applyUpgrade(upgrade: Upgrade):
 		["ship", "speed"]:
 			self.maxSpeed *= self.modifier_maxspeed
 		["ship", "collection"]:
-			self.collection_radius += 100
+			self.collection_radius += 80
+			self.collection_speed += 20
+			self.collection_global_speed += 5
 		["ship", "health"]:
 			self.heal(1)
 		["all_weapons", "cooldown"]:

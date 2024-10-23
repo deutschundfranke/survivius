@@ -76,7 +76,7 @@ scale = Vector2(1, -1)
 
 [node name="PlayerShip" parent="." node_paths=PackedStringArray("armory", "collectPlayer", "levelupPlayer", "hitPlayer") instance=ExtResource("2_u5wji")]
 z_index = 5
-position = Vector2(280, 699)
+position = Vector2(911, 699)
 maxSpeed = 250
 armory = NodePath("../Armory")
 collectPlayer = NodePath("CollectSound")

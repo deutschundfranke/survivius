@@ -5,6 +5,7 @@ class_name UBER
 @export var shotCooldown : float = 0.0
 @export var damage : int = 1
 @export var initialSpeed : float = 50.0
+@export var initialSpeedRandom : float = 0.0
 @export var accelerationX : float = 0.0
 @export var accelerationY : float = 0.0
 @export var bulletsPerBurst : int = 1.0
@@ -24,7 +25,8 @@ var autoaimTarget : float = 0;
 @export var isCenteraim : bool = false
 @export var isBeam : bool = false
 @export var duration : float = 15
-@export var numberPenetrate : int = 0
+@export var numberPenetrate : int = 1
+@export var areaOfEffect : float = 0.0
 @export var direction : float = 0
 var spawnsChildren : bool = true
 
@@ -79,11 +81,13 @@ func configFromData(data: Dictionary):
 	self.autoaimSpeed = data.get("autoaimSpeed")
 	self.homingTurnSpeed = data.get("homingTurnSpeed")
 	self.duration = data.get("duration")
+	self.numberPenetrate = data.get("numberPenetrate")
+	self.areaOfEffect = data.get("areaOfEffect")
 
 func spawnBullet(index: int):
 	var newBullet = bulletScene.instantiate()
 	newBullet.position = self.global_position
-	newBullet.speedX = self.initialSpeed
+	newBullet.speedX = self.initialSpeed + randf_range(-self.initialSpeedRandom,self.initialSpeedRandom)
 	newBullet.accelerationX = self.accelerationX
 	newBullet.accelerationY = self.accelerationY
 	
@@ -108,13 +112,15 @@ func spawnBullet(index: int):
 	
 	
 	if (bulletsPerBurst > 1):
+		var newDirection = self.direction
+		# first fixed spread
+		if (self.spreadFixed > 0):
+			newDirection = self.direction - self.spreadFixed + ( (self.spreadFixed * 2) / (self.bulletsPerBurst-1)) * index
+		# then add random
 		if (self.spreadRandom > 0):
 			var random_angle = int(randf_range(-self.spreadRandom, self.spreadRandom))
-			var newDirection = self.direction + random_angle
-			newBullet.direction = newDirection
-		elif (self.spreadFixed > 0):
-			var newDirection = self.direction - self.spreadFixed + ( (self.spreadFixed * 2) / (self.bulletsPerBurst-1)) * index
-			newBullet.direction = newDirection
+			newDirection += random_angle
+		newBullet.direction = newDirection
 	
 	newBullet.waveAmplitude = self.waveAmplitude
 	newBullet.phaseSpeed = self.phaseSpeed
@@ -122,6 +128,8 @@ func spawnBullet(index: int):
 	newBullet.damage = self.getDamage()
 	newBullet.duration = self.duration
 	newBullet.isBeam = self.isBeam
+	newBullet.numberPenetrate = self.numberPenetrate
+	newBullet.areaOfEffect = self.areaOfEffect
 	
 	self.find_parent("Space").add_child(newBullet)
 	newBullet.connect("hit", Callable(self, "_on_bullet_hit"))

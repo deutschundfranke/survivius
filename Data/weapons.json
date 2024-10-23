@@ -10,6 +10,7 @@
 	"config": {
 	  "shotDelay": 0.8,
 	  "initialSpeed": 600,
+	  "initialSpeedRandom": 0,
 	  "damage": 1,
 	  "shotMinDamage": 2,
 	  "shotMaxDamage": 8,
@@ -27,7 +28,9 @@
 	  "isBeam": 0,
 	  "autoaimSpeed": 0,
 	  "homingTurnSpeed": 0,
-	  "duration": 15
+	  "duration": 15,
+	  "numberPenetrate": 0,
+	  "areaOfEffect": 0
 	},
 	"upgrades":[
 		{
@@ -69,12 +72,13 @@
 	"config": {
 	  "shotDelay": 1.2,
 	  "initialSpeed": 1000,
+	  "initialSpeedRandom": 80,
 	  "damage": 1,
 	  "shotMinDamage": 2,
 	  "shotMaxDamage": 6,
-	  "accelerationX": -400,
+	  "accelerationX": -200,
 	  "accelerationY": 0,
-	  "bulletsPerBurst": 8,
+	  "bulletsPerBurst": 4,
 	  "burstDelay": 0,
 	  "spreadRandom": 4,
 	  "spreadFixed": 0,
@@ -86,7 +90,9 @@
 	  "isBeam": 0,
 	  "autoaimSpeed": 0,
 	  "homingTurnSpeed": 0,
-	  "duration": 2
+	  "duration": 2,
+	  "numberPenetrate": 1,
+	  "areaOfEffect": 0
 	},
 	"upgrades":[
 		{
@@ -120,6 +126,7 @@
 	"config": {
 	  "shotDelay": 0.5,
 	  "initialSpeed": 600,
+	  "initialSpeedRandom": 0,
 	  "damage": 1,
 	  "shotMinDamage": 4,
 	  "shotMaxDamage": 5,
@@ -137,7 +144,9 @@
 	  "isBeam": 0,
 	  "autoaimSpeed": 0,
 	  "homingTurnSpeed": 0,
-	  "duration": 15
+	  "duration": 15,
+	  "numberPenetrate": 0,
+	  "areaOfEffect": 0
 	},
 	"upgrades":[
 		{
@@ -178,7 +187,7 @@
   },
   {
 	"id": 4,
-	"name": "Spread Wave",
+	"name": "Waver",
 	"label": "SWV",
 	"resource": "res://Weapons/UBER/UBER.tscn",
 	"bulletResource": "res://Weapons/UBER/waver_bullet.tscn",
@@ -187,15 +196,16 @@
 	"config": {
 	  "shotDelay": 0.5,
 	  "initialSpeed": 700,
+	  "initialSpeedRandom": 0,
 	  "damage": 1,
 	  "shotMinDamage": 1.5,
 	  "shotMaxDamage": 2.5,
 	  "accelerationX": 0,
 	  "accelerationY": 0,
 	  "bulletsPerBurst": 3,
-	  "burstDelay": 0.1,
+	  "burstDelay": 0.0,
 	  "spreadRandom": 0,
-	  "spreadFixed": 20,
+	  "spreadFixed": 10,
 	  "waveAmplitude": 50,
 	  "phaseSpeed": 10,
 	  "isHoming": 0,
@@ -204,7 +214,9 @@
 	  "isBeam": 0,
 	  "autoaimSpeed": 0,
 	  "homingTurnSpeed": 0,
-	  "duration": 15
+	  "duration": 15,
+	  "numberPenetrate": 0,
+	  "areaOfEffect": 0
 	},
 	"upgrades":[
 		{
@@ -250,6 +262,7 @@
 	"config": {
 	  "shotDelay": 2,
 	  "initialSpeed": 200,
+	  "initialSpeedRandom": 0,
 	  "shotMinDamage": 8,
 	  "shotMaxDamage": 12,
 	  "accelerationX": 800,
@@ -266,7 +279,9 @@
 	  "isBeam": 0,
 	  "autoaimSpeed": 0,
 	  "homingTurnSpeed": 0,
-	  "duration": 5
+	  "duration": 5,
+	  "numberPenetrate": 0,
+	  "areaOfEffect": 200
 	},
 	"upgrades":[
 		{
@@ -308,6 +323,7 @@
 	"config": {
 	  "shotDelay": 3,
 	  "initialSpeed": 800,
+	  "initialSpeedRandom": 0,
 	  "shotMinDamage": 3,
 	  "shotMaxDamage": 5,
 	  "accelerationX": 0,
@@ -324,7 +340,9 @@
 	  "isBeam": 0,
 	  "autoaimSpeed": 0,
 	  "homingTurnSpeed": 0,
-	  "duration": 5
+	  "duration": 5,
+	  "numberPenetrate": 0,
+	  "areaOfEffect": 0
 	},
 	"upgrades":[
 		{
@@ -362,6 +380,7 @@
 	"config": {
 	  "shotDelay": 0.3,
 	  "initialSpeed": 700,
+	  "initialSpeedRandom": 0,
 	  "shotMinDamage": 2,
 	  "shotMaxDamage": 3,
 	  "accelerationX": 0,
@@ -378,7 +397,9 @@
 	  "isBeam": 0,
 	  "autoaimSpeed": 200,
 	  "homingTurnSpeed": 0,
-	  "duration": 5
+	  "duration": 5,
+	  "numberPenetrate": 0,
+	  "areaOfEffect": 0
 	},
 	"upgrades":[
 		{
@@ -424,6 +445,7 @@
 	"config": {
 	  "shotDelay": 1,
 	  "initialSpeed": 500,
+	  "initialSpeedRandom": 0,
 	  "shotMinDamage": 6,
 	  "shotMaxDamage": 9,
 	  "accelerationX": 700,
@@ -440,7 +462,9 @@
 	  "isBeam": 0,
 	  "autoaimSpeed": 0,
 	  "homingTurnSpeed": 200,
-	  "duration": 10
+	  "duration": 10,
+	  "numberPenetrate": 0,
+	  "areaOfEffect": 80
 	},
 	"upgrades":[
 		{
@@ -486,6 +510,7 @@
 	"config": {
 	  "shotDelay": 10,
 	  "initialSpeed": 900,
+	  "initialSpeedRandom": 0,
 	  "shotMinDamage": 3,
 	  "shotMaxDamage": 6,
 	  "accelerationX": 0,
@@ -502,7 +527,9 @@
 	  "isBeam": 0,
 	  "autoaimSpeed": 0,
 	  "homingTurnSpeed": 0,
-	  "duration": 10
+	  "duration": 10,
+	  "numberPenetrate": 0,
+	  "areaOfEffect": 0
 	},
 	"upgrades":[
 		{
@@ -544,6 +571,7 @@
 	"config": {
 	  "shotDelay": 1.5,
 	  "initialSpeed": -80,
+	  "initialSpeedRandom": 0,
 	  "shotMinDamage": 10,
 	  "shotMaxDamage": 15,
 	  "accelerationX": 20,
@@ -560,7 +588,9 @@
 	  "isBeam": 0,
 	  "autoaimSpeed": 0,
 	  "homingTurnSpeed": 0,
-	  "duration": 10
+	  "duration": 10,
+	  "numberPenetrate": 0,
+	  "areaOfEffect": 100
 	},
 	"upgrades":[
 		{
@@ -602,6 +632,7 @@
 	"config": {
 	  "shotDelay": 0.75,
 	  "initialSpeed": 10000,
+	  "initialSpeedRandom": 0,
 	  "shotMinDamage": 2,
 	  "shotMaxDamage": 4,
 	  "accelerationX": 0,
@@ -618,7 +649,9 @@
 	  "isBeam": 1,
 	  "autoaimSpeed": 400,
 	  "homingTurnSpeed": 0,
-	  "duration": 1
+	  "duration": 1,
+	  "numberPenetrate": 0,
+	  "areaOfEffect": 0
 	},
 	"upgrades":[
 		{

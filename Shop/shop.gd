@@ -4,6 +4,7 @@ class_name Shop
 var barScene: PackedScene
 var cellScene: PackedScene
 var player: Player
+var startingX : int = 1400
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -29,7 +30,8 @@ func spawn():
 	self.add_child(bar)
 	bar.cellScene = cellScene
 	var viewport = get_viewport_rect().size
-	bar.position = Vector2(viewport.x, 0)
+	bar.position = Vector2(self.startingX, 0)
+	self.startingX = viewport.x
 	var upgrades = [
 		Upgrade.new("none", "none", "No Upgrade for you!", Color.BLACK, "X")
 	]
