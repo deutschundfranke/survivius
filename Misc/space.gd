@@ -27,5 +27,6 @@ func _on_viewport_size_changed():
 	# Handle window resize event
 	var viewport_rect = get_viewport().get_visible_rect()
 	var scaled_viewport_size = viewport_rect.size
-	$Expbar.position = Vector2(scaled_viewport_size.x - 50, scaled_viewport_size.y - 50)
+	# need to change shop bar position, probably
+	#$Expbar.position = Vector2(scaled_viewport_size.x - 50, scaled_viewport_size.y - 50)
 	# Do something with the new window size

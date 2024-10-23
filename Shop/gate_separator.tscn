@@ -90,10 +90,10 @@ autoplay = "default"
 frame = 4
 frame_progress = 0.964787
 
-[node name="AnimatableBody2D" type="AnimatableBody2D" parent="."]
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
 collision_layer = 32
 collision_mask = 0
 physics_material_override = SubResource("PhysicsMaterial_dkl4s")
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="AnimatableBody2D"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
 polygon = PackedVector2Array(-2, -41, -46, 2, -1, 47, 43, 2)

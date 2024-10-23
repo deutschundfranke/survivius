@@ -1,8 +1,104 @@
-[gd_scene load_steps=2 format=3 uid="uid://bfsr3t7un2624"]
+[gd_scene load_steps=15 format=3 uid="uid://bfsr3t7un2624"]
 
 [ext_resource type="Script" path="res://Shop/shop_bar.gd" id="1_2ckx2"]
+[ext_resource type="Texture2D" uid="uid://kpc5ta001ihu" path="res://sprites/Powerup Gate.png" id="2_3keqp"]
+[ext_resource type="PackedScene" uid="uid://6074j5pa8ffc" path="res://Shop/gate_separator.tscn" id="3_sijno"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ldabc"]
+atlas = ExtResource("2_3keqp")
+region = Rect2(0, 0, 44, 1440)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_petud"]
+atlas = ExtResource("2_3keqp")
+region = Rect2(44, 0, 44, 1440)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4q5kv"]
+atlas = ExtResource("2_3keqp")
+region = Rect2(88, 0, 44, 1440)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dfwxq"]
+atlas = ExtResource("2_3keqp")
+region = Rect2(132, 0, 44, 1440)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tj85t"]
+atlas = ExtResource("2_3keqp")
+region = Rect2(176, 0, 44, 1440)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e7i2m"]
+atlas = ExtResource("2_3keqp")
+region = Rect2(220, 0, 44, 1440)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gcw3m"]
+atlas = ExtResource("2_3keqp")
+region = Rect2(264, 0, 44, 1440)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iqa7n"]
+atlas = ExtResource("2_3keqp")
+region = Rect2(308, 0, 44, 1440)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_71w8d"]
+atlas = ExtResource("2_3keqp")
+region = Rect2(352, 0, 44, 1440)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nq16b"]
+atlas = ExtResource("2_3keqp")
+region = Rect2(396, 0, 44, 1440)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_t1qc6"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ldabc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_petud")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4q5kv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dfwxq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tj85t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e7i2m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gcw3m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iqa7n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_71w8d")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nq16b")
+}],
+"loop": true,
+"name": &"default",
+"speed": 12.0
+}]
 
 [node name="ShopBar" type="Node2D"]
 script = ExtResource("1_2ckx2")
 
+[node name="TopBeam" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_t1qc6")
+autoplay = "default"
+centered = false
+offset = Vector2(-22, -1440)
+
+[node name="BottomBeam" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_t1qc6")
+autoplay = "default"
+centered = false
+offset = Vector2(-22, 0)
+
 [node name="Cells" type="Node2D" parent="."]
+
+[node name="TopSeparator" parent="." instance=ExtResource("3_sijno")]
+
+[node name="BottomSeparator" parent="." instance=ExtResource("3_sijno")]

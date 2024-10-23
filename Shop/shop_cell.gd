@@ -19,16 +19,17 @@ func _process(delta):
 
 func setUpgrade(upgrade: Upgrade):
 	self.upgrade = upgrade
-	self.setColor(upgrade.color)
+	#self.setColor(upgrade.color)
 	$Label.text = upgrade.name
 
 func setHeight(newHeight: float):
 	self.height = newHeight
 	$Area2D.scale = Vector2(1, self.height/20)
+	$BottomSeparator.position.y = self.height / 2
 
-func setColor(color: Color):
-	var polygon: Polygon2D = get_node("Area2D/Polygon2D")
-	polygon.color = color
+#func setColor(color: Color):
+#	var polygon: Polygon2D = get_node("Area2D/Polygon2D")
+#	polygon.color = color
 
 func onBodyEntered(body: PhysicsBody2D):
 	if body.is_in_group("Player"):

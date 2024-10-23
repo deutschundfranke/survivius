@@ -102,7 +102,6 @@ func gainEXP(value:int):
 		self.exp_needed = self.level * self.exp_factor;
 	var size : float = (self.exp_current / float(self.exp_needed)) * 40;
 	self.expGained.emit(value, self.exp_current, self.exp_needed)
-	self.find_parent("Space").find_child("Expbar").scale = Vector2(1,-size)
 		
 func levelUp():
 	levelupPlayer.play()
