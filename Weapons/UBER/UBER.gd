@@ -84,6 +84,9 @@ func configFromData(data: Dictionary):
 	self.duration = data.get("duration")
 	self.numberPenetrate = data.get("numberPenetrate")
 	self.areaOfEffect = data.get("areaOfEffect")
+	
+	if (self.isAutoaim):
+		$AutoTarget.visible = true
 
 func spawnBullet(index: int):
 	var newBullet = bulletScene.instantiate()
@@ -204,9 +207,17 @@ func calculate_angle_between_positions(A: Vector2, B: Vector2) -> float:
 func rotate_turret_towards_target(delta: float) -> void:
 	
 	var target = self.getNearestEnemy()
+	
 	var angle : float;
 	if (target):
-		angle = self.calculate_angle_between_positions(self.global_position, target.global_position)
+		var targetPoint = target.global_position;
+		# movement prediction
+		var distance = self.global_position.distance_to(targetPoint)
+		# how long to get there
+		var duration = distance / self.initialSpeed; 
+		targetPoint = targetPoint + target.movement * duration;
+		
+		angle = self.calculate_angle_between_positions(self.global_position, targetPoint)
 		self.autoaimTarget = angle
 	else:
 		self.autoaimTarget = 0
@@ -227,6 +238,8 @@ func rotate_turret_towards_target(delta: float) -> void:
 	else:
 		# Rotate in the shortest direction towards the target
 		self.autoaimDirection += sign(angle_difference) * rotation_step
+	
+	$AutoTarget.rotation_degrees = self.autoaimDirection
 		
 func _on_bullet_die(bullet:BulletBase):
 	"""if (self.spawnsChildren):
