@@ -7,6 +7,8 @@ signal die_signal()
 
 var damage : float = 1
 var velocity : Vector2 = Vector2(1,0)
+var hitEnemies : Array = []
+var ignoreEnemies : Array = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -19,6 +21,8 @@ func _process(delta):
 	
 func _on_CollisionArea_area_entered(area):
 	if area.get_parent().is_in_group("enemies"):
+		if (ignoreEnemies.has(area)): return
+		hitEnemies.push_back(area)
 		area.get_parent().take_damage(self.damage, self.velocity)
 		emit_signal("hit") # signal approach
 		# emit_signal("hit_enemy", area) # signal approach

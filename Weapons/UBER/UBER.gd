@@ -19,16 +19,36 @@ class_name UBER
 @export var isHoming : bool = false
 @export var isAutoaim : bool = false
 @export var autoaimSpeed : float = 30
+@export var prediction : float = 0.0
 var autoaimDirection : float = 0;
 var autoaimTarget : float = 0;
 @export var homingTurnSpeed : float = 0
 @export var isCenteraim : bool = false
 @export var isBeam : bool = false
 @export var duration : float = 15
+@export var maxDistance : int = 0
 @export var numberPenetrate : int = 1
 @export var areaOfEffect : float = 0.0
 @export var direction : float = 0
-var spawnsChildren : bool = true
+
+# children config
+@export var maxGenerations : int = 3
+@export var generationBullets : Array = [3,2,1] # how many bullets in which generation
+@export var childrenSpreadFixed : float = 30
+@export var childrenSpreadRandom : float = 0
+@export var childrenDirection : float = 0
+@export var childrenAutoAim : bool = false
+@export var childrenInstant : bool = false
+@export var childrenAreaOfEffect : float = 0.0
+@export var childMinDamage : float = 1
+@export var childMaxDamage : float = 1
+@export var childInitialSpeed : float = 500
+@export var childAccelerationX : float = 0
+@export var childIsHoming : bool = false
+@export var childHomingSpeed : float = 0
+@export var childDuration : float = 15
+@export var childMaxDistance : float = 0
+
 
 var bullets_fired = 0
 var firing_burst = false
@@ -84,7 +104,27 @@ func configFromData(data: Dictionary):
 	self.duration = data.get("duration")
 	self.numberPenetrate = data.get("numberPenetrate")
 	self.areaOfEffect = data.get("areaOfEffect")
-	
+	if (data.has("prediction")): self.prediction = data.get("prediction")
+	if (data.has("maxDistance")): self.maxDistance = data.get("maxDistance")
+	if (data.has("children")):
+		self.maxGenerations = (data.get("children") as Dictionary).get("maxGenerations")
+		var tmpArray : Array = (data.get("children") as Dictionary).get("generationBullets") as Array
+		for i in range(tmpArray.size()):
+			self.generationBullets[i] = tmpArray[i] as int
+		self.childrenSpreadFixed = (data.get("children") as Dictionary).get("childrenSpreadFixed")
+		self.childrenSpreadRandom = (data.get("children") as Dictionary).get("childrenSpreadRandom")
+		self.childrenDirection = (data.get("children") as Dictionary).get("childrenDirection")
+		self.childrenAutoAim = (data.get("children") as Dictionary).get("childrenAutoAim")
+		self.childrenAreaOfEffect = (data.get("children") as Dictionary).get("childrenAreaOfEffect")
+		self.childMinDamage = (data.get("children") as Dictionary).get("childMinDamage")
+		self.childMaxDamage = (data.get("children") as Dictionary).get("childMaxDamage")
+		self.childInitialSpeed = (data.get("children") as Dictionary).get("childInitialSpeed")
+		self.childAccelerationX = (data.get("children") as Dictionary).get("childAccelerationX")
+		self.childIsHoming = (data.get("children") as Dictionary).get("childIsHoming")
+		self.childHomingSpeed = (data.get("children") as Dictionary).get("childHomingSpeed")
+		self.childDuration = (data.get("children") as Dictionary).get("childDuration")
+		self.childMaxDistance = (data.get("children") as Dictionary).get("childMaxDistance")
+		
 	if (self.isAutoaim):
 		$AutoTarget.visible = true
 
@@ -115,16 +155,16 @@ func spawnBullet(index: int):
 			# newBullet.direction = calculate_angle_between_positions(self.global_position, localTarget.global_position)
 	
 	
+	var newDirection = self.direction
 	if (bulletsPerBurst > 1):
-		var newDirection = self.direction
 		# first fixed spread
 		if (self.spreadFixed > 0):
 			newDirection = self.direction - self.spreadFixed + ( (self.spreadFixed * 2) / (self.bulletsPerBurst-1)) * index
-		# then add random
-		if (self.spreadRandom > 0):
-			var random_angle = int(randf_range(-self.spreadRandom, self.spreadRandom))
-			newDirection += random_angle
-		newBullet.direction = newDirection
+	# then add random
+	if (self.spreadRandom > 0):
+		var random_angle = int(randf_range(-self.spreadRandom, self.spreadRandom))
+		newDirection += random_angle
+	newBullet.direction = newDirection
 	
 	self.phaseDirection = -self.phaseDirection
 	newBullet.waveAmplitude = self.waveAmplitude
@@ -132,6 +172,7 @@ func spawnBullet(index: int):
 	newBullet.setDirection(self.phaseDirection)
 	newBullet.damage = self.getDamage()
 	newBullet.duration = self.duration
+	newBullet.maxDistance = self.maxDistance
 	newBullet.isBeam = self.isBeam
 	newBullet.numberPenetrate = self.numberPenetrate
 	newBullet.areaOfEffect = self.areaOfEffect
@@ -142,23 +183,39 @@ func spawnBullet(index: int):
 	
 	playSound()
 
-func spawnChildBullet(bullet:BulletBase, index:int):
+func spawnChildBullet(bullet:BulletBase, generation:int, index:int):
 	var newBullet = bulletScene.instantiate()
 	newBullet.position = bullet.global_position
-	newBullet.speedX = 500
-	newBullet.accelerationX = self.accelerationX
-	newBullet.accelerationY = self.accelerationY
+	newBullet.speedX = self.childInitialSpeed
+	newBullet.accelerationX = self.childAccelerationX
+	newBullet.accelerationY = 0
+	newBullet.childGeneration = generation + 1 
 	
-	newBullet.direction = index * 60
+	var newDirection = bullet.direction
+	# first fixed spread
+	if (self.childrenSpreadFixed > 0):
+		var step = (self.childrenSpreadFixed * 2) / (self.generationBullets[generation]-1)
+		if (self.childrenSpreadFixed == 180): step = (self.childrenSpreadFixed * 2) / (self.generationBullets[generation])
+		newDirection = bullet.direction - self.childrenSpreadFixed + step * index
+	# then add random
+	if (self.childrenSpreadRandom > 0):
+		var random_angle = int(randf_range(-self.childrenSpreadRandom, self.childrenSpreadRandom))
+		newDirection += random_angle
+	newBullet.direction = newDirection
 	
 	var angle_radians = deg_to_rad(newBullet.direction)
-	var forward_velocity = Vector2(cos(angle_radians) * 50, sin(angle_radians) * 50)
+	var forward_velocity = Vector2(cos(angle_radians) * 10, sin(angle_radians) * 10)
 	newBullet.position += forward_velocity
-	newBullet.spawnsChildren = false
-	newBullet.damage = self.getDamage()
+	newBullet.damage = self.getChildDamage()
+	newBullet.duration = self.childDuration
+	newBullet.maxDistance = self.childMaxDistance
+	
+	if (bullet.hitEnemies.size()):
+		newBullet.ignoreEnemies.push_back(bullet.hitEnemies[0])
 	
 	self.find_parent("Space").add_child(newBullet)
 	newBullet.connect("hit", Callable(self, "_on_bullet_hit"))
+	newBullet.connect("die_signal", Callable(self, "_on_bullet_die"))
 	
 	playSound()
 
@@ -215,7 +272,7 @@ func rotate_turret_towards_target(delta: float) -> void:
 		var distance = self.global_position.distance_to(targetPoint)
 		# how long to get there
 		var duration = distance / self.initialSpeed; 
-		targetPoint = targetPoint + target.movement * duration;
+		targetPoint = targetPoint + (target.movement * duration * prediction);
 		
 		angle = self.calculate_angle_between_positions(self.global_position, targetPoint)
 		self.autoaimTarget = angle
@@ -241,7 +298,18 @@ func rotate_turret_towards_target(delta: float) -> void:
 	
 	$AutoTarget.rotation_degrees = self.autoaimDirection
 		
+func getChildDamage() -> int:
+	return int(round(randi_range(self.childMinDamage * 10 - 5, self.childMaxDamage * 10 + 4) / 10.0))
+
+		
 func _on_bullet_die(bullet:BulletBase):
+	if (self.maxGenerations > 0):
+		var generation = bullet.childGeneration
+		if (generation >= self.maxGenerations): return
+		print("generation: "+str(generation))
+		for i in range(self.generationBullets[generation]):
+			self.spawnChildBullet(bullet, generation, i)
+		
 	"""if (self.spawnsChildren):
 		for i in range(6):
 			self.spawnChildBullet(bullet, i)

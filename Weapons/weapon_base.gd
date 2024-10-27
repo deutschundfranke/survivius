@@ -106,7 +106,12 @@ func applyUpgrade(upgrade: Upgrade) -> void:
 	var item : Dictionary = self.upgradeLevels[upgrade.feature]
 	item['level'] = item['level'] + 1;
 	for prop in item['properties']:
-		self[prop['prop']] = prop['values'][item['level']]
+		if (prop['prop'] == "generationBullets"):
+			var tmpArray : Array = prop['values'][item['level']] as Array
+			for i in range(tmpArray.size()):
+				self.generationBullets[i] = tmpArray[i] as int
+		else:
+			self[prop['prop']] = prop['values'][item['level']]
 	#if (upgrade.feature == "cooldown"):
 	#	self.shotDelay *= 0.95
 	#else:

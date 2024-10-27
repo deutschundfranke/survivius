@@ -20,9 +20,10 @@ var numberPenetrate : int = 0
 var areaOfEffect : float = 0
 var areaOfEffectTriggered : bool = false
 var duration : float = 15
+var distance : float = 0
+var maxDistance : float = 0
 var isBeam : bool = false
-var spawnsChildren : bool = false
-var isChild : bool = false
+var childGeneration : int = 0
 
 var basePosition : Vector2;
 var deltaPosition : Vector2;
@@ -82,7 +83,6 @@ func _process(delta):
 	velocity = forward_velocity + sideways_velocity
 	
 	self.basePosition += velocity * delta;
-	# position += velocity * delta
 	
 	self.rotation = angle_radians
 	
@@ -115,6 +115,11 @@ func _process(delta):
 	self.duration -= delta
 	if (self.duration <= 0):
 		self.queue_free()
+		
+	if (self.maxDistance > 0):
+		self.distance += (velocity * delta).length()
+		if (self.distance > self.maxDistance):
+			self.queue_free()
 	
 		
 func setDirection(_direction):

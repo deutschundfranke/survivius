@@ -3,6 +3,7 @@
 	"id": 0,
 	"name": "Blaster",
 	"label": "BL",
+	"active": 0,
 	"resource": "res://Weapons/UBER/UBER.tscn",
 	"bulletResource": "res://Weapons/UBER/UBER_bullet.tscn",
 	"sound": "res://sounds/laser1.mp3",
@@ -65,6 +66,7 @@
 	"id": 1,
 	"name": "Spread",
 	"label": "SPR",
+	"active": 0,
 	"resource": "res://Weapons/UBER/UBER.tscn",
 	"bulletResource": "res://Weapons/UBER/UBER_bullet.tscn",
 	"sound": "res://sounds/laser1.mp3",
@@ -127,6 +129,7 @@
 	"id": 2,
 	"name": "Shotgun",
 	"label": "SHG",
+	"active": 0,
 	"resource": "res://Weapons/UBER/UBER.tscn",
 	"bulletResource": "res://Weapons/UBER/UBER_bullet.tscn",
 	"sound": "res://sounds/laser1.mp3",
@@ -193,6 +196,7 @@
 	"id": 3,
 	"name": "UpDown",
 	"label": "UD",
+	"active": 0,
 	"config": {
 	  "shotDelay": 0.5,
 	  "initialSpeed": 600,
@@ -259,6 +263,7 @@
 	"id": 4,
 	"name": "Waver",
 	"label": "SWV",
+	"active": 0,
 	"resource": "res://Weapons/UBER/UBER.tscn",
 	"bulletResource": "res://Weapons/UBER/waver_bullet.tscn",
 	"sound": "res://sounds/laser1.mp3",
@@ -321,6 +326,7 @@
 	"id": 5,
 	"name": "Rocket",
 	"label": "RO",
+	"active": 0,
 	"resource": "res://Weapons/UBER/UBER.tscn",
 	"bulletResource": "res://Weapons/UBER/updownbomb_bullet.tscn",
 	"sound": "res://sounds/laser1.mp3",
@@ -393,6 +399,7 @@
 	"id": 6,
 	"name": "Circle Shot",
 	"label": "CIR",
+	"active": 0,
 	"resource": "res://Weapons/UBER/UBER.tscn",
 	"bulletResource": "res://Weapons/UBER/waver_bullet.tscn",
 	"sound": "res://sounds/laser1.mp3",
@@ -450,6 +457,7 @@
 	"id": 7,
 	"name": "Autogun",
 	"label": "AG",
+	"active": 0,
 	"resource": "res://Weapons/UBER/UBER.tscn",
 	"bulletResource": "res://Weapons/UBER/UBER_bullet.tscn",
 	"sound": "res://sounds/laser1.mp3",
@@ -473,6 +481,7 @@
 	  "isCenteraim": 0,
 	  "isBeam": 0,
 	  "autoaimSpeed": 200,
+	  "prediction": 0,
 	  "homingTurnSpeed": 0,
 	  "duration": 5,
 	  "numberPenetrate": 0,
@@ -490,7 +499,11 @@
 				},
 				{
 					"prop":"initialSpeed",
-					"values":[750,800,850,900,950,1000,1050,1100,1150,1200]
+					"values":[720,740,760,780,800,820,840,860,880,900]
+				},
+				{
+					"prop":"prediction",
+					"values":[0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1.0]
 				}
 			]
 		},
@@ -515,6 +528,7 @@
 	"id": 8,
 	"name": "Homing Missile",
 	"label": "HM",
+	"active": 0,
 	"resource": "res://Weapons/UBER/UBER.tscn",
 	"bulletResource": "res://Weapons/UBER/updownbomb_bullet.tscn",
 	"sound": "res://sounds/laser1.mp3",
@@ -580,6 +594,7 @@
 	"id": 9,
 	"name": "Minigun",
 	"label": "MG",
+	"active": 0,
 	"resource": "res://Weapons/UBER/UBER.tscn",
 	"bulletResource": "res://Weapons/UBER/UBER_bullet.tscn",
 	"sound": "res://sounds/laser1.mp3",
@@ -641,6 +656,7 @@
 	"id": 10,
 	"name": "Mines",
 	"label": "MIN",
+	"active": 0,
 	"resource": "res://Weapons/UBER/UBER.tscn",
 	"bulletResource": "res://Weapons/UBER/blaster_bullet.tscn",
 	"sound": "res://sounds/laser1.mp3",
@@ -702,6 +718,7 @@
 	"id": 11,
 	"name": "Laser",
 	"label": "LSR",
+	"active": 0,
 	"resource": "res://Weapons/UBER/UBER.tscn",
 	"bulletResource": "res://Weapons/UBER/UBER_bullet.tscn",
 	"sound": "res://sounds/laser1.mp3",
@@ -754,6 +771,184 @@
 				{
 					"prop":"shotDelay",
 					"values":[0.7,0.65,0.60,0.55,0.50,0.45,0.40,0.35,0.30,0.25]
+				}
+			]
+		}
+	]
+  },
+  {
+	"id": 12,
+	"name": "Frag Gun",
+	"label": "FRG",
+	"active": 1,
+	"resource": "res://Weapons/UBER/UBER.tscn",
+	"bulletResource": "res://Weapons/UBER/UBER_bullet.tscn",
+	"sound": "res://sounds/laser1.mp3",
+	"hitSound": "res://sounds/enemy_hit_basedrum1.mp3",
+	"config": {
+	  "shotDelay": 0.65,
+	  "initialSpeed": 800,
+	  "initialSpeedRandom": 0,
+	  "shotMinDamage": 2,
+	  "shotMaxDamage": 4,
+	  "accelerationX": 0,
+	  "accelerationY": 0,
+	  "bulletsPerBurst": 1,
+	  "burstDelay": 0,
+	  "spreadRandom": 0,
+	  "spreadFixed": 0,
+	  "waveAmplitude": 0,
+	  "phaseSpeed": 0,
+	  "isHoming": 0,
+	  "isAutoaim": 0,
+	  "isCenteraim": 0,
+	  "isBeam": 0,
+	  "autoaimSpeed": 0,
+	  "homingTurnSpeed": 0,
+	  "duration": 1,
+	  "numberPenetrate": 0,
+	  "areaOfEffect": 0,
+	  "children":{
+		"maxGenerations": 1,
+		"generationBullets": [6],
+		"childrenSpreadFixed": 180,
+		"childrenSpreadRandom": 15,
+		"childrenDirection": 0,
+		"childrenAutoAim": 0,
+		"childrenInstant": 0,
+		"childrenAreaOfEffect": 0,
+		"childMinDamage": 2,
+		"childMaxDamage": 2,
+		"childInitialSpeed": 800,
+		"childAccelerationX": -100,
+		"childIsHoming": 0,
+		"childHomingSpeed": 0,
+		"childDuration": 2,
+		"childMaxDistance": 250
+	  }
+	},
+	"upgrades":[
+		{
+			"name":"Burst",
+			"label":"BST",
+			"level":-1,
+			"properties":[
+				{
+					"prop":"generationBullets",
+					"values":[[8],[10],[12],[14],[16]]
+				}
+			]
+		}
+	]
+  },
+  {
+	"id": 13,
+	"name": "Splitter",
+	"label": "SPT",
+	"active": 1,
+	"resource": "res://Weapons/UBER/UBER.tscn",
+	"bulletResource": "res://Weapons/UBER/UBER_bullet.tscn",
+	"sound": "res://sounds/laser1.mp3",
+	"hitSound": "res://sounds/enemy_hit_basedrum1.mp3",
+	"config": {
+	  "shotDelay": 0.65,
+	  "initialSpeed": 800,
+	  "initialSpeedRandom": 0,
+	  "shotMinDamage": 2,
+	  "shotMaxDamage": 4,
+	  "accelerationX": 0,
+	  "accelerationY": 0,
+	  "bulletsPerBurst": 1,
+	  "burstDelay": 0,
+	  "spreadRandom": 0,
+	  "spreadFixed": 0,
+	  "waveAmplitude": 0,
+	  "phaseSpeed": 0,
+	  "isHoming": 0,
+	  "isAutoaim": 0,
+	  "isCenteraim": 0,
+	  "isBeam": 0,
+	  "autoaimSpeed": 0,
+	  "homingTurnSpeed": 0,
+	  "duration": 10,
+	  "numberPenetrate": 0,
+	  "areaOfEffect": 0,
+	  "children":{
+		"maxGenerations": 3,
+		"generationBullets": [3,3,3],
+		"childrenSpreadFixed": 45,
+		"childrenSpreadRandom": 0,
+		"childrenDirection": 0,
+		"childrenAutoAim": 0,
+		"childrenInstant": 0,
+		"childrenAreaOfEffect": 0,
+		"childMinDamage": 2,
+		"childMaxDamage": 2,
+		"childInitialSpeed": 800,
+		"childAccelerationX": 0,
+		"childIsHoming": 0,
+		"childHomingSpeed": 0,
+		"childDuration": 4,
+		"childMaxDistance": 0
+	  }
+	},
+	"upgrades":[
+		{
+			"name":"Burst",
+			"label":"BST",
+			"level":-1,
+			"properties":[
+				{
+					"prop":"generationBullets",
+					"values":[[4,4,4],[5,5,5],[6,6,6],[7,7,7],[8,8,8]]
+				}
+			]
+		}
+	]
+  },
+  {
+	"id": 14,
+	"name": "Sparks",
+	"label": "SPK",
+	"active": 1,
+	"resource": "res://Weapons/UBER/UBER.tscn",
+	"bulletResource": "res://Weapons/UBER/sparks_bullet.tscn",
+	"sound": "res://sounds/laser1.mp3",
+	"hitSound": "res://sounds/enemy_hit_basedrum1.mp3",
+	"config": {
+	  "shotDelay": 0.032,
+	  "initialSpeed": 800,
+	  "initialSpeedRandom": 0,
+	  "shotMinDamage": 2,
+	  "shotMaxDamage": 2,
+	  "accelerationX": 0,
+	  "accelerationY": 0,
+	  "bulletsPerBurst": 1,
+	  "burstDelay": 0,
+	  "spreadRandom": 180,
+	  "spreadFixed": 0,
+	  "waveAmplitude": 0,
+	  "phaseSpeed": 0,
+	  "isHoming": 0,
+	  "isAutoaim": 0,
+	  "isCenteraim": 0,
+	  "isBeam": 0,
+	  "autoaimSpeed": 0,
+	  "homingTurnSpeed": 0,
+	  "duration": 2,
+	  "maxDistance": 250,
+	  "numberPenetrate": 2,
+	  "areaOfEffect": 0
+	},
+	"upgrades":[
+		{
+			"name":"Distance",
+			"label":"DST",
+			"level":-1,
+			"properties":[
+				{
+					"prop":"maxDistance",
+					"values":[275,300,325,350,375,400,425,450,475,500]
 				}
 			]
 		}

@@ -8,6 +8,7 @@ func _ready():
 	if self.weapons.size() == 0:
 		var weapon_data = self.load_json_from_resource("res://Data/weapons.json")
 		for item : Dictionary in weapon_data:
+			if (item.get("active") == 0): continue
 			var weapon = self.weapon_from_data(item)
 			self.weapons.push_back(weapon)
 
