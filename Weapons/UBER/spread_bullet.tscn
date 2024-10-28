@@ -1,28 +1,27 @@
-[gd_scene load_steps=5 format=3 uid="uid://bli6dvfy0o0lf"]
+[gd_scene load_steps=5 format=3 uid="uid://bvbi6pqob86ux"]
 
-[ext_resource type="Script" path="res://Weapons/UBER/UBERBullet.gd" id="1_gp38b"]
-[ext_resource type="Texture2D" uid="uid://c8j1f3yj0h0ln" path="res://sprites/Shot_Player_01.svg" id="2_fl6w5"]
+[ext_resource type="Script" path="res://Weapons/UBER/UBERBullet.gd" id="1_5yxib"]
+[ext_resource type="Texture2D" uid="uid://c8j1f3yj0h0ln" path="res://sprites/Shot_Player_01.svg" id="2_5rubi"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_vqowa"]
-radius = 26.3059
+radius = 19.105
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_luxmc"]
 radius = 14.0
 
 [node name="UBERBullet" type="Node2D"]
-script = ExtResource("1_gp38b")
+script = ExtResource("1_5yxib")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(-1.43051e-06, 1.90735e-06)
-scale = Vector2(1.76786, 1.8)
-texture = ExtResource("2_fl6w5")
+scale = Vector2(0.785714, 2.1)
+texture = ExtResource("2_5rubi")
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 2
 collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(8, 0)
 shape = SubResource("CircleShape2D_vqowa")
 
 [node name="Polygon2D" type="Polygon2D" parent="Area2D"]

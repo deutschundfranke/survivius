@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=3 uid="uid://b561nim7xmmp1"]
+
+[ext_resource type="Script" path="res://Weapons/UBER/UBERBullet.gd" id="1_jkjs0"]
+[ext_resource type="Texture2D" uid="uid://ecvobvdw8f4n" path="res://sprites/Shot_Updown.png" id="2_e3fgn"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qepqt"]
+radius = 18.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_sfqi7"]
+radius = 14.0
+
+[node name="BlasterBullet" type="Node2D"]
+script = ExtResource("1_jkjs0")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0, 0.478405, 0.890522, 1)
+rotation = 1.58197
+scale = Vector2(0.280435, 0.280435)
+texture = ExtResource("2_e3fgn")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_qepqt")
+
+[node name="Polygon2D" type="Polygon2D" parent="Area2D"]
+visible = false
+color = Color(1, 1, 0, 1)
+polygon = PackedVector2Array(-11, -11, -11, 10, 10, 8, 10, -9)
+
+[node name="AreaOfEffect" type="CollisionShape2D" parent="Area2D"]
+visible = false
+shape = SubResource("CircleShape2D_sfqi7")

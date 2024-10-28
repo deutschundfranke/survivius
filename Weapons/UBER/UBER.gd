@@ -32,8 +32,8 @@ var autoaimTarget : float = 0;
 @export var direction : float = 0
 
 # children config
-@export var maxGenerations : int = 3
-@export var generationBullets : Array = [3,2,1] # how many bullets in which generation
+@export var maxGenerations : int = 0
+@export var generationBullets : Array = [] # how many bullets in which generation
 @export var childrenSpreadFixed : float = 30
 @export var childrenSpreadRandom : float = 0
 @export var childrenDirection : float = 0
@@ -42,7 +42,7 @@ var autoaimTarget : float = 0;
 @export var childrenAreaOfEffect : float = 0.0
 @export var childMinDamage : float = 1
 @export var childMaxDamage : float = 1
-@export var childInitialSpeed : float = 500
+@export var childInitialSpeed : float = 0
 @export var childAccelerationX : float = 0
 @export var childIsHoming : bool = false
 @export var childHomingSpeed : float = 0
@@ -110,7 +110,7 @@ func configFromData(data: Dictionary):
 		self.maxGenerations = (data.get("children") as Dictionary).get("maxGenerations")
 		var tmpArray : Array = (data.get("children") as Dictionary).get("generationBullets") as Array
 		for i in range(tmpArray.size()):
-			self.generationBullets[i] = tmpArray[i] as int
+			self.generationBullets.push_back(tmpArray[i] as int)
 		self.childrenSpreadFixed = (data.get("children") as Dictionary).get("childrenSpreadFixed")
 		self.childrenSpreadRandom = (data.get("children") as Dictionary).get("childrenSpreadRandom")
 		self.childrenDirection = (data.get("children") as Dictionary).get("childrenDirection")
