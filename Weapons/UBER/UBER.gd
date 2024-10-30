@@ -1,15 +1,28 @@
-extends WeaponBase
-class_name UBER
+extends Node2D
+class_name WeaponBase
+
+var firing = false
+@export var shotMinDamage : float = 5.0
+@export var shotMaxDamage : float = 8.0
+@export var sound : AudioStreamMP3
+@export var hitsound : AudioStreamMP3
+var soundplayer : AudioStreamPlayer
+var hitplayer : AudioStreamPlayer
+@export var label: String
+var bulletScene: PackedScene
+var deathScene: PackedScene
+var upgradeLevels: Dictionary = {}
 
 @export var shotDelay : float = 1.0
 @export var shotCooldown : float = 0.0
-@export var damage : int = 1
 @export var initialSpeed : float = 50.0
 @export var initialSpeedRandom : float = 0.0
 @export var accelerationX : float = 0.0
 @export var accelerationY : float = 0.0
 @export var bulletsPerBurst : int = 1.0
 @export var burstDelay : float = 0.0
+@export var burstType : int = 0
+@export var burstDirection : int = 1
 @export var spreadRandom : float = 1.0
 @export var spreadFixed : float = 1.0
 @export var waveAmplitude : float = 0
@@ -49,6 +62,8 @@ var autoaimTarget : float = 0;
 @export var childDuration : float = 15
 @export var childMaxDistance : float = 0
 
+# Reference to the DPSMeter node
+@onready var dps_meter = $DPSMeter  # Assuming DPSMeter is a child node
 
 var bullets_fired = 0
 var firing_burst = false
@@ -57,7 +72,12 @@ var timer
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	super()  # Call the parent class's _ready() function
+	soundplayer = AudioStreamPlayer.new()
+	soundplayer.volume_db = -20
+	add_child(soundplayer)
+	hitplayer = AudioStreamPlayer.new()
+	hitplayer.volume_db = -16
+	add_child(hitplayer)
 	
 	# Initialize the Timer node
 	timer = Timer.new()
@@ -67,20 +87,31 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if (self.firing):
-		shotCooldown -= delta
+		if (self.burstDelay == 0 || not self.firing_burst):
+			shotCooldown -= delta
 		if (shotCooldown <= 0.0):
-			shotCooldown += shotDelay
 			
 			if (self.burstDelay == 0):
 				for i in range(self.bulletsPerBurst):
-					#print(i)
 					self.spawnBullet(i)
+				shotCooldown += shotDelay
+				self._on_burst_end()
 			else:
 				self.startBurst()
 			
 		if (self.isAutoaim):
 			rotate_turret_towards_target(delta)
-
+			
+# probably don't override, unless you have very specific needs,
+# look at `configFromData` instead
+func initFromData(data: Dictionary):
+	self.name = data.get("name")
+	self.label = data.get("label")
+	self.bulletScene = load(data.bulletResource)
+	if (data.has("deathResource")): self.deathScene = load(data.deathResource)
+	self.configFromData(data.get("config"))
+	self.upgradesFromData(data.get("upgrades"))
+	
 func configFromData(data: Dictionary):
 	self.shotDelay = data.get("shotDelay")
 	self.initialSpeed = data.get("initialSpeed")
@@ -91,6 +122,7 @@ func configFromData(data: Dictionary):
 	self.accelerationY = data.get("accelerationY")
 	self.bulletsPerBurst = data.get("bulletsPerBurst")
 	self.burstDelay = data.get("burstDelay")
+	if (data.has("burstType")): self.burstType = data.get("burstType")
 	self.spreadRandom = data.get("spreadRandom")
 	self.spreadFixed = data.get("spreadFixed")
 	self.waveAmplitude = data.get("waveAmplitude")
@@ -127,7 +159,11 @@ func configFromData(data: Dictionary):
 		
 	if (self.isAutoaim):
 		$AutoTarget.visible = true
-
+		
+func upgradesFromData(data: Array):
+	for item : Dictionary in data:
+		self.upgradeLevels[item.label] = item
+		
 func spawnBullet(index: int):
 	var newBullet = bulletScene.instantiate()
 	newBullet.position = self.global_position
@@ -159,7 +195,10 @@ func spawnBullet(index: int):
 	if (bulletsPerBurst > 1):
 		# first fixed spread
 		if (self.spreadFixed > 0):
-			newDirection = self.direction - self.spreadFixed + ( (self.spreadFixed * 2) / (self.bulletsPerBurst-1)) * index
+			if (self.burstDirection == 1):
+				newDirection = self.direction - self.spreadFixed + ( (self.spreadFixed * 2) / (self.bulletsPerBurst-1)) * index
+			if (self.burstDirection == -1):
+				newDirection = self.direction + self.spreadFixed - ( (self.spreadFixed * 2) / (self.bulletsPerBurst-1)) * index
 	# then add random
 	if (self.spreadRandom > 0):
 		var random_angle = int(randf_range(-self.spreadRandom, self.spreadRandom))
@@ -225,6 +264,7 @@ func startBurst():
 		self.bullets_fired = 0
 		timer.wait_time = self.burstDelay
 		timer.start()
+		self._on_timer_timeout() # fire first bullet directly
 		
 func _on_timer_timeout():
 	if self.bullets_fired < bulletsPerBurst:
@@ -234,10 +274,22 @@ func _on_timer_timeout():
 		timer.start()  # Restart the timer for the next bullet
 	else:
 		# End of the burst
+		self._on_burst_end()
 		self.firing_burst = false
 		timer.wait_time = self.burstDelay
-		timer.start()  # Start timer for the next burst
-		
+		timer.stop()
+		print("end of burst")
+		shotCooldown += shotDelay
+		# timer.start()  # Start timer for the next burst
+
+func _on_burst_end():
+	if (self.burstType == 1): self.burstDirection *= -1
+	if (self.burstType == 2): self.direction = int(self.direction + 180) % 360
+
+func _on_bullet_hit(damage:float):
+	dps_meter.add_damage(damage)
+	self.playHit()		
+	
 func getNearestEnemy() -> EnemyBase:
 	var enemies = get_tree().get_nodes_in_group("enemies")
 	var target:EnemyBase= null
@@ -309,8 +361,84 @@ func _on_bullet_die(bullet:BulletBase):
 		print("generation: "+str(generation))
 		for i in range(self.generationBullets[generation]):
 			self.spawnChildBullet(bullet, generation, i)
+	
+	if (self.areaOfEffect > 0 && self.deathScene):
+		var death = self.deathScene.instantiate()
+		death.global_position = bullet.global_position
+		death.setSize(self.areaOfEffect)
+		self.find_parent("Space").add_child(death)
+	
+
+func getDPSOutput() -> String:
+	var text : String = self.name + " "+ str(dps_meter.calculate_dps()).pad_decimals(1)+" / "+str(dps_meter.total_damage).pad_decimals(0)
+	return text
+	
+func startFiring():
+	firing = true
+	
+func stopFiring():
+	firing = false
+
+func playSound():
+	# Check if the sound and soundplayer are set
+	if sound and soundplayer:
+		# Stop any currently playing sound
+		soundplayer.stop()
+		# Assign the sound to the player
+		soundplayer.stream = sound
+		# Play the sound from the beginning
+		soundplayer.play()
+	else:
+		pass
+		# print("Sound or SoundPlayer is not set.")
 		
-	"""if (self.spawnsChildren):
-		for i in range(6):
-			self.spawnChildBullet(bullet, i)
-	print("DIE")"""
+func playHit():
+	# Check if the sound and soundplayer are set
+	if hitsound and hitplayer:
+		# Stop any currently playing sound
+		hitplayer.stop()
+		# Assign the sound to the player
+		hitplayer.stream = hitsound
+		# Play the sound from the beginning
+		hitplayer.play()
+	else:
+		pass
+		# print("Sound or SoundPlayer is not set.")
+		
+
+# close enough to normalized distribution
+func getDamage() -> int:
+	return int(round(randi_range(self.shotMinDamage * 10 - 5, self.shotMaxDamage * 10 + 4) / 10.0))
+
+# should generally be overwritten
+func getPossibleUpgrades() -> Array[Upgrade]:
+	var upgrades : Array[Upgrade] = [];
+	for key in self.upgradeLevels:
+		var item : Dictionary = self.upgradeLevels[key]
+		upgrades.push_back(
+			Upgrade.new(
+				"weapon", item.label, item.name + " " + self.name, Color.CYAN, self.label + "\n" + item.label, self.label
+			)
+		)
+	return upgrades
+	#return [
+		#Upgrade.new(
+		#	"weapon", "cooldown", "Cool Down " + self.name, Color.CYAN, self.label + "\n" + "CD", self.label
+		#)
+	#]
+
+# should also be overwritten
+func applyUpgrade(upgrade: Upgrade) -> void:
+	var item : Dictionary = self.upgradeLevels[upgrade.feature]
+	item['level'] = item['level'] + 1;
+	for prop in item['properties']:
+		if (prop['prop'] == "generationBullets"):
+			var tmpArray : Array = prop['values'][item['level']] as Array
+			for i in range(tmpArray.size()):
+				self.generationBullets[i] = tmpArray[i] as int
+		else:
+			self[prop['prop']] = prop['values'][item['level']]
+	#if (upgrade.feature == "cooldown"):
+	#	self.shotDelay *= 0.95
+	#else:
+#		push_warning("Unknown upgrade feature ", upgrade.feature)

@@ -30,6 +30,7 @@ size = Vector2(80, 30)
 radius = 14.0
 
 [node name="UpDownBomb" type="Node2D"]
+position = Vector2(57, 0)
 script = ExtResource("1_k2pjg")
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]

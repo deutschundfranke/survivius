@@ -1,5 +1,14 @@
-extends "res://Weapons/bullet_base.gd"
-class_name UBERBullet
+extends Node2D
+class_name BulletBase
+
+signal hit_enemy(enemy)
+signal hit()
+signal die_signal()
+
+var damage : float = 1
+var velocity : Vector2 = Vector2(1,0)
+var hitEnemies : Array = []
+var ignoreEnemies : Array = []
 
 var speedX = 200
 var speedY = 0
@@ -33,7 +42,7 @@ var deltaPosition : Vector2;
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	super()
+	$Area2D.connect("area_entered", Callable(self, "_on_CollisionArea_area_entered"))
 	self.basePosition = self.position
 	pass # Replace with function body.
 
@@ -121,7 +130,29 @@ func _process(delta):
 		if (self.distance > self.maxDistance):
 			self.queue_free()
 	
+func _on_CollisionArea_area_entered(area):
+	if area.get_parent().is_in_group("enemies"):
+		if (ignoreEnemies.has(area)): return
+		hitEnemies.push_back(area)
+		area.get_parent().take_damage(self.damage, self.velocity)
+		emit_signal("hit",self.damage) # signal approach
+		# emit_signal("hit_enemy", area) # signal approach
+		var will_die : bool = true
+		if ("isBeam" in self && self.isBeam):
+			will_die = false
+		if ("numberPenetrate" in self && self.numberPenetrate > 0):
+			self.numberPenetrate -= 1
+			will_die = false
+		if ("areaOfEffect" in self && self.areaOfEffect > 0):
+			self.onAreaOfEffect()
+			will_die = false
+		if (will_die):
+			self.die()  # Optionally, you can free the bullet after hitting the enemy
 		
+func die():
+	emit_signal("die_signal", self)
+	queue_free()
+	
 func setDirection(_direction):
 	self.phaseDirection = _direction
 	if (self.phaseDirection == -1): phase = PI

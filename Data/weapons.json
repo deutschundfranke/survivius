@@ -262,7 +262,7 @@
   {
 	"id": 4,
 	"name": "Waver",
-	"label": "SWV",
+	"label": "WV",
 	"active": 1,
 	"resource": "res://Weapons/UBER/UBER.tscn",
 	"bulletResource": "res://Weapons/UBER/waver_bullet.tscn",
@@ -270,18 +270,18 @@
 	"hitSound": "res://sounds/enemy_hit_basedrum1.mp3",
 	"config": {
 	  "shotDelay": 0.15,
-	  "initialSpeed": 700,
+	  "initialSpeed": 500,
 	  "initialSpeedRandom": 0,
 	  "damage": 1,
 	  "shotMinDamage": 1,
-	  "shotMaxDamage": 5,
+	  "shotMaxDamage": 3,
 	  "accelerationX": 0,
 	  "accelerationY": 0,
 	  "bulletsPerBurst": 1,
 	  "burstDelay": 0.0,
 	  "spreadRandom": 0,
 	  "spreadFixed": 0,
-	  "waveAmplitude": 30,
+	  "waveAmplitude": 60,
 	  "phaseSpeed": 10,
 	  "isHoming": 0,
 	  "isAutoaim": 0,
@@ -295,17 +295,17 @@
 	},
 	"upgrades":[
 		{
-			"name":"wave",
-			"label":"WAV",
+			"name":"damage",
+			"label":"DMG",
 			"level":-1,
 			"properties":[
 				{
-					"prop":"waveAmplitude",
-					"values":[40,50,60,70,80,90,100,110,120,130]
+					"prop":"shotMinDamage",
+					"values":[1,1,1,1,1,1,1,1,1,1]
 				},
 				{
-					"prop":"phaseSpeed",
-					"values":[12,14,16,18,20,22,24,26,28,30]
+					"prop":"shotMaxDamage",
+					"values":[4,5,6,7,8,9,10,11,12,13]
 				}
 			]
 		},
@@ -316,7 +316,11 @@
 			"properties":[
 				{
 					"prop":"initialSpeed",
-					"values":[750,800,850,900,950,1000,1050,1100,1150,1200]
+					"values":[550,600,650,700,750,800,850,900,950,1000]
+				},
+				{
+					"prop":"phaseSpeed",
+					"values":[11,12,13,14,15,16,17,18,19,20]
 				}
 			]
 		}
@@ -329,6 +333,7 @@
 	"active": 1,
 	"resource": "res://Weapons/UBER/UBER.tscn",
 	"bulletResource": "res://Weapons/UBER/rocket_bullet.tscn",
+	"deathResource": "res://Weapons/UBER/rocket_death.tscn",
 	"sound": "res://sounds/laser1.mp3",
 	"hitSound": "res://sounds/enemy_hit_basedrum1.mp3",
 	"config": {
@@ -789,8 +794,8 @@
 	  "shotDelay": 0.65,
 	  "initialSpeed": 800,
 	  "initialSpeedRandom": 0,
-	  "shotMinDamage": 2,
-	  "shotMaxDamage": 4,
+	  "shotMinDamage": 3,
+	  "shotMaxDamage": 5,
 	  "accelerationX": 0,
 	  "accelerationY": 0,
 	  "bulletsPerBurst": 1,
@@ -817,8 +822,8 @@
 		"childrenAutoAim": 0,
 		"childrenInstant": 0,
 		"childrenAreaOfEffect": 0,
-		"childMinDamage": 2,
-		"childMaxDamage": 2,
+		"childMinDamage": 3,
+		"childMaxDamage": 4,
 		"childInitialSpeed": 800,
 		"childAccelerationX": -100,
 		"childIsHoming": 0,
@@ -949,6 +954,235 @@
 				{
 					"prop":"maxDistance",
 					"values":[275,300,325,350,375,400,425,450,475,500]
+				}
+			]
+		},
+		{
+			"name":"Damage",
+			"label":"DMG",
+			"level":-1,
+			"properties":[
+				{
+					"prop":"shotMinDamage",
+					"values":[3,4,5,6,7,8,9,10,11,12]
+				},
+				{
+					"prop":"shotMaxDamage",
+					"values":[3,4,5,6,7,8,9,10,11,12]
+				}
+			]
+		}
+	]
+  },
+  {
+	"id": 15,
+	"name": "Short Spray",
+	"label": "SRY",
+	"active": 1,
+	"resource": "res://Weapons/UBER/UBER.tscn",
+	"bulletResource": "res://Weapons/UBER/sparks_bullet.tscn",
+	"sound": "res://sounds/laser1.mp3",
+	"hitSound": "res://sounds/enemy_hit_basedrum1.mp3",
+	"config": {
+	  "shotDelay": 0.1,
+	  "initialSpeed": 1200,
+	  "initialSpeedRandom": 0,
+	  "shotMinDamage": 2,
+	  "shotMaxDamage": 4,
+	  "accelerationX": 0,
+	  "accelerationY": 0,
+	  "bulletsPerBurst": 1,
+	  "burstDelay": 0.0,
+	  "burstType": 1,
+	  "spreadRandom": 20,
+	  "spreadFixed": 0,
+	  "waveAmplitude": 0,
+	  "phaseSpeed": 0,
+	  "isHoming": 0,
+	  "isAutoaim": 0,
+	  "isCenteraim": 0,
+	  "isBeam": 0,
+	  "autoaimSpeed": 0,
+	  "homingTurnSpeed": 0,
+	  "duration": 5,
+	  "maxDistance": 500,
+	  "numberPenetrate": 0,
+	  "areaOfEffect": 0,
+	  "children":{
+		"maxGenerations": 3,
+		"generationBullets": [1,1,1],
+		"childrenSpreadFixed": 0,
+		"childrenSpreadRandom": 30,
+		"childrenDirection": 0,
+		"childrenAutoAim": 0,
+		"childrenInstant": 0,
+		"childrenAreaOfEffect": 0,
+		"childMinDamage": 1,
+		"childMaxDamage": 1,
+		"childInitialSpeed": 1200,
+		"childAccelerationX": 0,
+		"childIsHoming": 0,
+		"childHomingSpeed": 0,
+		"childDuration": 5,
+		"childMaxDistance": 500
+	  }
+	},
+	"upgrades":[
+		{
+			"name":"Distance",
+			"label":"DST",
+			"level":-1,
+			"properties":[
+				{
+					"prop":"maxDistance",
+					"values":[550,600,650,700,750,800,950,1000,1050,1100]
+				}
+			]
+		},
+		{
+			"name":"Damage",
+			"label":"DMG",
+			"level":-1,
+			"properties":[
+				{
+					"prop":"shotMinDamage",
+					"values":[3,4,5,6,7,8,9,10,11,12]
+				},
+				{
+					"prop":"shotMaxDamage",
+					"values":[3,4,5,6,7,8,9,10,11,12]
+				}
+			]
+		}
+	]
+  },
+  {
+	"id": 16,
+	"name": "Sweeper",
+	"label": "SWP",
+	"active": 1,
+	"resource": "res://Weapons/UBER/UBER.tscn",
+	"bulletResource": "res://Weapons/UBER/circle_bullet.tscn",
+	"sound": "res://sounds/laser1.mp3",
+	"hitSound": "res://sounds/enemy_hit_basedrum1.mp3",
+	"config": {
+	  "shotDelay": 0,
+	  "initialSpeed": 700,
+	  "initialSpeedRandom": 0,
+	  "shotMinDamage": 4,
+	  "shotMaxDamage": 6,
+	  "accelerationX": 0,
+	  "accelerationY": 0,
+	  "bulletsPerBurst": 12,
+	  "burstDelay": 0.2,
+	  "burstType": 1,
+	  "spreadRandom": 0,
+	  "spreadFixed": 90,
+	  "waveAmplitude": 0,
+	  "phaseSpeed": 0,
+	  "isHoming": 0,
+	  "isAutoaim": 0,
+	  "isCenteraim": 0,
+	  "isBeam": 0,
+	  "autoaimSpeed": 0,
+	  "homingTurnSpeed": 0,
+	  "duration": 5,
+	  "maxDistance": 0,
+	  "numberPenetrate": 0,
+	  "areaOfEffect": 0
+	},
+	"upgrades":[
+		{
+			"name":"Distance",
+			"label":"DST",
+			"level":-1,
+			"properties":[
+				{
+					"prop":"maxDistance",
+					"values":[550,600,650,700,750,800,950,1000,1050,1100]
+				}
+			]
+		},
+		{
+			"name":"Damage",
+			"label":"DMG",
+			"level":-1,
+			"properties":[
+				{
+					"prop":"shotMinDamage",
+					"values":[3,4,5,6,7,8,9,10,11,12]
+				},
+				{
+					"prop":"shotMaxDamage",
+					"values":[3,4,5,6,7,8,9,10,11,12]
+				}
+			]
+		}
+	]
+  },
+  {
+	"id": 17,
+	"name": "Backwards",
+	"label": "BCK",
+	"active": 1,
+	"resource": "res://Weapons/UBER/UBER.tscn",
+	"bulletResource": "res://Weapons/UBER/circle_bullet.tscn",
+	"sound": "res://sounds/laser1.mp3",
+	"hitSound": "res://sounds/enemy_hit_basedrum1.mp3",
+	"config": {
+	  "shotDelay": 0.3,
+	  "initialSpeed": 700,
+	  "initialSpeedRandom": 0,
+	  "shotMinDamage": 3,
+	  "shotMaxDamage": 5,
+	  "accelerationX": 100,
+	  "accelerationY": 0,
+	  "bulletsPerBurst": 1,
+	  "burstDelay": 0.0,
+	  "burstType": 2,
+	  "spreadRandom": 0,
+	  "spreadFixed": 0,
+	  "waveAmplitude": 0,
+	  "phaseSpeed": 0,
+	  "isHoming": 0,
+	  "isAutoaim": 0,
+	  "isCenteraim": 0,
+	  "isBeam": 0,
+	  "autoaimSpeed": 0,
+	  "homingTurnSpeed": 0,
+	  "duration": 5,
+	  "maxDistance": 0,
+	  "numberPenetrate": 0,
+	  "areaOfEffect": 0
+	},
+	"upgrades":[
+		{
+			"name":"Speed",
+			"label":"SPD",
+			"level":-1,
+			"properties":[
+				{
+					"prop":"initialSpeed",
+					"values":[750,800,850,900,950,1000,1050,1100,1150,1200]
+				},
+				{
+					"prop":"accelerationX",
+					"values":[120,140,160,180,200,220,240,260,280,300]
+				}
+			]
+		},
+		{
+			"name":"Damage",
+			"label":"DMG",
+			"level":-1,
+			"properties":[
+				{
+					"prop":"shotMinDamage",
+					"values":[3,4,5,6,7,8,9,10,11,12]
+				},
+				{
+					"prop":"shotMaxDamage",
+					"values":[3,4,5,6,7,8,9,10,11,12]
 				}
 			]
 		}

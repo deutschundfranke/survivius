@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://l5sq3ph1kima"]
 
 [ext_resource type="Script" path="res://Weapons/UBER/UBER.gd" id="1_wh5bg"]
-[ext_resource type="Script" path="res://Weapons/dps_counter.gd" id="2_7uduc"]
+[ext_resource type="Script" path="res://Weapons/dps_meter.gd" id="2_7uduc"]
 
 [node name="UBER" type="Node2D"]
 script = ExtResource("1_wh5bg")

@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://dmogv4waqyhdq"]
+
+[ext_resource type="Script" path="res://Weapons/UBER/rocket_death.gd" id="1_ohy37"]
+[ext_resource type="Texture2D" uid="uid://dof7nsp0xvkdt" path="res://sprites/Rocket_explosion.png" id="2_3hafu"]
+
+[node name="RocketDeath" type="Node2D"]
+script = ExtResource("1_ohy37")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_3hafu")

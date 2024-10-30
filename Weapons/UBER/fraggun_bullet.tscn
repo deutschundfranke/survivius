@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://cex32ouj4mxmf" path="res://sprites/Shot_frag.png" id="2_blqod"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ebhgs"]
-radius = 36.3456
+radius = 25.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_sfqi7"]
 radius = 14.0
@@ -14,7 +14,7 @@ script = ExtResource("1_pbtoq")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(24, 0)
-scale = Vector2(0.55102, 0.544965)
+scale = Vector2(0.387755, 0.383494)
 texture = ExtResource("2_blqod")
 
 [node name="Area2D" type="Area2D" parent="."]
