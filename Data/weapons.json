@@ -1138,8 +1138,10 @@
 	  "accelerationX": 100,
 	  "accelerationY": 0,
 	  "bulletsPerBurst": 1,
+	  "perBurstDirection": 0,
+	  "perBulletDirection": 180,
 	  "burstDelay": 0.0,
-	  "burstType": 2,
+	  "burstType": 0,
 	  "spreadRandom": 0,
 	  "spreadFixed": 0,
 	  "waveAmplitude": 0,
@@ -1245,6 +1247,134 @@
 				{
 					"prop":"shotDelay",
 					"values":[1.9,1.8,1.7,1.6,1.5,1.4,1.3,1.2,1.1,1.0]
+				}
+			]
+		}
+	]
+  },
+  {
+	"id": 19,
+	"name": "Wizball",
+	"label": "WB",
+	"active": 1,
+	"resource": "res://Weapons/UBER/UBER.tscn",
+	"bulletResource": "res://Weapons/UBER/wizball_bullet.tscn",
+	"sound": "res://sounds/laser1.mp3",
+	"hitSound": "res://sounds/enemy_hit_basedrum1.mp3",
+	"config": {
+	  "shotDelay": 0.45,
+	  "initialSpeed": 800,
+	  "initialSpeedRandom": 0,
+	  "shotMinDamage": 4,
+	  "shotMaxDamage": 6,
+	  "accelerationX": 0,
+	  "accelerationY": 0,
+	  "bulletsPerBurst": 2,
+	  "burstDelay": 0.0,
+	  "burstType": 0,
+	  "perBurstDirection": 90,
+	  "perBulletDirection": 180,
+	  "spreadRandom": 0,
+	  "spreadFixed": 0,
+	  "waveAmplitude": 0,
+	  "phaseSpeed": 0,
+	  "isHoming": 0,
+	  "isAutoaim": 0,
+	  "isCenteraim": 0,
+	  "isBeam": 0,
+	  "autoaimSpeed": 0,
+	  "homingTurnSpeed": 0,
+	  "duration": 1,
+	  "maxDistance": 260,
+	  "numberPenetrate":3,
+	  "areaOfEffect": 0,
+	  "startSize": 50,
+	  "endSize": 250
+	},
+	"upgrades":[
+		{
+			"name":"Distance",
+			"label":"DST",
+			"level":-1,
+			"properties":[
+				{
+					"prop":"maxDistance",
+					"values":[290,320,350,380,410,440,470,500,530,560]
+				}
+			]
+		},
+		{
+			"name":"Cooldown",
+			"label":"CD",
+			"level":-1,
+			"properties":[
+				{
+					"prop":"shotDelay",
+					"values":[0.4,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3]
+				}
+			]
+		}
+	]
+  },
+  {
+	"id": 20,
+	"name": "WTF",
+	"label": "WTF",
+	"active": 1,
+	"resource": "res://Weapons/UBER/UBER.tscn",
+	"bulletResource": "res://Weapons/UBER/wtf_bullet.tscn",
+	"sound": "res://sounds/laser1.mp3",
+	"hitSound": "res://sounds/enemy_hit_basedrum1.mp3",
+	"config": {
+	  "shotDelay": 3.0,
+	  "initialSpeed": 1000,
+	  "initialSpeedRandom": 600,
+	  "shotMinDamage": 2,
+	  "shotMaxDamage": 4,
+	  "accelerationX": 100,
+	  "accelerationY": 0,
+	  "bulletsPerBurst": 12,
+	  "burstDelay": 0.1,
+	  "burstType": 1,
+	  "perBurstDirection": 30,
+	  "perBulletDirection": 45,
+	  "spreadRandom": 45,
+	  "spreadFixed": 180,
+	  "waveAmplitude": 30,
+	  "phaseSpeed": 10,
+	  "isHoming": 1,
+	  "isAutoaim": 1,
+	  "isCenteraim": 0,
+	  "isBeam": 0,
+	  "autoaimSpeed": 300,
+	  "homingTurnSpeed": 300,
+	  "duration": 4,
+	  "maxDistance": 0,
+	  "numberPenetrate":3,
+	  "areaOfEffect": 50,
+	  "startSize": 20,
+	  "endSize": 100
+	},
+	"upgrades":[
+		{
+			"name":"Duration",
+			"label":"DST",
+			"level":-1,
+			"properties":[
+				{
+					"prop":"duration",
+					"values":[5,6,7,8,9,10,11,12,13,14]
+				}
+			]
+		},
+		{
+			"name":"Burst",
+			"label":"BST",
+			"level":-1,
+			"properties":[
+				{
+					"prop":"bulletsPerBurst",
+					"values":[14,16,18,20,22,24,26,28,30,32]
 				}
 			]
 		}

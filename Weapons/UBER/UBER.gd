@@ -22,7 +22,9 @@ var upgradeLevels: Dictionary = {}
 @export var bulletsPerBurst : int = 1.0
 @export var burstDelay : float = 0.0
 @export var burstType : int = 0
-@export var burstDirection : int = 1
+@export var burstSide : int = 1
+@export var perBurstDirection : int = 0
+@export var perBulletDirection : int = 0
 @export var spreadRandom : float = 1.0
 @export var spreadFixed : float = 1.0
 @export var waveAmplitude : float = 0
@@ -125,6 +127,8 @@ func configFromData(data: Dictionary):
 	self.bulletsPerBurst = data.get("bulletsPerBurst")
 	self.burstDelay = data.get("burstDelay")
 	if (data.has("burstType")): self.burstType = data.get("burstType")
+	if (data.has("perBurstDirection")): self.perBurstDirection = data.get("perBurstDirection")
+	if (data.has("perBulletDirection")): self.perBulletDirection = data.get("perBulletDirection")
 	self.spreadRandom = data.get("spreadRandom")
 	self.spreadFixed = data.get("spreadFixed")
 	self.waveAmplitude = data.get("waveAmplitude")
@@ -199,15 +203,18 @@ func spawnBullet(index: int):
 	if (bulletsPerBurst > 1):
 		# first fixed spread
 		if (self.spreadFixed > 0):
-			if (self.burstDirection == 1):
+			if (self.burstSide == 1):
 				newDirection = self.direction - self.spreadFixed + ( (self.spreadFixed * 2) / (self.bulletsPerBurst-1)) * index
-			if (self.burstDirection == -1):
+			if (self.burstSide == -1):
 				newDirection = self.direction + self.spreadFixed - ( (self.spreadFixed * 2) / (self.bulletsPerBurst-1)) * index
 	# then add random
 	if (self.spreadRandom > 0):
 		var random_angle = int(randf_range(-self.spreadRandom, self.spreadRandom))
 		newDirection += random_angle
 	newBullet.direction = newDirection
+	
+	if (self.perBulletDirection):
+		self.direction = int(self.direction + self.perBulletDirection) % 360
 	
 	self.phaseDirection = -self.phaseDirection
 	newBullet.waveAmplitude = self.waveAmplitude
@@ -290,8 +297,10 @@ func _on_timer_timeout():
 		# timer.start()  # Start timer for the next burst
 
 func _on_burst_end():
-	if (self.burstType == 1): self.burstDirection *= -1
+	if (self.burstType == 1): self.burstSide *= -1
 	if (self.burstType == 2): self.direction = int(self.direction + 180) % 360
+	if (self.perBurstDirection):
+		self.direction = int(self.direction + self.perBurstDirection) % 360
 
 func _on_bullet_hit(damage:float):
 	dps_meter.add_damage(damage)
