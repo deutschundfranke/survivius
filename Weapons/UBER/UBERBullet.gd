@@ -29,10 +29,13 @@ var numberPenetrate : int = 0
 var areaOfEffect : float = 0
 var areaOfEffectTriggered : bool = false
 var duration : float = 15
+var maxDuration : float = 15
 var distance : float = 0
 var maxDistance : float = 0
 var isBeam : bool = false
 var childGeneration : int = 0
+var startSize : float = 0
+var endSize : float = 0
 
 var basePosition : Vector2;
 var deltaPosition : Vector2;
@@ -44,6 +47,7 @@ var deltaPosition : Vector2;
 func _ready():
 	$Area2D.connect("area_entered", Callable(self, "_on_CollisionArea_area_entered"))
 	self.basePosition = self.position
+	self._process(0)
 	pass # Replace with function body.
 
 
@@ -52,17 +56,17 @@ func _process(delta):
 	
 	if (self.isBeam):
 		# Placeholder
-		$Sprite2D.position.x = 12
-		$Area2D.position.x = 12
+		#$Sprite2D.position.x = 12
+		#$Area2D.position.x = 12
 		
-		self.scale = Vector2(50,1)
+		#self.scale = Vector2(50,1)
 		self.duration -= delta
 		if (self.duration <= 0):
 			self.queue_free()
 		var players = get_tree().get_nodes_in_group("Player")
 		if players.size() > 0:
 			var playership : Node2D = players[0]
-			# self.global_position = playership.global_position
+			self.global_position = playership.global_position
 		
 	
 	# if bullet is slowing down, make it stop
@@ -106,9 +110,23 @@ func _process(delta):
 	self.deltaPosition = perpendicular_direction * perpendicular_displacement
 	# self.deltaPosition = Vector2(0, perpendicular_displacement)
 	
-	self.position = self.basePosition + self.deltaPosition
+	if (!self.isBeam):
+		self.position = self.basePosition + self.deltaPosition
 	
 	# var viewport_size = get_viewport().
+	
+	# size
+	if (self.startSize != 0 && self.endSize != 0):
+		var percent = 1 - (self.duration / self.maxDuration)
+		percent = 1 - (1 - percent) * (1 - percent)
+		var targetSize = self.startSize + (self.endSize - self.startSize) * percent
+		var texture_size = $Sprite2D.texture.get_size()
+		# Calculate scale factors for width and height
+		var scale_x = targetSize / texture_size.x
+		var scale_y = targetSize / texture_size.y
+		# Apply the scale
+		$Sprite2D.scale = Vector2(scale_x, scale_y)
+		$Area2D/CollisionShape2D.shape.radius = targetSize / 2
 	
 	var viewport_size = get_viewport().get_visible_rect().size
 	if (self.position.x > viewport_size.x + 100):

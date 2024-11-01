@@ -43,6 +43,8 @@ var autoaimTarget : float = 0;
 @export var numberPenetrate : int = 1
 @export var areaOfEffect : float = 0.0
 @export var direction : float = 0
+@export var startSize : float = 0
+@export var endSize : float = 0
 
 # children config
 @export var maxGenerations : int = 0
@@ -138,6 +140,8 @@ func configFromData(data: Dictionary):
 	self.areaOfEffect = data.get("areaOfEffect")
 	if (data.has("prediction")): self.prediction = data.get("prediction")
 	if (data.has("maxDistance")): self.maxDistance = data.get("maxDistance")
+	if (data.has("startSize")): self.startSize = data.get("startSize")
+	if (data.has("endSize")): self.endSize = data.get("endSize")
 	if (data.has("children")):
 		self.maxGenerations = (data.get("children") as Dictionary).get("maxGenerations")
 		var tmpArray : Array = (data.get("children") as Dictionary).get("generationBullets") as Array
@@ -211,10 +215,13 @@ func spawnBullet(index: int):
 	newBullet.setDirection(self.phaseDirection)
 	newBullet.damage = self.getDamage()
 	newBullet.duration = self.duration
+	newBullet.maxDuration = self.duration
 	newBullet.maxDistance = self.maxDistance
 	newBullet.isBeam = self.isBeam
 	newBullet.numberPenetrate = self.numberPenetrate
 	newBullet.areaOfEffect = self.areaOfEffect
+	newBullet.startSize = self.startSize
+	newBullet.endSize = self.endSize
 	
 	self.find_parent("Space").add_child(newBullet)
 	newBullet.connect("hit", Callable(self, "_on_bullet_hit"))
@@ -371,7 +378,12 @@ func _on_bullet_die(bullet:BulletBase):
 
 func getDPSOutput() -> String:
 	var text : String = self.name + " "+ str(dps_meter.calculate_dps()).pad_decimals(1)+" / "+str(dps_meter.total_damage).pad_decimals(0)
+	text += " | CD: " + str(self.shotCooldown).pad_decimals(2)
 	return text
+	
+func getCooldownPercentage() -> float:
+	if (self.shotDelay > 0): return self.shotCooldown / self.shotDelay
+	return 0
 	
 func startFiring():
 	firing = true

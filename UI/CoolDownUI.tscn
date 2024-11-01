@@ -1,0 +1,87 @@
+[gd_scene load_steps=3 format=3 uid="uid://0chaqs8k1lrq"]
+
+[ext_resource type="PackedScene" uid="uid://tpmlt2dhfpn0" path="res://UI/CoolDownMeter.tscn" id="1_1u6qe"]
+[ext_resource type="Script" path="res://UI/cooldown_ui.gd" id="1_ec73r"]
+
+[node name="CoolDown" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -8.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ec73r")
+
+[node name="CoolDownMeter1" parent="." instance=ExtResource("1_1u6qe")]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_right = 0.0
+offset_left = 37.0
+offset_top = -39.0
+offset_right = 37.0
+offset_bottom = -39.0
+grow_horizontal = 1
+grow_vertical = 0
+
+[node name="CoolDownMeter2" parent="." instance=ExtResource("1_1u6qe")]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_right = 0.0
+offset_left = 107.0
+offset_top = -39.0
+offset_right = 107.0
+offset_bottom = -39.0
+grow_horizontal = 1
+grow_vertical = 0
+
+[node name="CoolDownMeter3" parent="." instance=ExtResource("1_1u6qe")]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_right = 0.0
+offset_left = 177.0
+offset_top = -39.0
+offset_right = 177.0
+offset_bottom = -39.0
+grow_horizontal = 1
+grow_vertical = 0
+
+[node name="CoolDownMeter4" parent="." instance=ExtResource("1_1u6qe")]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_right = 0.0
+offset_left = 249.0
+offset_top = -39.0
+offset_right = 249.0
+offset_bottom = -39.0
+grow_horizontal = 1
+grow_vertical = 0
+
+[node name="CoolDownMeter5" parent="." instance=ExtResource("1_1u6qe")]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_right = 0.0
+offset_left = 319.0
+offset_top = -39.0
+offset_right = 319.0
+offset_bottom = -39.0
+grow_horizontal = 1
+grow_vertical = 0
+
+[node name="CoolDownMeter6" parent="." instance=ExtResource("1_1u6qe")]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_right = 0.0
+offset_left = 389.0
+offset_top = -39.0
+offset_right = 389.0
+offset_bottom = -39.0
+grow_horizontal = 1
+grow_vertical = 0

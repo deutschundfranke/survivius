@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://coovny051e74p"]
+[gd_scene load_steps=22 format=3 uid="uid://coovny051e74p"]
 
 [ext_resource type="Script" path="res://Misc/space.gd" id="1_qyus3"]
 [ext_resource type="PackedScene" uid="uid://x74hfhsk438q" path="res://UI/Timer.tscn" id="2_bgj5x"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://c6bu7wj88r5da" path="res://Player/player_ship.tscn" id="2_u5wji"]
 [ext_resource type="Texture2D" uid="uid://docyg2055ly8s" path="res://sprites/bg_2.png" id="3_72t38"]
 [ext_resource type="PackedScene" uid="uid://boc3tpgcod402" path="res://UI/DPSMeter.tscn" id="3_ywy3o"]
+[ext_resource type="PackedScene" uid="uid://0chaqs8k1lrq" path="res://UI/CoolDownUI.tscn" id="4_dtbas"]
 [ext_resource type="Texture2D" uid="uid://dju6w1caf6nhd" path="res://sprites/bg_1.png" id="4_mumdo"]
 [ext_resource type="AudioStream" uid="uid://fns1uhu7lwsu" path="res://music/DnB - Rain Walker Loop.mp3" id="12_2ix3q"]
 [ext_resource type="AudioStream" uid="uid://ckg2781ssob6v" path="res://sounds/collect.mp3" id="12_3ua6m"]
@@ -37,6 +38,8 @@ z_index = 50
 [node name="DpsMeter" parent="UI" instance=ExtResource("3_ywy3o")]
 size_flags_horizontal = 0
 size_flags_vertical = 8
+
+[node name="CoolDown" parent="UI" instance=ExtResource("4_dtbas")]
 
 [node name="Camera2D" type="Camera2D" parent="."]
 anchor_mode = 0
