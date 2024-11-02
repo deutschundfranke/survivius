@@ -8,6 +8,7 @@
 	"bulletResource": "res://Weapons/UBER/UBER_bullet.tscn",
 	"sound": "res://sounds/laser1.mp3",
 	"hitSound": "res://sounds/enemy_hit_basedrum1.mp3",
+	"category": 1,
 	"config": {
 	  "shotDelay": 0.8,
 	  "initialSpeed": 900,
@@ -71,6 +72,7 @@
 	"bulletResource": "res://Weapons/UBER/spread_bullet.tscn",
 	"sound": "res://sounds/laser1.mp3",
 	"hitSound": "res://sounds/enemy_hit_basedrum1.mp3",
+	"category": 1,
 	"config": {
 	  "shotDelay": 0.8,
 	  "initialSpeed": 600,
@@ -134,6 +136,7 @@
 	"bulletResource": "res://Weapons/UBER/shotgun_bullet.tscn",
 	"sound": "res://sounds/laser1.mp3",
 	"hitSound": "res://sounds/enemy_hit_basedrum1.mp3",
+	"category": 1,
 	"config": {
 	  "shotDelay": 1.2,
 	  "initialSpeed": 1000,
@@ -201,6 +204,7 @@
 	"bulletResource": "res://Weapons/UBER/updown_bullet.tscn",
 	"sound": "res://sounds/laser1.mp3",
 	"hitSound": "res://sounds/enemy_hit_basedrum1.mp3",
+	"category": 1,
 	"config": {
 	  "shotDelay": 0.5,
 	  "initialSpeed": 600,
@@ -268,6 +272,7 @@
 	"bulletResource": "res://Weapons/UBER/waver_bullet.tscn",
 	"sound": "res://sounds/laser1.mp3",
 	"hitSound": "res://sounds/enemy_hit_basedrum1.mp3",
+	"category": 1,
 	"config": {
 	  "shotDelay": 0.15,
 	  "initialSpeed": 500,
@@ -336,6 +341,7 @@
 	"deathResource": "res://Weapons/UBER/rocket_death.tscn",
 	"sound": "res://sounds/laser1.mp3",
 	"hitSound": "res://sounds/enemy_hit_basedrum1.mp3",
+	"category": 2,
 	"config": {
 	  "shotDelay": 2,
 	  "initialSpeed": 200,
@@ -409,6 +415,7 @@
 	"bulletResource": "res://Weapons/UBER/circle_bullet.tscn",
 	"sound": "res://sounds/laser1.mp3",
 	"hitSound": "res://sounds/enemy_hit_basedrum1.mp3",
+	"category": 2,
 	"config": {
 	  "shotDelay": 3,
 	  "initialSpeed": 800,
@@ -467,6 +474,7 @@
 	"bulletResource": "res://Weapons/UBER/autogun_bullet.tscn",
 	"sound": "res://sounds/laser1.mp3",
 	"hitSound": "res://sounds/enemy_hit_basedrum1.mp3",
+	"category": 1,
 	"config": {
 	  "shotDelay": 0.3,
 	  "initialSpeed": 700,
@@ -538,6 +546,7 @@
 	"bulletResource": "res://Weapons/UBER/missile_bullet.tscn",
 	"sound": "res://sounds/laser1.mp3",
 	"hitSound": "res://sounds/enemy_hit_basedrum1.mp3",
+	"category": 1,
 	"config": {
 	  "shotDelay": 1,
 	  "initialSpeed": 300,
@@ -604,6 +613,7 @@
 	"bulletResource": "res://Weapons/UBER/minigun_bullet.tscn",
 	"sound": "res://sounds/laser1.mp3",
 	"hitSound": "res://sounds/enemy_hit_basedrum1.mp3",
+	"category": 2,
 	"config": {
 	  "shotDelay": 10,
 	  "initialSpeed": 900,
@@ -666,6 +676,7 @@
 	"bulletResource": "res://Weapons/UBER/mine_bullet.tscn",
 	"sound": "res://sounds/laser1.mp3",
 	"hitSound": "res://sounds/enemy_hit_basedrum1.mp3",
+	"category": 1,
 	"config": {
 	  "shotDelay": 1.5,
 	  "initialSpeed": -80,
@@ -728,6 +739,7 @@
 	"bulletResource": "res://Weapons/UBER/UBER_bullet.tscn",
 	"sound": "res://sounds/laser1.mp3",
 	"hitSound": "res://sounds/enemy_hit_basedrum1.mp3",
+	"category": 1,
 	"config": {
 	  "shotDelay": 0.75,
 	  "initialSpeed": 10000,
@@ -790,6 +802,7 @@
 	"bulletResource": "res://Weapons/UBER/fraggun_bullet.tscn",
 	"sound": "res://sounds/laser1.mp3",
 	"hitSound": "res://sounds/enemy_hit_basedrum1.mp3",
+	"category": 1,
 	"config": {
 	  "shotDelay": 0.65,
 	  "initialSpeed": 800,
@@ -840,7 +853,7 @@
 			"properties":[
 				{
 					"prop":"generationBullets",
-					"values":[[8],[10],[12],[14],[16]]
+					"values":[[8],[10],[12],[14],[16],[16],[16],[16],[16],[16]]
 				}
 			]
 		}
@@ -855,6 +868,7 @@
 	"bulletResource": "res://Weapons/UBER/splitter_bullet.tscn",
 	"sound": "res://sounds/laser1.mp3",
 	"hitSound": "res://sounds/enemy_hit_basedrum1.mp3",
+	"category": 1,
 	"config": {
 	  "shotDelay": 0.65,
 	  "initialSpeed": 800,
@@ -905,7 +919,7 @@
 			"properties":[
 				{
 					"prop":"generationBullets",
-					"values":[[4,4,4],[6,6,6],[8,8,8],[12,12,12],[18,18,18]]
+					"values":[[4,4,4],[6,6,6],[8,8,8],[12,12,12],[18,18,18],[18,18,18],[18,18,18],[18,18,18],[18,18,18],[18,18,18]]
 				}
 			]
 		}
@@ -920,6 +934,7 @@
 	"bulletResource": "res://Weapons/UBER/sparks_bullet.tscn",
 	"sound": "res://sounds/laser1.mp3",
 	"hitSound": "res://sounds/enemy_hit_basedrum1.mp3",
+	"category": 3,
 	"config": {
 	  "shotDelay": 0.032,
 	  "initialSpeed": 800,
@@ -983,6 +998,7 @@
 	"bulletResource": "res://Weapons/UBER/sparks_bullet.tscn",
 	"sound": "res://sounds/laser1.mp3",
 	"hitSound": "res://sounds/enemy_hit_basedrum1.mp3",
+	"category": 1,
 	"config": {
 	  "shotDelay": 0.1,
 	  "initialSpeed": 1200,
@@ -1065,6 +1081,7 @@
 	"bulletResource": "res://Weapons/UBER/circle_bullet.tscn",
 	"sound": "res://sounds/laser1.mp3",
 	"hitSound": "res://sounds/enemy_hit_basedrum1.mp3",
+	"category": 1,
 	"config": {
 	  "shotDelay": 0,
 	  "initialSpeed": 700,
@@ -1129,6 +1146,7 @@
 	"bulletResource": "res://Weapons/UBER/circle_bullet.tscn",
 	"sound": "res://sounds/laser1.mp3",
 	"hitSound": "res://sounds/enemy_hit_basedrum1.mp3",
+	"category": 1,
 	"config": {
 	  "shotDelay": 0.3,
 	  "initialSpeed": 700,
@@ -1199,6 +1217,7 @@
 	"bulletResource": "res://Weapons/UBER/pulse_bullet.tscn",
 	"sound": "res://sounds/laser1.mp3",
 	"hitSound": "res://sounds/enemy_hit_basedrum1.mp3",
+	"category": 3,
 	"config": {
 	  "shotDelay": 2,
 	  "initialSpeed": 0,
@@ -1261,6 +1280,7 @@
 	"bulletResource": "res://Weapons/UBER/wizball_bullet.tscn",
 	"sound": "res://sounds/laser1.mp3",
 	"hitSound": "res://sounds/enemy_hit_basedrum1.mp3",
+	"category": 3,
 	"config": {
 	  "shotDelay": 0.45,
 	  "initialSpeed": 800,
@@ -1325,6 +1345,7 @@
 	"bulletResource": "res://Weapons/UBER/wtf_bullet.tscn",
 	"sound": "res://sounds/laser1.mp3",
 	"hitSound": "res://sounds/enemy_hit_basedrum1.mp3",
+	"category": 2,
 	"config": {
 	  "shotDelay": 3.0,
 	  "initialSpeed": 1000,

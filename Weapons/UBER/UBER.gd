@@ -436,11 +436,12 @@ func getPossibleUpgrades() -> Array[Upgrade]:
 	var upgrades : Array[Upgrade] = [];
 	for key in self.upgradeLevels:
 		var item : Dictionary = self.upgradeLevels[key]
-		upgrades.push_back(
-			Upgrade.new(
-				"weapon", item.label, item.name + " " + self.name, Color.CYAN, self.label + "\n" + item.label, self.label
+		if (item.level < 9):
+			upgrades.push_back(
+				Upgrade.new(
+					"weapon", item.label, item.name + " " + self.name, Color.CYAN, self.label + "\n" + item.label, self.label
+				)
 			)
-		)
 	return upgrades
 	#return [
 		#Upgrade.new(

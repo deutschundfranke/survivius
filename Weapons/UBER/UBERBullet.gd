@@ -39,6 +39,7 @@ var endSize : float = 0
 
 var basePosition : Vector2;
 var deltaPosition : Vector2;
+var timer
 
 @onready var sprite = $Sprite2D
 @onready var collision_shape = $Area2D/AreaOfEffect
@@ -48,6 +49,11 @@ func _ready():
 	$Area2D.connect("area_entered", Callable(self, "_on_CollisionArea_area_entered"))
 	self.basePosition = self.position
 	self._process(0)
+	
+	timer = Timer.new()
+	add_child(timer)
+	timer.connect("timeout", Callable(self, "_on_timer_timeout"))
+	
 	pass # Replace with function body.
 
 
@@ -239,6 +245,8 @@ func onAreaOfEffect():
 	collision_shape.shape = new_circle_shape
 	
 	# Queue the bullet for deletion in the overnext frame
-	await get_tree().process_frame # Wait for the next frame
-	await get_tree().process_frame # Wait for the overnext frame
-	self.die()  # Queue the bullet for deletion
+	timer.wait_time = 0.05
+	timer.start()
+	
+func _on_timer_timeout():
+	self.die()

@@ -125,7 +125,7 @@ func getPossibleUpgrades() -> Array[Upgrade]:
 		
 	# if there are still weapons unclaimed, offer one of them:
 	var availableWeapon = self.pickRandomAvailableWeapon()
-	if availableWeapon:
+	if availableWeapon && self.weapons.size() < 6:
 		list.append(Upgrade.new(
 			"ship", "new_weapon", "New " + availableWeapon.name, Color.RED, "W+\n" + availableWeapon.label, availableWeapon.label
 		))
