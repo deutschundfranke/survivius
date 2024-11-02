@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://tpmlt2dhfpn0"]
+
+[ext_resource type="Script" path="res://UI/cooldown_meter.gd" id="1_raebr"]
+[ext_resource type="Texture2D" uid="uid://qn3etscgn0mq" path="res://sprites/Powerup.png" id="2_4o6by"]
+
+[node name="CoolDownMeter" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_raebr")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(-0.288308, -0.288308)
+texture = ExtResource("2_4o6by")

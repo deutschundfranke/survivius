@@ -25,7 +25,7 @@ signal exited_screen(who: EnemyBase)
 func _ready():
 	var area: Area2D = self.find_child("Area2D")
 	if (area):
-		print("I can haz area")
+		#print("I can haz area")
 		area.body_entered.connect(onBodyEntered)
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.

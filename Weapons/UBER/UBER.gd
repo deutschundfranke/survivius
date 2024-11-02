@@ -22,7 +22,9 @@ var upgradeLevels: Dictionary = {}
 @export var bulletsPerBurst : int = 1.0
 @export var burstDelay : float = 0.0
 @export var burstType : int = 0
-@export var burstDirection : int = 1
+@export var burstSide : int = 1
+@export var perBurstDirection : int = 0
+@export var perBulletDirection : int = 0
 @export var spreadRandom : float = 1.0
 @export var spreadFixed : float = 1.0
 @export var waveAmplitude : float = 0
@@ -43,6 +45,8 @@ var autoaimTarget : float = 0;
 @export var numberPenetrate : int = 1
 @export var areaOfEffect : float = 0.0
 @export var direction : float = 0
+@export var startSize : float = 0
+@export var endSize : float = 0
 
 # children config
 @export var maxGenerations : int = 0
@@ -123,6 +127,8 @@ func configFromData(data: Dictionary):
 	self.bulletsPerBurst = data.get("bulletsPerBurst")
 	self.burstDelay = data.get("burstDelay")
 	if (data.has("burstType")): self.burstType = data.get("burstType")
+	if (data.has("perBurstDirection")): self.perBurstDirection = data.get("perBurstDirection")
+	if (data.has("perBulletDirection")): self.perBulletDirection = data.get("perBulletDirection")
 	self.spreadRandom = data.get("spreadRandom")
 	self.spreadFixed = data.get("spreadFixed")
 	self.waveAmplitude = data.get("waveAmplitude")
@@ -138,6 +144,8 @@ func configFromData(data: Dictionary):
 	self.areaOfEffect = data.get("areaOfEffect")
 	if (data.has("prediction")): self.prediction = data.get("prediction")
 	if (data.has("maxDistance")): self.maxDistance = data.get("maxDistance")
+	if (data.has("startSize")): self.startSize = data.get("startSize")
+	if (data.has("endSize")): self.endSize = data.get("endSize")
 	if (data.has("children")):
 		self.maxGenerations = (data.get("children") as Dictionary).get("maxGenerations")
 		var tmpArray : Array = (data.get("children") as Dictionary).get("generationBullets") as Array
@@ -195,9 +203,9 @@ func spawnBullet(index: int):
 	if (bulletsPerBurst > 1):
 		# first fixed spread
 		if (self.spreadFixed > 0):
-			if (self.burstDirection == 1):
+			if (self.burstSide == 1):
 				newDirection = self.direction - self.spreadFixed + ( (self.spreadFixed * 2) / (self.bulletsPerBurst-1)) * index
-			if (self.burstDirection == -1):
+			if (self.burstSide == -1):
 				newDirection = self.direction + self.spreadFixed - ( (self.spreadFixed * 2) / (self.bulletsPerBurst-1)) * index
 	# then add random
 	if (self.spreadRandom > 0):
@@ -205,16 +213,22 @@ func spawnBullet(index: int):
 		newDirection += random_angle
 	newBullet.direction = newDirection
 	
+	if (self.perBulletDirection):
+		self.direction = int(self.direction + self.perBulletDirection) % 360
+	
 	self.phaseDirection = -self.phaseDirection
 	newBullet.waveAmplitude = self.waveAmplitude
 	newBullet.phaseSpeed = self.phaseSpeed
 	newBullet.setDirection(self.phaseDirection)
 	newBullet.damage = self.getDamage()
 	newBullet.duration = self.duration
+	newBullet.maxDuration = self.duration
 	newBullet.maxDistance = self.maxDistance
 	newBullet.isBeam = self.isBeam
 	newBullet.numberPenetrate = self.numberPenetrate
 	newBullet.areaOfEffect = self.areaOfEffect
+	newBullet.startSize = self.startSize
+	newBullet.endSize = self.endSize
 	
 	self.find_parent("Space").add_child(newBullet)
 	newBullet.connect("hit", Callable(self, "_on_bullet_hit"))
@@ -283,8 +297,10 @@ func _on_timer_timeout():
 		# timer.start()  # Start timer for the next burst
 
 func _on_burst_end():
-	if (self.burstType == 1): self.burstDirection *= -1
+	if (self.burstType == 1): self.burstSide *= -1
 	if (self.burstType == 2): self.direction = int(self.direction + 180) % 360
+	if (self.perBurstDirection):
+		self.direction = int(self.direction + self.perBurstDirection) % 360
 
 func _on_bullet_hit(damage:float):
 	dps_meter.add_damage(damage)
@@ -371,7 +387,12 @@ func _on_bullet_die(bullet:BulletBase):
 
 func getDPSOutput() -> String:
 	var text : String = self.name + " "+ str(dps_meter.calculate_dps()).pad_decimals(1)+" / "+str(dps_meter.total_damage).pad_decimals(0)
+	text += " | CD: " + str(self.shotCooldown).pad_decimals(2)
 	return text
+	
+func getCooldownPercentage() -> float:
+	if (self.shotDelay > 0): return self.shotCooldown / self.shotDelay
+	return 0
 	
 func startFiring():
 	firing = true
