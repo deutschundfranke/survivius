@@ -40,6 +40,9 @@ var autoaimTarget : float = 0;
 @export var homingTurnSpeed : float = 0
 @export var isCenteraim : bool = false
 @export var isBeam : bool = false
+@export var beamWidth : float = 0
+@export var beamInterval : float = 0
+@export var isShield : bool = false
 @export var duration : float = 15
 @export var maxDistance : int = 0
 @export var numberPenetrate : int = 1
@@ -137,6 +140,8 @@ func configFromData(data: Dictionary):
 	self.isAutoaim = data.get("isAutoaim")
 	self.isCenteraim = data.get("isCenteraim")
 	self.isBeam = data.get("isBeam")
+	if (data.has("beamWidth")): self.beamWidth = data.get("beamWidth")
+	if (data.has("beamInterval")): self.beamInterval = data.get("beamInterval")
 	self.autoaimSpeed = data.get("autoaimSpeed")
 	self.homingTurnSpeed = data.get("homingTurnSpeed")
 	self.duration = data.get("duration")
@@ -146,6 +151,7 @@ func configFromData(data: Dictionary):
 	if (data.has("maxDistance")): self.maxDistance = data.get("maxDistance")
 	if (data.has("startSize")): self.startSize = data.get("startSize")
 	if (data.has("endSize")): self.endSize = data.get("endSize")
+	if (data.has("isShield")): self.isShield = data.get("isShield")
 	if (data.has("children")):
 		self.maxGenerations = (data.get("children") as Dictionary).get("maxGenerations")
 		var tmpArray : Array = (data.get("children") as Dictionary).get("generationBullets") as Array
@@ -225,10 +231,13 @@ func spawnBullet(index: int):
 	newBullet.maxDuration = self.duration
 	newBullet.maxDistance = self.maxDistance
 	newBullet.isBeam = self.isBeam
+	newBullet.isShield = self.isShield
 	newBullet.numberPenetrate = self.numberPenetrate
 	newBullet.areaOfEffect = self.areaOfEffect
 	newBullet.startSize = self.startSize
 	newBullet.endSize = self.endSize
+	newBullet.beamWidth = self.beamWidth
+	newBullet.beamInterval = self.beamInterval
 	
 	self.find_parent("Space").add_child(newBullet)
 	newBullet.connect("hit", Callable(self, "_on_bullet_hit"))

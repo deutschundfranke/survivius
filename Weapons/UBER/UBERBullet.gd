@@ -33,13 +33,16 @@ var maxDuration : float = 15
 var distance : float = 0
 var maxDistance : float = 0
 var isBeam : bool = false
+var beamWidth : float = 0
+var beamInterval : float = 0
+var isShield : bool = false
 var childGeneration : int = 0
 var startSize : float = 0
 var endSize : float = 0
 
 var basePosition : Vector2;
 var deltaPosition : Vector2;
-var timer
+var timer : Timer
 
 @onready var sprite = $Sprite2D
 @onready var collision_shape = $Area2D/AreaOfEffect
@@ -47,12 +50,18 @@ var timer
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$Area2D.connect("area_entered", Callable(self, "_on_CollisionArea_area_entered"))
-	self.basePosition = self.position
-	self._process(0)
+	$Area2D.connect("area_exited", Callable(self, "_on_CollisionArea_area_exited"))
 	
 	timer = Timer.new()
 	add_child(timer)
 	timer.connect("timeout", Callable(self, "_on_timer_timeout"))
+	
+	self.basePosition = self.position
+	self._process(0)
+	
+	if (self.isBeam && self.beamInterval > 0):
+		timer.wait_time = self.beamInterval
+		timer.start()
 	
 	pass # Replace with function body.
 
@@ -60,15 +69,15 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	
-	if (self.isBeam):
+	if (self.isBeam || self.isShield):
 		# Placeholder
 		#$Sprite2D.position.x = 12
 		#$Area2D.position.x = 12
 		
 		#self.scale = Vector2(50,1)
-		self.duration -= delta
-		if (self.duration <= 0):
-			self.queue_free()
+		#self.duration -= delta
+		#if (self.duration <= 0):
+		#	self.queue_free()
 		var players = get_tree().get_nodes_in_group("Player")
 		if players.size() > 0:
 			var playership : Node2D = players[0]
@@ -116,7 +125,7 @@ func _process(delta):
 	self.deltaPosition = perpendicular_direction * perpendicular_displacement
 	# self.deltaPosition = Vector2(0, perpendicular_displacement)
 	
-	if (!self.isBeam):
+	if (!self.isBeam && !self.isShield):
 		self.position = self.basePosition + self.deltaPosition
 	
 	# var viewport_size = get_viewport().
@@ -172,7 +181,12 @@ func _on_CollisionArea_area_entered(area):
 			will_die = false
 		if (will_die):
 			self.die()  # Optionally, you can free the bullet after hitting the enemy
+	
+func _on_CollisionArea_area_exited(area):
+	if area.get_parent().is_in_group("enemies"):
+		hitEnemies.erase(area)
 		
+				
 func die():
 	emit_signal("die_signal", self)
 	queue_free()
@@ -249,4 +263,10 @@ func onAreaOfEffect():
 	timer.start()
 	
 func _on_timer_timeout():
-	self.die()
+	if (self.areaOfEffect > 0):
+		self.die()
+	if (self.beamInterval > 0):
+		for enemy in hitEnemies:
+			enemy.get_parent().take_damage(self.damage, self.velocity)
+		timer.wait_time = self.beamInterval
+		timer.start()

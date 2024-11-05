@@ -12,7 +12,7 @@ signal levelIncreased(newLevel: int)
 @export var exp_current : int = 0;
 @export var exp_needed : int = 0;
 @export var exp_factor : float = 30.0
-@export var modifier_maxspeed : float = 1.10;
+@export var modifier_maxspeed : float = 1.20;
 @export var modifier_cooldown : float = 0.95;
 @export var collectPlayer : AudioStreamPlayer;
 @export var levelupPlayer : AudioStreamPlayer;
