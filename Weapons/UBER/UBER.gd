@@ -50,6 +50,8 @@ var autoaimTarget : float = 0;
 @export var direction : float = 0
 @export var startSize : float = 0
 @export var endSize : float = 0
+@export var radialRadius : float = 0
+@export var radialSpeed : float = 0
 
 # children config
 @export var maxGenerations : int = 0
@@ -151,6 +153,8 @@ func configFromData(data: Dictionary):
 	if (data.has("maxDistance")): self.maxDistance = data.get("maxDistance")
 	if (data.has("startSize")): self.startSize = data.get("startSize")
 	if (data.has("endSize")): self.endSize = data.get("endSize")
+	if (data.has("radialRadius")): self.radialRadius = data.get("radialRadius")
+	if (data.has("radialSpeed")): self.radialSpeed = data.get("radialSpeed")
 	if (data.has("isShield")): self.isShield = data.get("isShield")
 	if (data.has("children")):
 		self.maxGenerations = (data.get("children") as Dictionary).get("maxGenerations")
@@ -238,6 +242,8 @@ func spawnBullet(index: int):
 	newBullet.endSize = self.endSize
 	newBullet.beamWidth = self.beamWidth
 	newBullet.beamInterval = self.beamInterval
+	newBullet.radialRadius = self.radialRadius
+	newBullet.radialSpeed = self.radialSpeed
 	
 	self.find_parent("Space").add_child(newBullet)
 	newBullet.connect("hit", Callable(self, "_on_bullet_hit"))

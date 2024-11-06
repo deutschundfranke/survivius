@@ -1614,5 +1614,95 @@
 			]
 		}
 	]
+  },
+  {
+	"id": 24,
+	"name": "Radial",
+	"label": "RAD",
+	"active": 1,
+	"resource": "res://Weapons/UBER/UBER.tscn",
+	"bulletResource": "res://Weapons/UBER/mine_bullet.tscn",
+	"sound": "res://sounds/laser1.mp3",
+	"hitSound": "res://sounds/enemy_hit_basedrum1.mp3",
+	"category": 3,
+	"config": {
+	  "shotDelay": 8.0,
+	  "initialSpeed": 0,
+	  "initialSpeedRandom": 0,
+	  "shotMinDamage": 6,
+	  "shotMaxDamage": 8,
+	  "accelerationX": 100,
+	  "accelerationY": 0,
+	  "bulletsPerBurst": 2,
+	  "burstDelay": 0.0,
+	  "burstType": 0,
+	  "perBurstDirection": 0,
+	  "perBulletDirection": 180,
+	  "spreadRandom": 0,
+	  "spreadFixed": 0,
+	  "waveAmplitude": 0,
+	  "phaseSpeed": 0,
+	  "isHoming": 0,
+	  "isAutoaim": 0,
+	  "isCenteraim": 0,
+	  "isBeam": 1,
+	  "autoaimSpeed": 0,
+	  "homingTurnSpeed": 0,
+	  "duration": 4.5,
+	  "maxDistance": 0,
+	  "numberPenetrate":100,
+	  "areaOfEffect": 0,
+	  "startSize": 100,
+	  "endSize": 100,
+	  "radialRadius":200,
+	  "radialSpeed":360
+	},
+	"upgrades":[
+		{
+			"name":"Duration",
+			"label":"DST",
+			"level":-1,
+			"properties":[
+				{
+					"prop":"duration",
+					"values":[5,6,7,8,9,10,11,12,13,14]
+				}
+			]
+		},
+		{
+			"name":"Burst",
+			"label":"BST",
+			"level":-1,
+			"properties":[
+				{
+					"prop":"bulletsPerBurst",
+					"values":[3,4,5,6,7,8,9,10,11,12]
+				},
+				{
+					"prop":"perBulletDirection",
+					"values":[120,90,80,70,60,50,40,30,20,10]
+				}
+			]
+		},
+		{
+			"name":"Size",
+			"label":"SZ",
+			"level":-1,
+			"properties":[
+				{
+					"prop":"startSize",
+					"values":[120,140,160,180,200,220,240,260,280,300]
+				},
+				{
+					"prop":"endSize",
+					"values":[120,140,160,180,200,220,240,260,280,300]
+				},
+				{
+					"prop":"radialRadius",
+					"values":[220,240,260,280,300,320,340,360,380,400]
+				}
+			]
+		}
+	]
   }
 ]

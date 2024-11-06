@@ -39,6 +39,8 @@ var isShield : bool = false
 var childGeneration : int = 0
 var startSize : float = 0
 var endSize : float = 0
+var radialRadius : float = 0
+var radialSpeed : float = 0
 
 var basePosition : Vector2;
 var deltaPosition : Vector2;
@@ -62,6 +64,9 @@ func _ready():
 	if (self.isBeam && self.beamInterval > 0):
 		timer.wait_time = self.beamInterval
 		timer.start()
+		
+	if (self.isBeam && self.radialSpeed > 0):
+		self.phase = deg_to_rad(self.direction)
 	
 	pass # Replace with function body.
 
@@ -82,6 +87,7 @@ func _process(delta):
 		if players.size() > 0:
 			var playership : Node2D = players[0]
 			self.global_position = playership.global_position
+			self.basePosition = playership.global_position
 		
 	
 	# if bullet is slowing down, make it stop
@@ -124,6 +130,12 @@ func _process(delta):
 	# Apply the perpendicular sine displacement to the bullet's position
 	self.deltaPosition = perpendicular_direction * perpendicular_displacement
 	# self.deltaPosition = Vector2(0, perpendicular_displacement)
+	
+	# radial movement
+	if (self.radialSpeed > 0):
+		phase += deg_to_rad(self.radialSpeed) * delta
+		self.deltaPosition = Vector2( self.radialRadius * cos(phase), self.radialRadius * sin(phase))
+		self.position = self.basePosition + self.deltaPosition
 	
 	if (!self.isBeam && !self.isShield):
 		self.position = self.basePosition + self.deltaPosition
