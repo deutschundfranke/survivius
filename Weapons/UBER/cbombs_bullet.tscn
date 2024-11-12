@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://bkele4qd11k88"]
+
+[ext_resource type="Script" path="res://Weapons/UBER/UBERBullet.gd" id="1_4ya0e"]
+[ext_resource type="Texture2D" uid="uid://bphhmsiv2c2li" path="res://sprites/Shot_Mine.png" id="2_n32sr"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_2xrdw"]
+radius = 31.0161
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_rw18o"]
+radius = 14.0
+
+[node name="UpDownBomb" type="Node2D"]
+position = Vector2(57, 0)
+script = ExtResource("1_4ya0e")
+
+[node name="ShotRocket" type="Sprite2D" parent="."]
+position = Vector2(-56, 7.10543e-15)
+scale = Vector2(0.459016, 0.454545)
+texture = ExtResource("2_n32sr")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(-56, 0)
+shape = SubResource("CircleShape2D_2xrdw")
+
+[node name="AreaOfEffect" type="CollisionShape2D" parent="Area2D"]
+visible = false
+position = Vector2(-57, 0)
+shape = SubResource("CircleShape2D_rw18o")

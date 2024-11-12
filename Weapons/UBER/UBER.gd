@@ -52,6 +52,8 @@ var autoaimTarget : float = 0;
 @export var endSize : float = 0
 @export var radialRadius : float = 0
 @export var radialSpeed : float = 0
+@export var aoeOnDeath : int = 0
+@export var spawnChildrenOnDeath : int = 0
 
 # children config
 @export var maxGenerations : int = 0
@@ -62,6 +64,7 @@ var autoaimTarget : float = 0;
 @export var childrenAutoAim : bool = false
 @export var childrenInstant : bool = false
 @export var childrenAreaOfEffect : float = 0.0
+@export var childrenAoeOnDeath : int = 0
 @export var childMinDamage : float = 1
 @export var childMaxDamage : float = 1
 @export var childInitialSpeed : float = 0
@@ -149,6 +152,8 @@ func configFromData(data: Dictionary):
 	self.duration = data.get("duration")
 	self.numberPenetrate = data.get("numberPenetrate")
 	self.areaOfEffect = data.get("areaOfEffect")
+	self.aoeOnDeath = data.get("aoeOnDeath")
+	self.spawnChildrenOnDeath = data.get("spawnChildrenOnDeath")
 	if (data.has("prediction")): self.prediction = data.get("prediction")
 	if (data.has("maxDistance")): self.maxDistance = data.get("maxDistance")
 	if (data.has("startSize")): self.startSize = data.get("startSize")
@@ -166,6 +171,7 @@ func configFromData(data: Dictionary):
 		self.childrenDirection = (data.get("children") as Dictionary).get("childrenDirection")
 		self.childrenAutoAim = (data.get("children") as Dictionary).get("childrenAutoAim")
 		self.childrenAreaOfEffect = (data.get("children") as Dictionary).get("childrenAreaOfEffect")
+		self.childrenAoeOnDeath = (data.get("children") as Dictionary).get("childrenAoeOnDeath")
 		self.childMinDamage = (data.get("children") as Dictionary).get("childMinDamage")
 		self.childMaxDamage = (data.get("children") as Dictionary).get("childMaxDamage")
 		self.childInitialSpeed = (data.get("children") as Dictionary).get("childInitialSpeed")
@@ -244,6 +250,7 @@ func spawnBullet(index: int):
 	newBullet.beamInterval = self.beamInterval
 	newBullet.radialRadius = self.radialRadius
 	newBullet.radialSpeed = self.radialSpeed
+	newBullet.aoeOnDeath = self.aoeOnDeath
 	
 	self.find_parent("Space").add_child(newBullet)
 	newBullet.connect("hit", Callable(self, "_on_bullet_hit"))
@@ -277,6 +284,8 @@ func spawnChildBullet(bullet:BulletBase, generation:int, index:int):
 	newBullet.damage = self.getChildDamage()
 	newBullet.duration = self.childDuration
 	newBullet.maxDistance = self.childMaxDistance
+	newBullet.aoeOnDeath = self.childrenAoeOnDeath
+	newBullet.areaOfEffect = self.childrenAreaOfEffect
 	
 	if (bullet.hitEnemies.size()):
 		newBullet.ignoreEnemies.push_back(bullet.hitEnemies[0])
@@ -386,18 +395,19 @@ func getChildDamage() -> int:
 
 		
 func _on_bullet_die(bullet:BulletBase):
-	if (self.maxGenerations > 0):
-		var generation = bullet.childGeneration
-		if (generation >= self.maxGenerations): return
-		print("generation: "+str(generation))
-		for i in range(self.generationBullets[generation]):
-			self.spawnChildBullet(bullet, generation, i)
 	
 	if (self.areaOfEffect > 0 && self.deathScene):
 		var death = self.deathScene.instantiate()
 		death.global_position = bullet.global_position
 		death.setSize(self.areaOfEffect)
 		self.find_parent("Space").add_child(death)
+		
+	if (self.maxGenerations > 0):
+		var generation = bullet.childGeneration
+		if (generation >= self.maxGenerations): return
+		print("generation: "+str(generation))
+		for i in range(self.generationBullets[generation]):
+			self.spawnChildBullet(bullet, generation, i)
 	
 
 func getDPSOutput() -> String:

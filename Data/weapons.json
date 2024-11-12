@@ -1704,5 +1704,75 @@
 			]
 		}
 	]
-  }
+  },
+  {
+	"id": 25,
+	"name": "Cluster Bombs",
+	"label": "CB",
+	"active": 1,
+	"resource": "res://Weapons/UBER/UBER.tscn",
+	"bulletResource": "res://Weapons/UBER/cbombs_bullet.tscn",
+	"deathResource": "res://Weapons/UBER/cbombs_death.tscn",
+	"sound": "res://sounds/laser1.mp3",
+	"hitSound": "res://sounds/enemy_hit_basedrum1.mp3",
+	"category": 2,
+	"config": {
+	  "shotDelay": 7,
+	  "initialSpeed": 200,
+	  "initialSpeedRandom": 0,
+	  "shotMinDamage": 10,
+	  "shotMaxDamage": 20,
+	  "accelerationX": 0,
+	  "accelerationY": 0,
+	  "bulletsPerBurst": 1,
+	  "burstDelay": 0,
+	  "spreadRandom": 10,
+	  "spreadFixed": 0,
+	  "waveAmplitude": 0,
+	  "phaseSpeed": 0,
+	  "isHoming": 0,
+	  "isAutoaim": 0,
+	  "isCenteraim": 0,
+	  "isBeam": 0,
+	  "autoaimSpeed": 0,
+	  "homingTurnSpeed": 0,
+	  "duration": 3,
+	  "numberPenetrate": 0,
+	  "areaOfEffect": 300,
+	  "aoeOnDeath": 1,
+	  "spawnChildrenOnDeath": 1,
+	  "children":{
+		"childrenAoeOnDeath": 1,
+		"maxGenerations": 1,
+		"generationBullets": [6],
+		"childrenSpreadFixed": 180,
+		"childrenSpreadRandom": 0,
+		"childrenDirection": 0,
+		"childrenAutoAim": 0,
+		"childrenInstant": 0,
+		"childrenAreaOfEffect": 200,
+		"childMinDamage": 10,
+		"childMaxDamage": 20,
+		"childInitialSpeed": -800,
+		"childAccelerationX": 800,
+		"childIsHoming": 0,
+		"childHomingSpeed": 0,
+		"childDuration": 6,
+		"childMaxDistance": 0
+	  }
+	},
+	"upgrades":[
+		{
+			"name":"Burst",
+			"label":"BST",
+			"level":-1,
+			"properties":[
+				{
+					"prop":"generationBullets",
+					"values":[[8],[10],[12],[14],[16],[16],[16],[16],[16],[16]]
+				}
+			]
+		}
+	]
+  },
 ]
