@@ -1781,13 +1781,13 @@
 	"label": "GAU",
 	"active": 1,
 	"resource": "res://Weapons/UBER/UBER.tscn",
-	"bulletResource": "res://Weapons/UBER/plasma_bullet.tscn",
+	"bulletResource": "res://Weapons/UBER/gauss_bullet.tscn",
 	"sound": "res://sounds/laser1.mp3",
 	"hitSound": "res://sounds/enemy_hit_basedrum1.mp3",
 	"category": 2,
 	"config": {
 	  "shotDelay": 3,
-	  "initialSpeed": 10000,
+	  "initialSpeed": 5000,
 	  "initialSpeedRandom": 0,
 	  "shotMinDamage": 7,
 	  "shotMaxDamage": 10,
@@ -1833,6 +1833,89 @@
 				{
 					"prop":"shotDelay",
 					"values":[2.7,2.4,2.1,1.8,1.5,1.2,1.0,0.8,0.7,0.6,0.5]
+				}
+			]
+		}
+	]
+  },
+  {
+	"id": 27,
+	"name": "Lightning Gun",
+	"label": "LI",
+	"active": 1,
+	"resource": "res://Weapons/UBER/UBER.tscn",
+	"bulletResource": "res://Weapons/UBER/lightning_bullet.tscn",
+	"sound": "res://sounds/laser1.mp3",
+	"hitSound": "res://sounds/enemy_hit_basedrum1.mp3",
+	"category": 2,
+	"config": {
+	  "shotDelay": 4,
+	  "initialSpeed": 2500,
+	  "initialSpeedRandom": 0,
+	  "shotMinDamage": 5,
+	  "shotMaxDamage": 5,
+	  "accelerationX": 0,
+	  "accelerationY": 0,
+	  "bulletsPerBurst": 1,
+	  "burstDelay": 0.0,
+	  "spreadRandom": 0,
+	  "spreadFixed": 0,
+	  "waveAmplitude": 0,
+	  "phaseSpeed": 0,
+	  "isHoming": 0,
+	  "isAutoaim": 1,
+	  "isInstantaim": 0,
+	  "isCenteraim": 0,
+	  "isBeam": 0,
+	  "autoaimSpeed": 1500,
+	  "homingTurnSpeed": 0,
+	  "duration": 2,
+	  "numberPenetrate": 0,
+	  "areaOfEffect": 0,
+	  "children":{
+		"childrenAoeOnDeath": 0,
+		"maxGenerations": 2,
+		"generationBullets": [2,2],
+		"childrenSpreadFixed": 0,
+		"childrenSpreadRandom": 0,
+		"childrenDirection": 0,
+		"childrenAutoAim": 0,
+		"childrenInstant": 1,
+		"childrenAreaOfEffect": 0,
+		"childMinDamage": 4,
+		"childMaxDamage": 4,
+		"childInitialSpeed": 2500,
+		"childAccelerationX": 0,
+		"childIsHoming": 0,
+		"childHomingSpeed": 0,
+		"childDuration": 2,
+		"childMaxDistance": 0
+	  }
+	},
+	"upgrades":[
+		{
+			"name":"children",
+			"label":"CLD",
+			"level":-1,
+			"properties":[
+				{
+					"prop":"maxGenerations",
+					"values":[3,4,5,6,7,8,9,10,11,12]
+				},
+				{
+					"prop":"generationBullets",
+					"values":[[2,2,2],[2,2,2,2],[2,2,2,2,2],[2,2,2,2,2,2],[2,2,2,2,2,2,2],[2,2,2,2,2,2,2,2],[2,2,2,2,2,2,2,2,2],[2,2,2,2,2,2,2,2,2,2,2],[2,2,2,2,2,2,2,2,2,2,2,2],[2,2,2,2,2,2,2,2,2,2,2,2,2]]
+				}
+			]
+		},
+		{
+			"name":"cooldown",
+			"label":"CD",
+			"level":-1,
+			"properties":[
+				{
+					"prop":"shotDelay",
+					"values":[3.7,3.4,3.1,2.8,2.5,2.2,2.0,1.8,1.7,1.6,1.5]
 				}
 			]
 		}

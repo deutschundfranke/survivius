@@ -170,6 +170,7 @@ func configFromData(data: Dictionary):
 		self.childrenSpreadRandom = (data.get("children") as Dictionary).get("childrenSpreadRandom")
 		self.childrenDirection = (data.get("children") as Dictionary).get("childrenDirection")
 		self.childrenAutoAim = (data.get("children") as Dictionary).get("childrenAutoAim")
+		self.childrenInstant = (data.get("children") as Dictionary).get("childrenInstant")
 		self.childrenAreaOfEffect = (data.get("children") as Dictionary).get("childrenAreaOfEffect")
 		self.childrenAoeOnDeath = (data.get("children") as Dictionary).get("childrenAoeOnDeath")
 		self.childMinDamage = (data.get("children") as Dictionary).get("childMinDamage")
@@ -208,7 +209,7 @@ func spawnBullet(index: int):
 	if (self.isHoming):
 		newBullet.isHoming = self.isHoming
 		newBullet.homingTurnSpeed = self.homingTurnSpeed
-		var localTarget : EnemyBase = self.getNearestEnemy();
+		var localTarget : EnemyBase = self.getNearestEnemy(self.global_position, []);
 		# initial rotation?
 		if (localTarget):
 			pass
@@ -278,6 +279,22 @@ func spawnChildBullet(bullet:BulletBase, generation:int, index:int):
 		newDirection += random_angle
 	newBullet.direction = newDirection
 	
+	# instant aim
+	if (self.childrenInstant):
+		for area in bullet.hitEnemies:
+			newBullet.hitEnemies.push_back(area)
+			
+		var target = self.getNearestEnemy(bullet.global_position, newBullet.hitEnemies)
+	
+		var angle : float;
+		if (target):
+			var targetPoint = target.global_position;
+			angle = self.calculate_angle_between_positions(bullet.global_position, targetPoint)
+			newBullet.direction = angle
+			bullet.hitEnemies.push_back(target.get_node("Area2D"))
+		else:
+			pass
+	
 	var angle_radians = deg_to_rad(newBullet.direction)
 	var forward_velocity = Vector2(cos(angle_radians) * 10, sin(angle_radians) * 10)
 	newBullet.position += forward_velocity
@@ -330,12 +347,13 @@ func _on_bullet_hit(damage:float):
 	dps_meter.add_damage(damage)
 	self.playHit()		
 	
-func getNearestEnemy() -> EnemyBase:
+func getNearestEnemy(position:Vector2, ignorelist:Array) -> EnemyBase:
 	var enemies = get_tree().get_nodes_in_group("enemies")
 	var target:EnemyBase= null
 	var targetdistance : float = 9999999
 	for enemy:EnemyBase in enemies:
-		var distance = self.global_position.distance_squared_to(enemy.global_position)
+		if enemy.get_node("Area2D") in ignorelist: continue
+		var distance = position.distance_squared_to(enemy.global_position)
 		if (distance < targetdistance):
 			target = enemy
 			targetdistance = distance
@@ -355,7 +373,7 @@ func calculate_angle_between_positions(A: Vector2, B: Vector2) -> float:
 
 func rotate_turret_towards_target(delta: float) -> void:
 	
-	var target = self.getNearestEnemy()
+	var target = self.getNearestEnemy( self.global_position, [])
 	
 	var angle : float;
 	if (target):
@@ -482,6 +500,7 @@ func applyUpgrade(upgrade: Upgrade) -> void:
 		if (prop['prop'] == "generationBullets"):
 			var tmpArray : Array = prop['values'][item['level']] as Array
 			for i in range(tmpArray.size()):
+				if (self.generationBullets.size() < i+1): self.generationBullets.push_back(0)
 				self.generationBullets[i] = tmpArray[i] as int
 		else:
 			self[prop['prop']] = prop['values'][item['level']]
