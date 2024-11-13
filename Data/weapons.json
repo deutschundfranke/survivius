@@ -1775,4 +1775,67 @@
 		}
 	]
   },
+  {
+	"id": 26,
+	"name": "Gauss Cannon",
+	"label": "GAU",
+	"active": 1,
+	"resource": "res://Weapons/UBER/UBER.tscn",
+	"bulletResource": "res://Weapons/UBER/plasma_bullet.tscn",
+	"sound": "res://sounds/laser1.mp3",
+	"hitSound": "res://sounds/enemy_hit_basedrum1.mp3",
+	"category": 2,
+	"config": {
+	  "shotDelay": 3,
+	  "initialSpeed": 10000,
+	  "initialSpeedRandom": 0,
+	  "shotMinDamage": 7,
+	  "shotMaxDamage": 10,
+	  "accelerationX": 0,
+	  "accelerationY": 0,
+	  "bulletsPerBurst": 3,
+	  "burstDelay": 0.1,
+	  "spreadRandom": 3,
+	  "spreadFixed": 0,
+	  "waveAmplitude": 0,
+	  "phaseSpeed": 0,
+	  "isHoming": 0,
+	  "isAutoaim": 1,
+	  "isCenteraim": 0,
+	  "isBeam": 0,
+	  "autoaimSpeed": 100,
+	  "homingTurnSpeed": 0,
+	  "duration": 1,
+	  "numberPenetrate": 100,
+	  "areaOfEffect": 0
+	},
+	"upgrades":[
+		{
+			"name":"damage",
+			"label":"DMG",
+			"level":-1,
+			"properties":[
+				{
+					"prop":"shotMinDamage",
+					"values":[9,11,13,15,17,19,21,23,25,27]
+				},
+				{
+					"prop":"shotMaxDamage",
+					"values":[14,18,22,26,30,34,38,42,46,50]
+				}
+			]
+		},
+		{
+			"name":"cooldown",
+			"label":"CD",
+			"level":-1,
+			"properties":[
+				{
+					"prop":"shotDelay",
+					"values":[2.7,2.4,2.1,1.8,1.5,1.2,1.0,0.8,0.7,0.6,0.5]
+				}
+			]
+		}
+	]
+  }
 ]
