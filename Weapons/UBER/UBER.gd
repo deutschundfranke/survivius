@@ -172,7 +172,7 @@ func configFromData(data: Dictionary):
 		self.childrenAutoAim = (data.get("children") as Dictionary).get("childrenAutoAim")
 		self.childrenInstant = (data.get("children") as Dictionary).get("childrenInstant")
 		self.childrenAreaOfEffect = (data.get("children") as Dictionary).get("childrenAreaOfEffect")
-		self.childrenAoeOnDeath = (data.get("children") as Dictionary).get("childrenAoeOnDeath")
+		if ((data.get("children") as Dictionary).has("childrenAoeOnDeath")): self.childrenAoeOnDeath = (data.get("children") as Dictionary).get("childrenAoeOnDeath")
 		self.childMinDamage = (data.get("children") as Dictionary).get("childMinDamage")
 		self.childMaxDamage = (data.get("children") as Dictionary).get("childMaxDamage")
 		self.childInitialSpeed = (data.get("children") as Dictionary).get("childInitialSpeed")
