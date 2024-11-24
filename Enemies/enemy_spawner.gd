@@ -11,6 +11,7 @@ var spawn_cooldown: float = 0.0
 var enemy_scene: PackedScene
 var num_enemies_on_screen: int
 var rand: RandomNumberGenerator
+var enemy_data : Array;
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -19,6 +20,8 @@ func _ready():
 	self.enemy_scene = load('res://Enemies/enemy1.tscn')
 	self.rand = RandomNumberGenerator.new()
 	self.rand.randomize()
+	
+	self.enemy_data = self.load_json_from_resource("res://Data/enemies.json")
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -37,7 +40,7 @@ func hook_up_enemy(enemy: EnemyBase):
 	
 func spawn_enemy():
 	if (self.num_enemies_on_screen >= self.max_enemies):
-		# print ("no enemies for you!")
+		print ("no enemies for you!")
 		return
 	self.num_enemies_on_screen += 1
 	
@@ -54,19 +57,66 @@ func spawn_enemy():
 	
 	self.enemy_type = self.rand.randi_range(1, max)
 	
-	if (self.enemy_type == 1):
-		self.enemy_scene = load('res://Enemies/enemy1.tscn')
-		var new_enemy: Enemy1 = self.enemy_scene.instantiate()
-		new_enemy.set_movement(self.enemy_speed, self.enemy_spread)
-		var viewport = get_viewport_rect().size
-		new_enemy.position.x = viewport.x + 100
-		new_enemy.position.y = self.rand.randf_range(100, viewport.y-100)
+	var viewport = get_viewport_rect().size
+	
+	if (self.enemy_type <= 4):
+		var data = self.enemy_data[self.enemy_type-1]
+		self.enemy_scene = load(data.get("resource"))
+		var new_enemy: EnemyUBER = self.enemy_scene.instantiate()
+		
+		# initial direction and speed. should this be here?
+		var spawnDirectionSpread = data.get("spawnDirectionSpread") as float
+		var phases = data.get("phases")
+		var phase1 = phases[0]
+		var speedX = phase1.get("speedX")
+		var spread = randf_range(-spawnDirectionSpread, spawnDirectionSpread)
+		new_enemy.set_movement(speedX, spread)
+		
+		# Phases
+		new_enemy.setPhases(phases)
+	
+		# Spawn
+		var spawnYRanges : Array = data.get("spawnYRanges")
+		var spawnI = randi_range(0,spawnYRanges.size()-1)
+		var spawnRangeString = spawnYRanges[spawnI]
+		var spawnYValue = self.spawnValueFromRange(spawnRangeString)
+		new_enemy.position.y = viewport.y * spawnYValue
+		
+		var spawnXRanges : Array = data.get("spawnXRanges")
+		spawnI = randi_range(0,spawnXRanges.size()-1)
+		spawnRangeString = spawnXRanges[spawnI]
+		var spawnXValue = self.spawnValueFromRange(spawnRangeString)
+		
+		new_enemy.position.x = viewport.x * spawnXValue
+		new_enemy.position.y = viewport.y * spawnYValue
+		
+		# movement / speed
+		if phase1.has("speedY") && phase1.get("speedY") != 0:
+			var speedY = phase1.get("speedY")
+			if phase1.has("speedYTarget"):
+				if (phase1.get("speedYTarget") == "center"):
+					if (new_enemy.position.y < viewport.y / 2):
+						speedY = -speedY
+			new_enemy.movement.y = speedY
+		
+		# health
+		var health = float(data.get("healthBase")) + float(data.get("healthPerTime")) * (time/60)
+		new_enemy.health = health
+		
 		self.hook_up_enemy(new_enemy)
 		
+		# is this needed?
+		"""
+		var spawnSide = data.get("spawnSide")
+		if (spawnSide == "right"):
+		elif (spawnSide == "left"):
+			new_enemy.position.x = -50
+		self.hook_up_enemy(new_enemy)
+		"""
+		"""
 	elif (self.enemy_type == 2):
 		self.enemy_scene = load('res://Enemies/enemy2.tscn')
 		var new_enemy: Enemy2 = self.enemy_scene.instantiate()
-		var viewport = get_viewport_rect().size
 		new_enemy.position.x = viewport.x + 100
 		var side = self.rand.randi_range(0, 1)
 		new_enemy.position.y = 100
@@ -74,10 +124,10 @@ func spawn_enemy():
 			new_enemy.position.y = viewport.y - 100
 		self.hook_up_enemy(new_enemy)
 		
+		
 	elif (self.enemy_type == 3):
 		self.enemy_scene = load('res://Enemies/enemy3.tscn')
 		var new_enemy: Enemy3 = self.enemy_scene.instantiate()
-		var viewport = get_viewport_rect().size
 		
 		var newY : float  = self.rand.randi_range(50, viewport.y - 50)
 		var players = get_tree().get_nodes_in_group("Player")
@@ -88,14 +138,47 @@ func spawn_enemy():
 		new_enemy.position.x = -50
 		new_enemy.position.y = newY
 		self.hook_up_enemy(new_enemy)
-		
+		"""
 	elif (self.enemy_type == 4):
 		self.enemy_scene = load('res://Enemies/enemy4.tscn')
 		var new_enemy: Enemy4 = self.enemy_scene.instantiate()
-		var viewport = get_viewport_rect().size
 		new_enemy.position.x = viewport.x + 100
 		if (self.rand.randi_range(0,1) == 1):
 			new_enemy.position.y = self.rand.randf_range(100, 100 + (viewport.y / 5))
 		else:
 			new_enemy.position.y = self.rand.randf_range(viewport.y-100 - (viewport.y / 5), viewport.y-100)
 		self.hook_up_enemy(new_enemy)
+
+# Jonny Code for weapons JSON
+func load_json_from_resource(json_path: String) -> Array:
+	var file := FileAccess.open(json_path, FileAccess.READ)
+	
+	if file == null:
+		print("Failed to open file: ", json_path)
+		return []
+	
+	# Read the contents of the file as a string
+	var json_string := file.get_as_text()
+	file.close()
+
+	# Parse the JSON string
+	var json = JSON.new();
+	var json_result = json.parse(json_string)
+
+	# Check for errors
+	if json_result != OK:
+		print("Error parsing JSON: ", json.get_error_message)
+		return []
+
+	# Return the parsed JSON (assuming it's an array)
+	return json.get_data()
+	
+func spawnValueFromRange(rangeString:String) -> float:
+	if (rangeString.contains("_")):
+		var ranges = rangeString.split("_")
+		var min : float = float(ranges[0])
+		var max : float = float(ranges[1])
+		return randf_range(min,max)
+	else:
+		return float(rangeString)
+	return 0

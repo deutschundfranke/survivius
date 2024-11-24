@@ -15,6 +15,7 @@ var speedY = 0
 # var velocity = Vector2()
 var accelerationX : float = 0.0
 var accelerationY : float = 0.0
+var knockbackStrength : int = 400
 var direction : float = 0.0
 var waveAmplitude : float = 0
 var waveType : int = 0
@@ -184,7 +185,11 @@ func _on_CollisionArea_area_entered(area):
 	if area.get_parent().is_in_group("enemies"):
 		if (ignoreEnemies.has(area)): return
 		hitEnemies.push_back(area)
-		area.get_parent().take_damage(self.damage, self.velocity)
+		var hitVelocity:Vector2 = self.velocity
+		if (hitVelocity == Vector2.ZERO):
+			var angle = calculate_angle_between_positions(self.global_position, area.global_position)
+			hitVelocity = Vector2.RIGHT.rotated(deg_to_rad(angle))
+		area.get_parent().take_damage(self.damage, self.knockbackStrength, hitVelocity)
 		emit_signal("hit",self.damage) # signal approach
 		# emit_signal("hit_enemy", area) # signal approach
 		var will_die : bool = true
@@ -284,6 +289,6 @@ func _on_timer_timeout():
 		self.die()
 	if (self.beamInterval > 0):
 		for enemy in hitEnemies:
-			enemy.get_parent().take_damage(self.damage, self.velocity)
+			enemy.get_parent().take_damage(self.damage, self.knockbackStrength, self.velocity)
 		timer.wait_time = self.beamInterval
 		timer.start()

@@ -2,6 +2,7 @@ extends EnemyBase
 class_name Enemy1
 
 var wiggle : float = 0
+var rotatephase : float = 0;
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -9,10 +10,10 @@ func _ready():
 	self.sprite = $Sprite2D  # Adjust the path as needed
 	self.shader_material = sprite.material as ShaderMaterial
 	
-func set_movement(speed: float, spread: float):
+func set_movement(speed: float, direction: float):
 	self.movement = Vector2( -speed, 0)
-	var angle = randf_range(-spread, spread)
-	self.movement = self.movement.rotated(deg_to_rad(angle))
+	# var angle = randf_range(-spread, spread)
+	self.movement = self.movement.rotated(deg_to_rad(direction))
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):

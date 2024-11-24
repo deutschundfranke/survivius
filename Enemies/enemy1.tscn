@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://tfl0b3ivf5ls"]
 
-[ext_resource type="Script" path="res://Enemies/enemy1.gd" id="1_r3tji"]
+[ext_resource type="Script" path="res://Enemies/enemyUBER.gd" id="1_3o75q"]
 [ext_resource type="Shader" path="res://Player/player_ship.gdshader" id="2_i823e"]
 [ext_resource type="Texture2D" uid="uid://hto5hijepjq4" path="res://sprites/Enemy_01.png" id="3_4fmup"]
 
@@ -12,8 +12,8 @@ resource_local_to_scene = true
 shader = ExtResource("2_i823e")
 shader_parameter/tint_strength = 0.0
 
-[node name="Enemy" type="Node2D" groups=["enemies"]]
-script = ExtResource("1_r3tji")
+[node name="Enemy2" type="Node2D" groups=["enemies"]]
+script = ExtResource("1_3o75q")
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 4

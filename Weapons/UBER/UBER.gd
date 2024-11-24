@@ -19,6 +19,7 @@ var upgradeLevels: Dictionary = {}
 @export var initialSpeedRandom : float = 0.0
 @export var accelerationX : float = 0.0
 @export var accelerationY : float = 0.0
+@export var knockbackStrength : int = 400
 @export var bulletsPerBurst : int = 1.0
 @export var burstDelay : float = 0.0
 @export var burstType : int = 0
@@ -132,6 +133,7 @@ func configFromData(data: Dictionary):
 	self.shotMaxDamage = data.get("shotMaxDamage")
 	self.accelerationX = data.get("accelerationX")
 	self.accelerationY = data.get("accelerationY")
+	self.knockbackStrength = data.get("knockbackStrength")
 	self.bulletsPerBurst = data.get("bulletsPerBurst")
 	self.burstDelay = data.get("burstDelay")
 	if (data.has("burstType")): self.burstType = data.get("burstType")
@@ -195,6 +197,7 @@ func spawnBullet(index: int):
 	newBullet.speedX = self.initialSpeed + randi_range(-self.initialSpeedRandom,self.initialSpeedRandom)
 	newBullet.accelerationX = self.accelerationX
 	newBullet.accelerationY = self.accelerationY
+	newBullet.knockbackStrength = self.knockbackStrength
 	
 	if (self.isAutoaim):
 		self.direction = self.autoaimDirection
@@ -265,6 +268,7 @@ func spawnChildBullet(bullet:BulletBase, generation:int, index:int):
 	newBullet.speedX = self.childInitialSpeed
 	newBullet.accelerationX = self.childAccelerationX
 	newBullet.accelerationY = 0
+	newBullet.knockbackStrength = self.knockbackStrength
 	newBullet.childGeneration = generation + 1 
 	
 	var newDirection = bullet.direction

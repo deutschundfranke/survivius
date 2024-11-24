@@ -22,6 +22,9 @@ func _process(delta):
 	self.position.y += self.ySpeed * delta
 	self.position.x += self.xSpeed * delta
 	
+	if (self.position.x < -50):
+		self.queue_free()
+	
 	var players = get_tree().get_nodes_in_group("Player")
 	if players.size() > 0:
 		var playership : Node2D = players[0]
@@ -36,18 +39,25 @@ func _process(delta):
 			global_position += direction * global_speed * delta
 		if (distance < 40):
 			playership.gainEXP(self.value)
-			self.queue_free()
-		
+			self.die()
+
+func die():
+	CollectibleLayer.removeMe(self)
+	self.queue_free()
 	
 func setValue(value : int):
 	self.value = value
 	self.label.text =  str(self.value)
-	var saturation = value / 10.0
+	var saturation = maxf(value / 10.0, 1.0)
 	var hue = 0.3 - minf(0.3,value / 20.0)
 	hue = 0.166
+	if (value > 20): hue = 0.120
+	if (value > 40): hue = 0.850
 	var alpha = 1
 	var v = 1.0
 	var color = Color.from_hsv(hue, saturation, v, alpha)
 	self.label.modulate = color
-	var scale = 1 + (value / 10.0)
+	var scale = 1 + (value / 15.0)
+	if (value > 20): scale = 1 + ((value - 10) / 15.0)
+	if (value > 40): scale = 1 + ((value - 20) / 15.0)
 	self.label.scale = Vector2(scale, scale)

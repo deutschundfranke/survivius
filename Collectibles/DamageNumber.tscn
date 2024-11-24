@@ -27,10 +27,18 @@ shape = SubResource("RectangleShape2D_1yu3n")
 
 [node name="Label" type="Label" parent="Area2D"]
 material = SubResource("CanvasItemMaterial_asshk")
-offset_left = -33.0
-offset_top = -23.0
-offset_right = 34.0
-offset_bottom = 22.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -33.5
+offset_top = -22.5
+offset_right = 33.5
+offset_bottom = 22.5
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(33.48, 22.745)
 text = "1"
 label_settings = SubResource("LabelSettings_rqkhr")
 horizontal_alignment = 1

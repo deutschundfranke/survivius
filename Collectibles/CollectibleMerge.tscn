@@ -1,0 +1,59 @@
+[gd_scene load_steps=9 format=3 uid="uid://b0lvbp7vr45pb"]
+
+[ext_resource type="Script" path="res://Collectibles/CollectibleMerge.gd" id="1_2cu0b"]
+[ext_resource type="Texture2D" uid="uid://bxqjrybg4kbtw" path="res://sprites/merge.png" id="2_xscwh"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ns7t1"]
+atlas = ExtResource("2_xscwh")
+region = Rect2(0, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tpx2r"]
+atlas = ExtResource("2_xscwh")
+region = Rect2(200, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fkkfa"]
+atlas = ExtResource("2_xscwh")
+region = Rect2(400, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w8kgo"]
+atlas = ExtResource("2_xscwh")
+region = Rect2(600, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sibvb"]
+atlas = ExtResource("2_xscwh")
+region = Rect2(800, 0, 200, 200)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_pyb12"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ns7t1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tpx2r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fkkfa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w8kgo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sibvb")
+}, {
+"duration": 1.0,
+"texture": null
+}],
+"loop": true,
+"name": &"default",
+"speed": 30.0
+}]
+
+[node name="CollectibleMerge" type="Node2D"]
+script = ExtResource("1_2cu0b")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_pyb12")
+autoplay = "default"
+frame = 4
+frame_progress = 0.10595

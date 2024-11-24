@@ -40,7 +40,8 @@ func _process(delta):
 	
 	var viewport_rect = get_viewport().get_visible_rect()
 	var rect_size = viewport_rect.size
-	if (self.position.x < -100 || self.position.y < -100 || self.position.y > rect_size.y + 100):
+	if (self.position.x < -200 || self.position.y < -100 || 
+		self.position.y > rect_size.y + 100 || self.position.x > rect_size.x + 300 ):
 		# well off-screen
 		self.exited_screen.emit(self)
 		
@@ -65,16 +66,20 @@ func _process(delta):
 			shader_material.set_shader_parameter("tint_strength", 0.0)
 		
 # should be in base enemy class?
-func take_damage(amount, bulletVelocity : Vector2):
+func take_damage(amount, knockbackStrength:int, bulletVelocity : Vector2):
 	# overkill damage value is capped at health
-	amount = mini(amount, health)
+	amount = minf(amount, health)
 	health -= amount
 	CollectibleLayer.addDamageNumberAt(amount, self.global_position)
 	self.tint_white()
 	if health <= 0:
 		die()
 	else:
-		self.knockBack(400, 0.06, bulletVelocity.normalized())
+		var duration : float = 0.06
+		if (knockbackStrength > 400):
+			duration = (knockbackStrength / 400) * 0.06
+			knockbackStrength = 400 + knockbackStrength / 10
+		self.knockBack(knockbackStrength, duration, bulletVelocity.normalized())
 		
 
 func knockBack(strength : float, duration: float, direction : Vector2):
