@@ -114,5 +114,53 @@
 				"rotateSpeed":500
 			}
 		]
+	},
+	{
+		"id":5,
+		"label":"Tank",
+		"resource":"res://Enemies/enemy5.tscn",
+		"healthBase":200.0,
+		"healthPerTime":4.0,
+		"spawnSide":"right",
+		"spawnXRanges":["1.05"],
+		"spawnYRanges":[
+			"0.0_1.0"
+		],
+		"spawnDirectionSpread":0,
+		"knockbackResistence":0,
+		"phases":[
+			{
+				"id":1,
+				"speedX":150.0,
+				"speedY":00.0,
+				"accelerationX":0,
+				"rotateSpeed":0
+			}
+		]
+	},
+	{
+		"id":6,
+		"label":"Homing",
+		"resource":"res://Enemies/enemy6.tscn",
+		"healthBase":10.0,
+		"healthPerTime":3.0,
+		"spawnSide":"right",
+		"spawnXRanges":["1.05"],
+		"spawnYRanges":[
+			"0.0_1.0"
+		],
+		"spawnDirectionSpread":30,
+		"knockbackResistence":1,
+		"phases":[
+			{
+				"id":1,
+				"speedX":-120.0,
+				"speedY":0.0,
+				"accelerationX":30,
+				"rotateSpeed":0,
+				"homing":1,
+				"homingTurnSpeed":50,
+			}
+		]
 	}
 ]

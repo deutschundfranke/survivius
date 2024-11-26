@@ -6,7 +6,7 @@ var instances : Array
 var check_timer = 0.0
 var check_interval = 1.0  # Check every 1 second
 const GRID_SIZE = 64
-const MERGE_DISTANCE = 20
+const MERGE_DISTANCE = 48
 var collectible_grid = {}
 
 # Called when the node enters the scene tree for the first time.

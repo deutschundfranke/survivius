@@ -1,0 +1,31 @@
+[gd_scene load_steps=6 format=3 uid="uid://bm813wsnwpbxs"]
+
+[ext_resource type="Script" path="res://Enemies/enemyUBER.gd" id="1_3i8fw"]
+[ext_resource type="Shader" path="res://Player/player_ship.gdshader" id="2_taqh3"]
+[ext_resource type="Texture2D" uid="uid://hto5hijepjq4" path="res://sprites/Enemy_01.png" id="3_x17by"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hvt6v"]
+size = Vector2(108.207, 107.675)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_s303s"]
+resource_local_to_scene = true
+shader = ExtResource("2_taqh3")
+shader_parameter/tint_strength = 0.0
+
+[node name="Enemy" type="Node2D" groups=["enemies"]]
+script = ExtResource("1_3i8fw")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0.0738986, -0.326046)
+rotation = -0.786898
+shape = SubResource("RectangleShape2D_hvt6v")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_s303s")
+position = Vector2(-9.53674e-07, 0)
+rotation = -0.794308
+scale = Vector2(1.52778, 1.5)
+texture = ExtResource("3_x17by")

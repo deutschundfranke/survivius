@@ -1783,7 +1783,7 @@
 		"childAccelerationX": 800,
 		"childIsHoming": 0,
 		"childHomingSpeed": 0,
-		"childDuration": 6,
+		"childDuration": 1,
 		"childMaxDistance": 0
 	  }
 	},

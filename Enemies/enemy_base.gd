@@ -4,6 +4,7 @@ class_name EnemyBase
 var movement: Vector2
 var direction: float
 var acceleration: Vector2
+var speed: Vector2
 var phase:int = 1
 @export var health = 15
 @export var tint_duration: float = 0.1
