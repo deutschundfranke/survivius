@@ -23,6 +23,7 @@ func set_movement(speed: float, spread: float):
 	var angle = randf_range(-spread, spread)
 	self.movement = self.movement.rotated(deg_to_rad(angle))
 
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	
@@ -50,22 +51,36 @@ func _process(delta):
 	
 	# homing
 	if (self.homing):
+		# Calculate the target angle towards the player's position
 		var angle = self.calculate_angle_between_positions(self.global_position, playership.global_position)
-		
-		# Calculate the difference between the target angle and the current angle
-		var angle_difference: float = angle - self.direction
-		# Normalize the angle to be within the range of -180 to 180 degrees
+
+		# Normalize the target angle to the range [0, 360)
+		angle = fmod(angle + 360, 360)
+
+		# Normalize the current direction angle to the range [0, 360)
+		self.direction = fmod(self.direction + 360, 360)
+
+		# Calculate the difference between the angles
+		var angle_difference = angle - self.direction
+
+		# Normalize the angle difference to the range [-180, 180]
 		angle_difference = fmod(angle_difference + 180, 360) - 180
-		# Calculate the maximum rotation step we can take this frame
-		var rotation_step: float = self.homingTurnSpeed * delta
-		
-		# Determine the direction and rotate towards the target angle
+
+		# Determine how far we can rotate this frame
+		var rotation_step = self.homingTurnSpeed * delta
+
+		# Adjust the direction angle to move towards the target
 		if abs(angle_difference) <= rotation_step:
-			# If the difference is small enough, snap to the target angle
+			# Snap to the target if the angle difference is small
 			self.direction = angle
 		else:
 			# Rotate in the shortest direction towards the target
 			self.direction += sign(angle_difference) * rotation_step
+
+		# Normalize the direction to [0, 360) to avoid overflow
+		self.direction = fmod(self.direction + 360, 360)
+
+		# Update movement and rotation
 		self.movement = self.speed.rotated(deg_to_rad(self.direction))
 		self.rotation_degrees = self.direction
 	
@@ -121,6 +136,15 @@ func initPhase(index:int):
 	# homing
 	if (phase.has("homing")): self.homing = phase.get("homing")
 	if (phase.has("homingTurnSpeed")): self.homingTurnSpeed = phase.get("homingTurnSpeed")
+	
+	if self.homing:
+		# get player
+		var playership : Node2D
+		var players = get_tree().get_nodes_in_group("Player")
+		if players.size() > 0:
+			playership = players[0]
+		self.direction = self.calculate_angle_between_positions(self.global_position, playership.global_position) + 180
+		self.movement = Vector2( -self.speed.x, 0).rotated(deg_to_rad(self.direction))
 	
 	currentPhase = index-1
 	

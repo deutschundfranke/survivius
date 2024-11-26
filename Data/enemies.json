@@ -156,10 +156,10 @@
 				"id":1,
 				"speedX":-120.0,
 				"speedY":0.0,
-				"accelerationX":30,
+				"accelerationX":20,
 				"rotateSpeed":0,
 				"homing":1,
-				"homingTurnSpeed":50,
+				"homingTurnSpeed":30,
 			}
 		]
 	}

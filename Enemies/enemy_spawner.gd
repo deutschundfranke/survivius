@@ -63,6 +63,8 @@ func spawn_enemy():
 	self.enemy_scene = load(data.get("resource"))
 	var new_enemy: EnemyUBER = self.enemy_scene.instantiate()
 	
+	self.hook_up_enemy(new_enemy)
+	
 	# initial direction and speed. should this be here?
 	var spawnDirectionSpread = data.get("spawnDirectionSpread") as float
 	var phases = data.get("phases")
@@ -104,7 +106,6 @@ func spawn_enemy():
 	var health = float(data.get("healthBase")) + float(data.get("healthPerTime")) * (time/60)
 	new_enemy.health = health
 	
-	self.hook_up_enemy(new_enemy)
 
 # Jonny Code for weapons JSON
 func load_json_from_resource(json_path: String) -> Array:
