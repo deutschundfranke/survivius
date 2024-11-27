@@ -19,6 +19,7 @@ var knockbackVector : Vector2 = Vector2(1,0)
 var knockbackStrength : float = 0
 var knockbackDuration : float = 0
 var knockbackResistence : float = 1
+var damageResistence : float = 1
 
 signal exited_screen(who: EnemyBase)
 
@@ -68,6 +69,8 @@ func _process(delta):
 		
 # should be in base enemy class?
 func take_damage(amount, knockbackStrength:int, bulletVelocity : Vector2):
+	# damage resistence
+	amount = amount * self.damageResistence
 	# overkill damage value is capped at health
 	amount = minf(amount, health)
 	health -= amount

@@ -65,7 +65,7 @@
 		"healthBase":15.0,
 		"healthPerTime":2.0,
 		"spawnSide":"left",
-		"spawnXRanges":["-0.00"],
+		"spawnXRanges":["-0.02"],
 		"spawnYRanges":[
 			"0.1_0.9"
 		],
@@ -76,11 +76,11 @@
 			{
 				"id":1,
 				"speedX":-400.0,
-				"accelerationX":600,
+				"accelerationX":-400,
 				"triggers":[
 					{
-					"type":"speedXMax",
-					"value":-80,
+					"type":"speedXMin",
+					"value":80,
 					"targetPhase":2
 					}
 				]
@@ -128,6 +128,7 @@
 		],
 		"spawnDirectionSpread":0,
 		"knockbackResistence":0,
+		"damageResistence":0.4,
 		"phases":[
 			{
 				"id":1,

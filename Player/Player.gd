@@ -210,7 +210,7 @@ func addNewWeapon(label: String):
 func getHit(damage : int):
 	self.find_parent("Space").find_child("Camera2D").start_shake()
 	self.tint_white()
-	# self.health -= damage
+	self.health -= damage
 	self.hitPlayer.play()
 
 	self.updateLifebar()

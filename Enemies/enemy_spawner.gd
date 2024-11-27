@@ -44,9 +44,14 @@ func spawn_enemy():
 		return
 	self.num_enemies_on_screen += 1
 	
+	var playership : Node2D
+	var players = get_tree().get_nodes_in_group("Player")
+	if players.size() > 0:
+		playership = players[0]
+			
 	# do better than this
 	var time : float = self.find_parent("Space").find_child("Timer").time
-	var max : int = 6;
+	var max : int = 1;
 	if (time > 60): 
 		max = maxi(2,max)
 	if (time > 120): 
@@ -54,6 +59,10 @@ func spawn_enemy():
 	if (time > 180): 
 		max = maxi(4,max)
 		spawn_delay = maxf(0.1, 0.5 - ((time - 180) / 600))
+	if (time > 240): 
+		max = maxi(5,max)
+	if (time > 300): 
+		max = maxi(6,max)
 	
 	self.enemy_type = self.rand.randi_range(1, max)
 	
@@ -74,16 +83,25 @@ func spawn_enemy():
 	new_enemy.set_movement(speedX, spread)
 	
 	if (data.has("knockbackResistence")): new_enemy.knockbackResistence = data.get("knockbackResistence") as float
+	if (data.has("damageResistence")): new_enemy.damageResistence = data.get("damageResistence") as float
 	
 	# Phases
 	new_enemy.setPhases(phases)
 
 	# Spawn
 	var spawnYRanges : Array = data.get("spawnYRanges")
-	var spawnI = randi_range(0,spawnYRanges.size()-1)
+	var spawnI : int = randi_range(0,spawnYRanges.size()-1)
 	var spawnRangeString = spawnYRanges[spawnI]
 	var spawnYValue = self.spawnValueFromRange(spawnRangeString)
 	new_enemy.position.y = viewport.y * spawnYValue
+	
+	if (data.has("spawnTarget")):
+		if (data.get("spawnTarget") == "playerY"):
+			new_enemy.position.y = playership.global_position.y
+	
+	if (data.has("spawnYVariation")):
+		spawnI = randi_range(-(data.get("spawnYVariation") as int),(data.get("spawnYVariation") as int))
+		new_enemy.position.y += spawnI
 	
 	var spawnXRanges : Array = data.get("spawnXRanges")
 	spawnI = randi_range(0,spawnXRanges.size()-1)
