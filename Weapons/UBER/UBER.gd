@@ -422,6 +422,7 @@ func _on_bullet_die(bullet:BulletBase):
 		var death = self.deathScene.instantiate()
 		death.global_position = bullet.global_position
 		death.setSize(self.areaOfEffect)
+		if (bullet.childGeneration > 0): death.setSize(self.childrenAreaOfEffect)
 		self.find_parent("Space").add_child(death)
 		
 	if (self.maxGenerations > 0):

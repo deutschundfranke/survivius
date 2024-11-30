@@ -42,18 +42,43 @@ animations = [{
 "texture": SubResource("AtlasTexture_sibvb")
 }, {
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_w8kgo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fkkfa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tpx2r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ns7t1")
+}, {
+"duration": 1.0,
+"texture": null
+}, {
+"duration": 1.0,
+"texture": null
+}, {
+"duration": 1.0,
+"texture": null
+}, {
+"duration": 1.0,
+"texture": null
+}, {
+"duration": 1.0,
 "texture": null
 }],
 "loop": true,
 "name": &"default",
-"speed": 30.0
+"speed": 15.0
 }]
 
 [node name="CollectibleMerge" type="Node2D"]
+rotation = 0.0130185
 script = ExtResource("1_2cu0b")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_pyb12")
 autoplay = "default"
-frame = 4
-frame_progress = 0.10595
+frame = 5
+frame_progress = 0.0302081

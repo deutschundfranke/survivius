@@ -10,20 +10,19 @@ radius = 31.0161
 radius = 14.0
 
 [node name="UpDownBomb" type="Node2D"]
-position = Vector2(57, 0)
 script = ExtResource("1_4ya0e")
 
 [node name="ShotRocket" type="Sprite2D" parent="."]
-position = Vector2(-56, 7.10543e-15)
+position = Vector2(0.999977, -0.272755)
 scale = Vector2(0.459016, 0.454545)
 texture = ExtResource("2_n32sr")
 
 [node name="Area2D" type="Area2D" parent="."]
+position = Vector2(-2.28882e-05, -0.272755)
 collision_layer = 2
 collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(-56, 0)
 shape = SubResource("CircleShape2D_2xrdw")
 
 [node name="AreaOfEffect" type="CollisionShape2D" parent="Area2D"]

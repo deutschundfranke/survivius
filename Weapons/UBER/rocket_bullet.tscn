@@ -30,7 +30,7 @@ size = Vector2(80, 30)
 radius = 14.0
 
 [node name="UpDownBomb" type="Node2D"]
-position = Vector2(57, 0)
+position = Vector2(-35, 0)
 script = ExtResource("1_k2pjg")
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]
@@ -53,5 +53,4 @@ position = Vector2(30, 0)
 shape = SubResource("RectangleShape2D_l38qu")
 
 [node name="AreaOfEffect" type="CollisionShape2D" parent="Area2D"]
-visible = false
 shape = SubResource("CircleShape2D_rw18o")

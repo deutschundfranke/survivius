@@ -1,10 +1,52 @@
-[gd_scene load_steps=3 format=3 uid="uid://dmogv4waqyhdq"]
+[gd_scene load_steps=9 format=3 uid="uid://dmogv4waqyhdq"]
 
 [ext_resource type="Script" path="res://Weapons/UBER/rocket_death.gd" id="1_ohy37"]
-[ext_resource type="Texture2D" uid="uid://dof7nsp0xvkdt" path="res://sprites/Rocket_explosion.png" id="2_3hafu"]
+[ext_resource type="Texture2D" uid="uid://bi5qypha7mrlb" path="res://sprites/expl1.png" id="2_y4fyf"]
+[ext_resource type="Texture2D" uid="uid://bmcyyry6utfvy" path="res://sprites/expl2.png" id="3_3fsum"]
+[ext_resource type="Texture2D" uid="uid://guuxyhe6s0mv" path="res://sprites/expl3.png" id="4_2revu"]
+[ext_resource type="Texture2D" uid="uid://cntg3qicpyl5y" path="res://sprites/expl4.png" id="5_gm30h"]
+[ext_resource type="Texture2D" uid="uid://dpq04uv7xsee1" path="res://sprites/expl5.png" id="6_coct1"]
+[ext_resource type="Texture2D" uid="uid://bq4h4oufxutp5" path="res://sprites/expl6.png" id="7_xk0xr"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4lkb7"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_y4fyf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_3fsum")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_2revu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_gm30h")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_coct1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_xk0xr")
+}, {
+"duration": 1.0,
+"texture": null
+}, {
+"duration": 1.0,
+"texture": null
+}, {
+"duration": 1.0,
+"texture": null
+}],
+"loop": true,
+"name": &"default",
+"speed": 30.0
+}]
 
 [node name="RocketDeath" type="Node2D"]
 script = ExtResource("1_ohy37")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_3hafu")
+[node name="Sprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_4lkb7")
+autoplay = "default"
+frame_progress = 0.468139

@@ -4,7 +4,7 @@ extends Node2D
 @export var merge_effect : PackedScene
 var instances : Array
 var check_timer = 0.0
-var check_interval = 1.0  # Check every 1 second
+var check_interval = 0.2  # Check every 1 second
 const GRID_SIZE = 64
 const MERGE_DISTANCE = 48
 var collectible_grid = {}
