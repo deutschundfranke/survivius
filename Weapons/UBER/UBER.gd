@@ -442,6 +442,15 @@ func getCooldownPercentage() -> float:
 	if (self.shotDelay > 0): return self.shotCooldown / self.shotDelay
 	return 0
 	
+func getUpgradeLevels() -> Array:
+	var levels : Array = []
+	for key in self.upgradeLevels:
+		var item : Dictionary = self.upgradeLevels[key]
+		if (item.level >= 0):
+			levels.push_front(item.level + 1)
+	return levels
+	
+	
 func startFiring():
 	firing = true
 	

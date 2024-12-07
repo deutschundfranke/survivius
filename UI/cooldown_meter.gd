@@ -21,6 +21,12 @@ func set_cooldown_percentage(percentage: float) -> void:
 	cooldown_percentage = clamp(percentage, 0.0, 1.0)
 	self.queue_redraw()  # Redraw on percentage change
 
+func set_upgrade_levels(levels:Array):
+	if (levels.size() > 0): $Label1.text = str(levels[0])
+	if (levels.size() > 1): $Label2.text = str(levels[1])
+	if (levels.size() > 2): $Label3.text = str(levels[2])
+	if (levels.size() > 3): $Label4.text = str(levels[3])
+
 func _draw():
 	# Calculate the angle for the arc based on the cooldown percentage
 	var start_angle = -PI / 2  # Starting at the top of the circle

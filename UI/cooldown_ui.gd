@@ -15,9 +15,15 @@ func _process(delta: float) -> void:
 		var i:int = 1;
 		for weapon:WeaponBase in playership.weapons:
 			self.updateWeaponCooldown(i, weapon.getCooldownPercentage())
+			self.updateWeaponLevels(i, weapon.getUpgradeLevels())
 			i += 1
 	
 func updateWeaponCooldown(index:int, percentage:float):
 	var node_name = "CoolDownMeter" + str(index)
 	var node = get_node(node_name)
 	node.set_cooldown_percentage(percentage)
+
+func updateWeaponLevels(index:int, levels:Array):
+	var node_name = "CoolDownMeter" + str(index)
+	var node = get_node(node_name)
+	node.set_upgrade_levels(levels)

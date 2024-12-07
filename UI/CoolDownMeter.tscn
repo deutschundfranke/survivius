@@ -1,7 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://tpmlt2dhfpn0"]
+[gd_scene load_steps=4 format=3 uid="uid://tpmlt2dhfpn0"]
 
 [ext_resource type="Script" path="res://UI/cooldown_meter.gd" id="1_raebr"]
 [ext_resource type="Texture2D" uid="uid://qn3etscgn0mq" path="res://sprites/Powerup.png" id="2_4o6by"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_yk66u"]
+font_color = Color(0, 0, 0, 1)
 
 [node name="CoolDownMeter" type="Control"]
 layout_mode = 3
@@ -15,3 +18,37 @@ script = ExtResource("1_raebr")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(-0.288308, -0.288308)
 texture = ExtResource("2_4o6by")
+
+[node name="Label1" type="Label" parent="."]
+layout_mode = 0
+offset_left = -21.0
+offset_top = -23.0
+text = "0"
+label_settings = SubResource("LabelSettings_yk66u")
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="."]
+layout_mode = 0
+offset_left = 2.0
+offset_top = -23.0
+offset_right = 23.0
+text = "0"
+label_settings = SubResource("LabelSettings_yk66u")
+horizontal_alignment = 1
+
+[node name="Label3" type="Label" parent="."]
+layout_mode = 0
+offset_left = -21.0
+offset_bottom = 23.0
+text = "0"
+label_settings = SubResource("LabelSettings_yk66u")
+horizontal_alignment = 1
+
+[node name="Label4" type="Label" parent="."]
+layout_mode = 0
+offset_left = 2.0
+offset_right = 23.0
+offset_bottom = 23.0
+text = "0"
+label_settings = SubResource("LabelSettings_yk66u")
+horizontal_alignment = 1
