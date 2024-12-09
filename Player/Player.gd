@@ -129,9 +129,9 @@ func getPossibleUpgrades() -> Array[Upgrade]:
 		list.append(Upgrade.new(
 			"ship", "new_weapon", "New " + availableWeapon.name, Color.RED, "W+\n" + availableWeapon.label, availableWeapon.label
 		))
-		
-	# only ask for health if we could use some healing
-	if (self.health < self.health_max):
+	
+	# add one heal chance per missing health
+	for i in range(self.health, self.health_max):
 		list.append(Upgrade.new(
 			"ship", "health", "À la vôtre!", Color.DARK_GREEN, "+"
 		))
