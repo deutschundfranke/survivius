@@ -125,7 +125,6 @@ script = ExtResource("22_psusg")
 [node name="EnemySpawner" parent="." instance=ExtResource("12_xby4b")]
 spawn_delay = 0.5
 max_enemies = 20
-enemy_speed = null
 enemy_spread = 30.0
 enemy_type = 2
 
